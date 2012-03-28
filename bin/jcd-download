@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'git-style-binary/command'
+
+GitStyleBinary.command do
+  short_desc "download document to translate"
+  banner "Usage #{command.full_name} #{all_options_string} 'WikiPageName'"
+  run do |command|
+    abort unless page_name = command.argv.first
+    @logger.info "page name: #{page_name}"
+
+    page_id = get_page_id(page_name)
+    @logger.info "page id: #{page_id}"
+
+    login
+    @logger.info "login success!"
+
+    image_dir = "doc/#{page_name.gsub(/\s/, "_")}.#{page_id}"
+    abort "#{image_dir} already exists." if File.exists?(image_dir)
+    FileUtils.mkdir_p(image_dir)
+
+    wiki_page = get_wiki_page(page_name)
+    src_list = wiki_page.search("//div[@class='wiki-content']//img/@src")
+    src_list = src_list.to_a.map{|src| src.to_s }.uniq
+    src_list.each do |src|
+      image = @agent.get(src)
+      filename = File.basename(src).gsub(/\?(.+)$/, '')
+      @logger.info "saving: #{image_dir}/#{filename}"
+      image.save("#{image_dir}/#{filename}")
+      sleep 1
+    end
+
+    textile = get_textile(page_id)
+    %w(en ja).each do |lang|
+      path = "doc/#{page_name.gsub(/\s/, "_")}.#{page_id}.#{lang}.txt"
+      abort "#{image_dir} already exists." if File.exists?(path)
+      File.open(path, "w") do |f|
+        f.write(textile)
+      end
+    end
+  end
+end

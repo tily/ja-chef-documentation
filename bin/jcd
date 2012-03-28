@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+require 'logger'
+require 'rubygems'
+require 'mechanize'
+require 'highline'
+require 'git-style-binary/command'
+
+GitStyleBinary.primary do
+  before_run do |command|
+    @wiki_page = {}
+    @logger = Logger.new(STDOUT)
+    @logger.level = Logger::INFO
+    @agent = Mechanize.new
+    #@agent.log = @logger
+
+    def login
+      page = @agent.get("http://wiki.opscode.com/login.action")
+      page.form_with(:name => "loginform") do |f|
+        f.field_with(:name => "os_username").value = HighLine.new.ask("Username: ")
+        f.field_with(:name => "os_password").value = HighLine.new.ask("Password: ") {|q| q.echo = "*"}
+        f.click_button
+      end
+      @logger.info "login success!"
+    end
+
+    def get_wiki_page(page_name)
+      @wiki_page[page_name] ||= @agent.get("http://wiki.opscode.com/display/chef/" + page_name)
+    end
+
+    def get_page_id(page_name)
+      get_wiki_page(page_name).search("//input[@type='hidden' and @id='pageId']/@value").first.to_s
+    end
+
+    def get_textile(page_id)
+      page = @agent.get('http://wiki.opscode.com/pages/editpage.action?pageId=' + page_id)
+      page.search("//textarea[@id='markupTextarea']").first.text.to_s
+    end
+  end
+  run { educate }
+end

@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'git-style-binary/command'
+
+GitStyleBinary.command do
+  short_desc "upload translated document"
+  banner "Usage #{command.full_name} #{all_options_string} page_id"
+  run do |command|
+    abort "not implemented yet."
+  end
+end

@@ -1,0 +1,49 @@
+{section}
+{column:width=3%}
+{column}
+{column}
+
+!Mitch.jpg|align=right,hspace=20,vspace=8!
+
+h3. {color:#f7681a}One size doesn't fit all. There is an Opscode Chef product that can work _for you_.{color}
+
+
+h1. Chef Solo
+[Chef Solo] is an open source standalone version of Chef that runs locally on your node, detached from a Chef server. This means that all the information and [Cookbooks] required to configure the node have to be present on the local disk. They can be retrieved via a remote URL with a command-line or config file option. 
+
+h1. Chef Client and Chef Server
+The open source [Chef Server] is a client/server delivery of Chef functionality and power. [Chef Client] is a Chef agent that runs locally on the systems ("nodes") you are managing with Chef. Chef-client connects to a Chef Server to be told what to do on the node. This allows for more dynamic and flexible configuration management. For example, nodes can have roles applied to sets of them for consistency, and they can query information stored centrally on the server by other nodes, to dynamically configure themselves according to changing conditions elsewhere in your infrastructure.
+
+h1. Hosted Chef
+Opscode's [Hosted Chef|http://www.opscode.com/hosted-chef/] combines the freedom and flexibility of Chef with the reliability and speed of Opscode. Hosted Chef is a highly available, scalable Chef Server in the cloud, plus additional features, such as fine-grained role-based access control. It is also the world's first configuration management platform delivered as a service (PaaS). {color:#f7681a}This means that it is easier than ever to start using Chef to manage your infrastructure.{color} As with Chef-Server, Chef-client connects to Hosted Chef to be told what to do on the local node: enabling you to automate your infrastructure, without having to setup and manage your own Chef-Server.
+
+h1. Private Chef
+The power and speed of Opscode. The freedom and flexibility of Chef. Completely customized for your business. [Private Chef|http://www.opscode.com/private-chef/] is for Enterprises who want the power, flexibility, availability, and performance of Hosted Chef, but require that information never leave their private networks.
+
+\\
+\\
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[Why Chef?]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[FAQ]
+
+\\
+\\
+{column}
+{section}

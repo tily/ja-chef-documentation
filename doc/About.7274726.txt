@@ -1,0 +1,81 @@
+{section}
+{column:width=3%}
+{column}
+{column:width=22%}
+\\
+
+{center}
+!OC_Chef_Logo_small-wide.png!
+{center}
+\\
+{panel:bgColor=#d7d4c3}
+
+!littleSA.png|align=left,hspace=20!
+h4. {color:#f7681a}"Chef is like a little system admin robot ... you tell it how you want your system configured, and it will do all the dirty work."{color}
+h6. {color:#666669} ~ Chef User {color}
+
+\\
+{panel}
+{column}
+{column:width=3%}
+{column}
+{column}
+\\
+
+h3. {color:#f7681a}Chef is an open-source systems integration framework built specifically for automating the cloud.{color} 
+!AdamChrisHuH.jpg|align=right,hspace=24,vspace=10!
+h4. No matter how complex the realities of your business, Chef makes it easy to deploy servers and scale applications throughout your entire infrastructure.  
+
+h4. With Chef, you write abstract definitions as source code to describe how you want each part of your infrastructure to be built, and then apply those descriptions to individual servers.  
+
+h4. _The result is a fully automated infrastructure_: when a new server comes on line, the only thing you have to do is tell Chef what role it should play in your architecture.
+
+{center}
+{table:border=0|cellspacing=10|cellpadding=10}
+{tr}
+{td}
+{panel:bgColor=#d7d4c3}
+
+!90spacer.png|align=left!
+h3. [What is Chef?]
+
+{panel}
+{td}
+{td}
+{panel:bgColor=#d7d4c3}
+
+!90spacer.png|align=left!
+h3. [Chef Core Principles]
+
+{panel}
+{td}
+{td}
+{panel:bgColor=#d7d4c3}
+
+!90spacer.png|align=left!
+h3. [Why Use Chef?|Why Chef?]
+
+{panel}
+{td}
+{td}
+{panel:bgColor=#d7d4c3}
+
+!90spacer.png|align=left!
+h3. [The Different Flavors of Chef]
+{panel}
+{td}
+{td}
+{panel:bgColor=#d7d4c3}
+
+!90spacer.png|align=right!
+h3. [Frequently Asked Questions|FAQ]
+{panel}
+{td}
+{tr}
+{table}
+{center}
+
+{column}
+{column:width=5%}
+{column}
+{section}

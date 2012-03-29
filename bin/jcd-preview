@@ -10,9 +10,9 @@ GitStyleBinary.command do
     @logger.info "page id: #{page_id}"
 
     login
-    path = Dir["./doc/*.#{page_id}.ja.txt"].first
     @logger.info "login success!"
 
+    path = Dir["./doc/*.#{page_id}.txt"].first
     @agent.post('http://wiki.opscode.com/pages/rendercontent.action',
       :contentId => page_id, :contentType => 'page',
       :spaceKey => 'chef', :wikiMarkup => File.read(path)

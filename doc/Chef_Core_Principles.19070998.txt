@@ -1,0 +1,52 @@
+{section}
+{column:width=3%}
+{column}
+{column}
+
+!OC_Chef_Logo_small.png|align=left,hspace=30,vspace=8!
+
+h3. {color:#f7681a}Chef is idempotent{color}
+
+You can run Chef recipes multiple times on the same system and the resulting system will always return to an identical state. In Chef, resources are defined in recipes and describe actions to be performed on the system. Chef ensures that actions are not performed if the resources have not changed. If you rerun a Chef recipe on a system and nothing has changed either on the system or in the recipe, Chef doesn't change anything.
+
+h3. {color:#f7681a}Thick Clients, Thin Server{color}
+
+Chef does as much work as possible on the Chef Clients. The Chef Server is built to handle the easy distribution of data to the clients - the recipes to build, templates to render, files to transfer - along with storing the state of each Node. This orientation makes for a system that is easy to scale and extend - the work of deciding how to configure your infrastructure is distributed throughout your infrastructure, rather than centralized on set of configuration management servers.
+
+h3. {color:#f7681a}Order Matters{color}
+
+!bikerack-color.jpg|align=right,hspace=12,vspace=8!
+
+When you are configuring systems, order matters. If you have not installed Apache, you can't start configuring it, and you certainly can't start the daemon. Configuration management tools have been struggling with this problem for years. Nodes in Chef apply lists of recipes, which in turn specify resources. Within a recipe, resources are applied in the order they appear. At any point in a recipe, you can include any other recipe - assuring that all of its resources are applied before continuing (Chef is smart enough never to apply the same recipe twice.) You specify dependencies only at the recipe level, not the resource level. This means that you only track dependencies between high level concepts - "I need Apache installed before I can start my Django Application". It also means that, given the same set of Cookbooks, Chef will always execute your resources in the same order.
+
+h3. {color:#f7681a}Reasonability{color}
+
+Chef is designed to be easy to think about, easily changed and easy to extend. Chef assumes that you know best how your infrastructure is put together. Therefore, Chef makes as few decisions for you as possible, and when it does, it's easy to make it change its mind. When Chef does make decisions it sets reasonable defaults that can be easily changed. Moreover, Chef is pragmatic and opinion-less relying less on theory or dogma and more on deterministic results. This is why Chef uses Ruby as its reference language with extended DSL for specific resources. Chef provides a reasonable set of base primitives (i.e., resources) to automate an infrastructure; however, it also provides an easy way to modify and extend the base (via Ruby) – because ... [TMTOWTDI|http://en.wikipedia.org/wiki/There's_more_than_one_way_to_do_it].
+
+\\
+\\
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[What is Chef?]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[Why Chef?]
+
+\\
+\\
+{column}
+{section}

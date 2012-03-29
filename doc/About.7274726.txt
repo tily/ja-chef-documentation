@@ -11,8 +11,8 @@
 {panel:bgColor=#d7d4c3}
 
 !littleSA.png|align=left,hspace=20!
-h4. {color:#f7681a}"Chef is like a little system admin robot ... you tell it how you want your system configured, and it will do all the dirty work."{color}
-h6. {color:#666669} ~ Chef User {color}
+h4. {color:#f7681a}"Chef は小さなシステム管理ロボみたいだ… どんな風にシステムを設定してほしいか教えてやれば、あとは面倒な仕事はすべてやってくれるよ」{color}
+h6. {color:#666669} ーー Chef ユーザ {color}
 
 \\
 {panel}
@@ -22,13 +22,13 @@ h6. {color:#666669} ~ Chef User {color}
 {column}
 \\
 
-h3. {color:#f7681a}Chef is an open-source systems integration framework built specifically for automating the cloud.{color} 
+h3. {color:#f7681a}Chef はオープンソースのシステム統合フレームワークであり、特にクラウドを自動化するために作られています。{color} 
 !AdamChrisHuH.jpg|align=right,hspace=24,vspace=10!
-h4. No matter how complex the realities of your business, Chef makes it easy to deploy servers and scale applications throughout your entire infrastructure.  
+h4. 現実の問題がどんなに複雑であろうと、Chef を使えばインフラに関するすべての場面で、サーバをデプロイしたりアプリケーションをスケールさせたりすることが簡単になります。
 
-h4. With Chef, you write abstract definitions as source code to describe how you want each part of your infrastructure to be built, and then apply those descriptions to individual servers.  
+h4. Chef を利用するなら、インフラの各パーツがどんな風に作られてほしいのか、抽象化されたソースコードの形で定義し、それからその内容をそれぞれのサーバに適用する、という流れになります。
 
-h4. _The result is a fully automated infrastructure_: when a new server comes on line, the only thing you have to do is tell Chef what role it should play in your architecture.
+h4. _その結果は完全に自動化されたインフラです_：新しいサーバが用意されてきたときでも、そのサーバがアーキテクチャの中でどんな役割を果たすのかを Chef に教えてやるだけで済みます。
 
 {center}
 {table:border=0|cellspacing=10|cellpadding=10}
@@ -37,7 +37,7 @@ h4. _The result is a fully automated infrastructure_: when a new server comes on
 {panel:bgColor=#d7d4c3}
 
 !90spacer.png|align=left!
-h3. [What is Chef?]
+h3. [Chef とは何か|What is Chef?]
 
 {panel}
 {td}
@@ -45,7 +45,7 @@ h3. [What is Chef?]
 {panel:bgColor=#d7d4c3}
 
 !90spacer.png|align=left!
-h3. [Chef Core Principles]
+h3. [Chef のコアをなす原則|Chef Core Principles]
 
 {panel}
 {td}
@@ -53,7 +53,7 @@ h3. [Chef Core Principles]
 {panel:bgColor=#d7d4c3}
 
 !90spacer.png|align=left!
-h3. [Why Use Chef?|Why Chef?]
+h3. [どうして Chef を使うべきか|Why Chef?]
 
 {panel}
 {td}
@@ -61,14 +61,14 @@ h3. [Why Use Chef?|Why Chef?]
 {panel:bgColor=#d7d4c3}
 
 !90spacer.png|align=left!
-h3. [The Different Flavors of Chef]
+h3. [さまざまな種類の Chef|The Different Flavors of Chef]
 {panel}
 {td}
 {td}
 {panel:bgColor=#d7d4c3}
 
 !90spacer.png|align=right!
-h3. [Frequently Asked Questions|FAQ]
+h3. [よくある質問と答え|FAQ]
 {panel}
 {td}
 {tr}

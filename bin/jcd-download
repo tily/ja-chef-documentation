@@ -31,12 +31,10 @@ GitStyleBinary.command do
     end
 
     textile = get_textile(page_id)
-    %w(en ja).each do |lang|
-      path = "doc/#{page_name.gsub(/\s/, "_")}.#{page_id}.#{lang}.txt"
-      abort "#{image_dir} already exists." if File.exists?(path)
-      File.open(path, "w") do |f|
-        f.write(textile)
-      end
+    path = "doc/#{page_name.gsub(/\s/, "_")}.#{page_id}.txt"
+    abort "#{path} already exists." if File.exists?(path)
+    File.open(path, "w") do |f|
+      f.write(textile)
     end
   end
 end

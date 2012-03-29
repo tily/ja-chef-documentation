@@ -19,11 +19,11 @@ GitStyleBinary.command do
     )
     @logger.info "got preview html"
 
+    html = @agent.page.content.gsub(%r<"/download/attachments/\d+/(.+)\?.+">) { $1 }
     dir = Dir["./doc/*.#{page_id}"].first
-    File.open("#{dir}/preview.html", "w") do |f|
-      f.write(@agent.page.content)
-    end
-    # TODO: open preview.html in browser
+    path = "#{dir}/preview.html"
+    File.open(path, "w") {|f| f.write(html) }
+    Launchy.open(path)
     @logger.info "wrote to #{path}"
   end
 end

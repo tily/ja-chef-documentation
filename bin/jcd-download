@@ -36,5 +36,8 @@ GitStyleBinary.command do
     File.open(path, "w") do |f|
       f.write(textile)
     end
+
+    system "git add #{path} #{image_dir}/*"
+    system "git commit #{path} #{image_dir}/* -m 'import #{page_name} (id=#{page_id}).'"
   end
 end

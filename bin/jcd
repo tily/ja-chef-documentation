@@ -4,6 +4,7 @@ require 'rubygems'
 require 'mechanize'
 require 'highline'
 require 'git-style-binary/command'
+require 'launchy'
 
 GitStyleBinary.primary do
   before_run do |command|

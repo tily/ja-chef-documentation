@@ -7,16 +7,23 @@ GitStyleBinary.command do
   banner "Usage #{command.full_name} #{all_options_string} page_id"
   run do |command|
     abort unless page_id = command.argv.first
+    @logger.info "page id: #{page_id}"
+
     login
     path = Dir["./doc/*.#{page_id}.ja.txt"].first
+    @logger.info "login success!"
+
     @agent.post('http://wiki.opscode.com/pages/rendercontent.action',
       :contentId => page_id, :contentType => 'page',
       :spaceKey => 'chef', :wikiMarkup => File.read(path)
     )
+    @logger.info "got preview html"
+
     dir = Dir["./doc/*.#{page_id}"].first
     File.open("#{dir}/preview.html", "w") do |f|
       f.write(@agent.page.content)
     end
     # TODO: open preview.html in browser
+    @logger.info "wrote to #{path}"
   end
 end

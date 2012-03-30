@@ -7,6 +7,7 @@ GitStyleBinary.command do
   banner "Usage #{command.full_name} #{all_options_string} 'WikiPageName'"
   run do |command|
     abort unless page_name = command.argv.first
+    page_name = page_name.gsub(/\?/, "%3F")
     @logger.info "page name: #{page_name}"
 
     page_id = get_page_id(page_name)

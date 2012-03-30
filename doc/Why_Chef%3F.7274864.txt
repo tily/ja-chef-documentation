@@ -1,0 +1,70 @@
+{section}
+{column:width=3%}
+{column}
+{column:width=70%}
+
+h2. Gain Benefits In Three Areas
+{float:right|background=#eeeeee|border=4px solid #d7d4c3|padding=10px|margin=10px}
+{center}{widget:url=http://www.youtube.com/watch?v=UpHKVkLDBtU}{center}  
+{float}
+h3. {color:#f7681a}Economics{color}
+Chef saves you money by allowing your business to support larger, more complicated infrastructures with less manpower, less repetition, and fewer errors. Do more with less.
+
+h3. {color:#f7681a}Efficiency{color}
+Automating your infrastructure with Chef means never having to go back in six months to repeat yourself. Plus, you won't have to do it all yourself.  Leverage our vibrant community of experts who are sharing their recipes, collaborating on best practices, and helping each other to succeed. Get rid of all those little "5 minute" tasks, and get ready for the difference in your workday.
+
+h3. {color:#f7681a}Scalability{color}
+The founders of Opscode have deep experience with what it takes to run infrastructure at scale. When we wrote Chef, we put that knowledge to work. Chef scales horizontally like a web application, so you'll be able to trust that Chef can keep up with even the fastest growing environment. Find out in the morning that you're being featured on CNN that afternoon? You're going to need some more horsepower! When your infrastructure is built with Chef, that's a snap, Just bring the new servers online, and let Chef take care of the rest. 
+
+h2. It Works The Way You Want It To
+
+h3. {color:#f7681a}Set It. Forget It.{color}
+Chef is infrastructure aware. When you add new servers, Chef automatically discovers thousands of data points about your system. When you need to know which web servers to load balance in production, you simply ask Chef – no need to change source code, or manually reconfigure based on static documentation. When you need to model new classes of data, from users to virtual machines, simply use the Chef API to store the information, and re-use the data instantly.
+
+h3. {color:#f7681a}Your Problems. Your Solutions.{color}
+
+Other solutions impose their model on your process. But who knows your problems best, you or them? Chef allows you to automate your current processes - your model, your decisions.
+
+Most infrastructure solutions force you to adapt to their "one-size-fits-all" approaches, even though every infrastructure challenge is different. That's crazy-talk. And it's precisely the reason why Chef is built directly on top of Ruby, a dynamic, open-source programming language.  Integrated with well-known cloud platforms like Rackspace and EC2, Chef is built to seamlessly integrate into your existing environment. We designed Chef from the ground up to allow you to focus on solving your real business problems - because reality is chaotic enough. Dealing with it shouldn't be.
+
+h3. {color:#f7681a}Modeling That's Truly Meaningful{color}
+
+Chef allows you to create perfect clones of your environments, from QA to pre-production to partner preview and more. Once automated, you hold a blueprint for your infrastructure, enabling you to build, or rebuild, automatically in minutes or hours – not weeks or months. Better still, when you take those environments live and reality intrudes - which, trust us, it will - Chef gives you endless flexibility to adapt on the fly. We all know business is "a series of managed disasters." Chef gives you the power to deal with them quickly, accurately and intelligently.
+
+!_MG_5138.jpg|align=right,hspace=8,vspace=8!
+
+h2. It is Truly a Community Effort
+
+h3. {color:#f7681a}Sharing is the Norm{color}
+
+We released Chef on January 15th, 2009. As of Sept 17, 2011, more than 430 people and 90 companies have signed up to contribute to Chef. Companies like Dell, VMware and Engine Yard have integrated it into their business offerings directly. Many different cookbooks, automating everything from Apache web servers to Xen virtual machines have been published, and put to work in hugely different environments. When you use Chef, you join a community of professionals who have been there before, understand the problems we all face, and are working together to make things better for everyone. The results are far greater than any of us could have possibly achieved alone.
+
+h3. {color:#f7681a}Chef is Apache Licensed{color}
+
+Opscode is an open source company, and [we've written extensively about what that means to us | http://www.opscode.com/blog/2009/08/11/why-we-chose-the-apache-license/]. We released Chef under the Apache License to ensure that, no matter how you want to use Chef, you can. No matter how you contribute, the license ensures that we are all equals.
+
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+----
+{section}
+{column:width=15%|align=left}
+
+[Chef Core Principles]
+!leftarrow.png|hspace=4,align=center! 
+
+{column}
+{column:width=70%}
+{column}
+
+{column:width=15%|align=right}
+
+[The Different Flavors of Chef]
+!rightarrow.png|hspace=4,align=center!
+
+\\
+\\
+{column}
+{section}

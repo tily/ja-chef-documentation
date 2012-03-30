@@ -5,23 +5,23 @@
 
 !chefhigh.jpg|align=right,border=1,hspace=12,vspace=4!
 
-h5. {color:#f7681a}With Chef, you write abstract definitions as source code to describe how you want each part of your infrastructure to be built, and then apply those descriptions to individual servers. 
+h5. {color:#f7681a}Chef を利用するなら、インフラの各パーツがどんな風に作られてほしいのか、抽象化されたソースコードの形で定義し、それからその内容をそれぞれのサーバに適用する、という流れになります。
 
-_The result is a fully automated infrastructure:_ when a new server comes on line, the only thing you have to do is tell Chef what role it should play in your architecture.{color}
+_その結果は完全に自動化されたインフラです_：新しいサーバが用意されてきたときでも、そのサーバがアーキテクチャの中でどんな役割を果たすのかを Chef に教えてやるだけで済みます。{color}
 
-h2. Chef Provides
+h2. Chef が提供するもの
 !chefsi.png|border=1,align=right,hspace=14,vspace=6!
-h4. {color:#f7681a}Provisioning{color}
+h4. {color:#f7681a}サーバ調達{color}
 
-Chef invokes system and API calls to automate the provisioning of servers through RESTful API calls or through the command line interface knife. In the case of bare-metal, Chef integrates with things like Kickstart for Linux, Jumpstart for Solaris or NIM for AIX. For virtualized environments, Chef integrates with libvirt and hypervisor specific (XEN, KVM, VMware) API's. In Cloud scenarios Chef can invoke direct cloud API calls to provision servers for platforms such as AWS and vCloud. Chef is also integrated with many of the open source language specific cloud abstractions such as fog for Ruby and jclouds for Java.
+Chef はシステムに対してコマンドを実行したり、API を呼び出したりしてサーバを調達します。具体的には RESTful な API  や knife というコマンドライン・インタフェースを利用します。物理サーバの場合、Chef は Linux の Kickstart や Solaris の Jumpstart、AIX の NIM のような仕組みと連携します。仮想化された環境では、libvert やハイパバイザ (XEN, KVM, VMware) 専用の API と連携します。クラウドを利用する場面でも、直接クラウドの API を叩いて AWS や vCloud といったプラットフォーム上にサーバを調達できます。また、Ruby の fog や Java の jclouds といったような、各言語の持つオープンソースのクラウド抽象化ライブラリと連携することも可能です。
 
-h4. {color:#f7681a}Configuration Management{color}
+h4. {color:#f7681a}構成管理{color}
 
-Chef is a fully functional configuration management tool. Roles and Recipes are used to describe how servers should be configured. Chef works by allowing you to write recipes that describe what roles a server (such as Apache, MySQL, or Hadoop) should be configured as. These recipes describe a series of resources that should be in a particular state - for example, packages that should be installed, services that should be running, or files that should be written. Chef then makes sure that each resource is properly configured, only taking corrective action when it's necessary. The result is a safe, flexible mechanism for making sure your servers are always running exactly how you want them to be.
+Chef はまったくをもって汎用的な構成管理ツールです。ロールやレシピを使えばサーバをどんな風に設定したいか記述できます。Chef を動作させるために、あなたはレシピを書き、そのサーバがどんなロール (Apache とか MySQL とか Hadoop とか) を持つべきか記述するのです。そのレシピには一連のリソースがどんな状態になっていてほしいかを書くことになるでしょうーーたとえば、インストールされているべきパッケージだとか、起動しているべきサービスだとか、書き出されているべきファイルだとか。そのような記述をふまえた上で、Chef は各リソースが適切に設定されていることを確認し、必要なときだけ正しいアクションを起こしてくれます。だからこそ、安全で柔軟なメカニズムと言えるし、サーバがいつでもあるべき状態を保持しているというのを保証できるわけです。
 
-h4. {color:#f7681a}Systems Integration{color}
+h4. {color:#f7681a}システム統合{color}
 
-We like to call systems integration the last mile of fully automated infrastructure. One of the most powerful features of Chef is in its design of separating the configuration data from configuration logic. Data about your infrastructure is dynamically stored and indexed in an NoSQL database and a powerful search API is provided to query information about your infrastructure and applications. In other words Chef recipes can be data driven thereby providing dynamic system integration between servers. For example, when configuring a web server the search API can be called to discover the database and memcache servers and then automatically update the web server's configuration. Likewise a load balancer recipe can automatically add the web servers into its configuration.
+わたしたちはシステム統合を達成してこそ真のインフラ自動化だと思っています。Chef の強力な特長として、設定ロジックから設定データを分離できるように設計されているのが挙げられます。あなたのインフラに関するデータは動的に NoSQL データベースへと保存・インデクスされるので、強力な検索 API でインフラやアプリケーションに関する情報を検索することができます。言い換えるなら、Chef のレシピはデータ駆動なので、サーバ間で動的なシステム統合が行えるというわけです。たとえば、ウェブサーバを設定するときに検索 API を呼び出し、データベースサーバや Memcache サーバを見つけて、ウェブサーバの設定を更新することができます。同じように、ロードバランサのレシピの中で自動的にウェブサーバを設定に組み込むこともできるのです。
 
 \\
 \\
@@ -39,7 +39,7 @@ We like to call systems integration the last mile of fully automated infrastruct
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[About]
+[概要|About]
 
 {column}
 {column:width=40%}
@@ -48,7 +48,7 @@ We like to call systems integration the last mile of fully automated infrastruct
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[Chef Core Principles]
+[Chef のコアとなる原則|Chef Core Principles]
 
 \\
 \\

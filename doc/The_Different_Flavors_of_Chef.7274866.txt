@@ -5,20 +5,22 @@
 
 !Mitch.jpg|align=right,hspace=20,vspace=8!
 
-h3. {color:#f7681a}One size doesn't fit all. There is an Opscode Chef product that can work _for you_.{color}
+h3. {color:#f7681a}自分に合ったサイズを選びましょう。_あなた_ に適した Opscode Chef の製品があるはずです。{color}
 
 
 h1. Chef Solo
-[Chef Solo] is an open source standalone version of Chef that runs locally on your node, detached from a Chef server. This means that all the information and [Cookbooks] required to configure the node have to be present on the local disk. They can be retrieved via a remote URL with a command-line or config file option. 
+[Chef Solo] はオープンソースで公開されている Chef のスタンドアロン版であり、Chef サーバがなくてもノードのローカルで動作します。ということはつまり、ノードを設定するために必要なすべての情報と[クックブック集|Coobooks]がローカル・ディスクに存在しなければなりません。情報とクックブック集は、コマンドラインや設定ファイルのオプションに指定することで、外部の URL から取得することも可能です。
 
-h1. Chef Client and Chef Server
-The open source [Chef Server] is a client/server delivery of Chef functionality and power. [Chef Client] is a Chef agent that runs locally on the systems ("nodes") you are managing with Chef. Chef-client connects to a Chef Server to be told what to do on the node. This allows for more dynamic and flexible configuration management. For example, nodes can have roles applied to sets of them for consistency, and they can query information stored centrally on the server by other nodes, to dynamically configure themselves according to changing conditions elsewhere in your infrastructure.
+h1. Chef クライアント／Chef サーバ
+オープンソースの [Chef サーバ|Chef Server] はクライアント／サーバのセットで Chef の機能とパワーを提供します。[Chef クライアント|Chef Client] は Chef の代理人であり、Chef で管理しようとしているシステム (つまりノード) のローカルで動作します。Chef クライアントは Chef サーバに接続し、そのノードで何をすればいいかを教えてもらいます。この仕組みのおかげで、動的かつ柔軟な構成管理が可能となります。 たとえば、いくつかのノードにロールを適用して同じ状態に保つことができるし、ノードからサーバに問い合わせ、中央管理されている他のノードの情報を検索することもできます。これによって、インフラの他のどこかで条件が変わったら、変化に応じて自分自身を動的に設定することができるのです。
 
-h1. Hosted Chef
-Opscode's [Hosted Chef|http://www.opscode.com/hosted-chef/] combines the freedom and flexibility of Chef with the reliability and speed of Opscode. Hosted Chef is a highly available, scalable Chef Server in the cloud, plus additional features, such as fine-grained role-based access control. It is also the world's first configuration management platform delivered as a service (PaaS). {color:#f7681a}This means that it is easier than ever to start using Chef to manage your infrastructure.{color} As with Chef-Server, Chef-client connects to Hosted Chef to be told what to do on the local node: enabling you to automate your infrastructure, without having to setup and manage your own Chef-Server.
+h1. Chef ホスティングサービス
+Opscode の [Chef ホスティングサービス|http://www.opscode.com/hosted-chef/]は Chef の自由さ・柔軟性と Opscode の信頼性・スピードを組み合わせです。Chef ホスティングサービスはクラウド上の高可用でスケールしやすい Chef サーバであり、追加機能としてきめこまかいロールに基づいた権限管理もできたりします。
+世界初の構成管理プラットフォーム・サービス (PaaS) でもあります。{color:#f7681a}つまりは、Chef によるインフラ管理をはじめるのが今までになく簡単になっているということです。{color}Chef サーバと同じように、Chef クライアントは Chef ホスティングサービスに接続して、ノードのローカルで何をすべきか教えてもらいます：自分の Chef サーバを用意しなくても、インフラを自動化することができるのです。
 
-h1. Private Chef
-The power and speed of Opscode. The freedom and flexibility of Chef. Completely customized for your business. [Private Chef|http://www.opscode.com/private-chef/] is for Enterprises who want the power, flexibility, availability, and performance of Hosted Chef, but require that information never leave their private networks.
+h1. プライベートな Chef
+Opscode のパワーとスピード。Chef の自由さと柔軟性。あなたの持つ問題に適したカスタマイズ。[プライベートな Chef|http://www.opscode.com/private-chef/] は
+Chef ホスティングのパワー・柔軟性・可用性・パフォーマンスが必要だが、情報のやりとりをプライベート・ネットワーク内にとどめておく必要のある企業向けに提供しています。
 
 \\
 \\
@@ -32,7 +34,7 @@ The power and speed of Opscode. The freedom and flexibility of Chef. Completely 
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[Why Chef?]
+[どうして Chef を使うべきか|Why Chef?]
 
 {column}
 {column:width=40%}
@@ -41,7 +43,7 @@ The power and speed of Opscode. The freedom and flexibility of Chef. Completely 
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[FAQ]
+[よくある質問と答え|FAQ]
 
 \\
 \\

@@ -1,0 +1,124 @@
+{section}
+{column:width=3%}
+{column}
+{column:width=55%}
+\\
+
+
+!OC_Chef_Logo_small.png!
+
+
+h4. _This is an "About Chef" FAQ._
+
+h5. {color:#f7681a}For common troubleshooting tips and a Technical FAQ, see [Troubleshooting and Technical FAQ]{color}
+{column}
+{column:width=35%}
+\\
+\\
+{panel:bgColor=#d7d4c3}
+{toc:minLevel=1|maxLevel=2|printable=no}
+{panel}
+{column}
+{column:width=7%}
+{column}
+{section}
+{section}
+{column:width=2%}
+{column}
+{column:width=60%}
+!tim-group-color.jpg|align=right,hspace=8,vspace=8!
+h2. Why did we create Chef?
+
+[Opscode|http://www.opscode.com] began as a consulting company called [HJK Solutions|http://www.hjksolutions.com].  We built fully automated infrastructure for startups - everything from OS installation to Application Deployment, fully integrated and ready to rock.  ([You can see a presentation on our approach on Slideshare|http://www.slideshare.net/adamhjk/why-startups-need-automated-infrastructures])
+
+Over the course of building a dozen or so different startups on the same infrastructure baseline over a year, we realized that we just were never going to get to a place where *everyone* could have a fully automated infrastructure, regardless of their Systems Administration expertise.  A few things were in the way:
+
+* A fully automated infrastructure is a fully integrated infrastructure - the different components need to be able to communicate with each other. (Your application informs your infrastructure, just like your infrastructure informs your application.)
+* Configuration Management is the fundamental bedrock of infrastructure automation - for the infrastructure to be fully automated, you need to be able to expose Configuration Management as a Service.
+* It was too difficult to share the code that builds the infrastructure - the tools at hand all required a level of specificity that made sharing difficult.
+
+We solve these problems by:
+
+* Building a systems integration framework on top of a configuration management system.  That framework is powered by Ruby, but has a very simple DSL - making it very approachable for beginners.
+* Making it possible to extend the capabilities of Chef easily, and by making Chef's [Resources] capable of taking action from ad-hoc sources. (This isn't released yet, but it will be soon - and trust us, it is awesome.)
+* Every decision about Chef was made with an eye to keeping as much as possible inside of [Cookbooks] \- sharable chunks of automation that are easily re-used and extended.
+
+The goal is to remove ourselves from the process of building automated infrastructure entirely - Chef is the first part of a framework that allows us to do that.
+
+h2. How can I help?
+
+Join us on [IRC], sign up for the [Chef Mailing Lists|Support#MailingLists], and read the [instructions on how to contribute to an Opscode Open Source project|chef:How To Contribute].
+
+!sethC-explaining.jpg|align=left,hspace=20,vspace=8!
+h2. Who is using Chef?
+
+See a sample of the [companies & organizations already using Chef|http://www.opscode.com/adoption].
+
+h2. Can I trust Chef?
+
+Yes.  Chef won't do anything to your system that isn't in a [Recipe|Recipes]. Since Chef is an Open Source project, you have full access to the source code.
+
+h2. Do I need to know Ruby to use Chef?
+
+It helps, but its not required. You can learn [Just Enough Ruby for Chef].
+
+h2. Why did you create Chef rather than adapt an existing Open Source tool?
+
+Chef was born out of our experience building fully automated production infrastructures with a variety of tools.  That experience helped us define clear requirements for tool that went far beyond traditional configuration management.  After surveying many different Open Source tools, we found that none met our needs.   
+
+Developers need a tool they can safely integrate into their code.  Chef and Ohai are licensed under the [Apache License Version 2.0|http://www.apache.org/licenses] - a liberal, non-copyleft free software license.  We maintain Contributor License Agreements, which allows anyone who uses Chef or Ohai to know they are free from any copyright or patent entanglements.
+
+h2. Why did you choose the Apache License?
+
+We've written extensively about [why we chose the Apache License on our blog|http://blog.opscode.com/blog/2009/08/11/why-we-chose-the-apache-license/].
+
+h2. How is Chef different than Puppet?
+
+!sethF-2645.jpg|align=right,hspace=20,vspace=8!
+
+[Puppet evolved from Cfengine|http://reductivelabs.com/trac/puppet/wiki/CfengineVsPuppet] and showed the potential of a new kind of configuration management.  
+
+The original design of Chef was strongly influenced by our own experiences working with and contributing to the Puppet project.  However, Chef does not share any code from Puppet, and is not a "fork" of the Puppet project.  
+
+h4. Chef is different from Puppet in a number of important ways:
+
+* Chef uses Ruby as the configuration language, rather than a custom DSL.  
+* Chef is designed from the ground up to integrate with other tools, or to make that integration as simple as possible.  Chef is not the canonical representation of your infrastructure. It is a service that exposes data about the state of your infrastructure.
+* Chef applies resources in the order they are specified in your [Recipes] \- there is no dependency management.  This means multiple Chef runs will always apply the [Resources] under management in the same order, every time.
+* Chef [Resources] have Actions, which can be signaled.
+* [Resources] can appear more than once in Chef, and they inherit the attributes of the earlier resource. (ie: you can tell Apache to start and stop in a recipe by specifying the resource twice, with the second one only changing the action attribute).
+
+As Chef grows, the services we expose will likely be integrated with Puppet as well.  There is more than one way to do it.
+
+h2. How is it different than Cfengine?
+
+It bears very little in common with Cfengine, other than embracing Single Copy Nirvana.
+
+\\
+\\
+\\
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[The Different Flavors of Chef]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[Chef Basics]
+
+\\
+\\
+{column}
+{section}

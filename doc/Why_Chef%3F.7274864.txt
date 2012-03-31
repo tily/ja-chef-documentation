@@ -3,45 +3,45 @@
 {column}
 {column:width=70%}
 
-h2. Gain Benefits In Three Areas
+h2. 3 つの分野で利点があります
 {float:right|background=#eeeeee|border=4px solid #d7d4c3|padding=10px|margin=10px}
 {center}{widget:url=http://www.youtube.com/watch?v=UpHKVkLDBtU}{center}  
 {float}
-h3. {color:#f7681a}Economics{color}
-Chef saves you money by allowing your business to support larger, more complicated infrastructures with less manpower, less repetition, and fewer errors. Do more with less.
+h3. {color:#f7681a}節約{color}
+Chef なら、業務でより大きくより複雑なインフラが必要になったとしても、より少ない人数・より少ない繰り返し作業・より少ないエラーで抑えることができるので、お金を節約できます。少ないコストで規模拡大しましょう。
 
-h3. {color:#f7681a}Efficiency{color}
-Automating your infrastructure with Chef means never having to go back in six months to repeat yourself. Plus, you won't have to do it all yourself.  Leverage our vibrant community of experts who are sharing their recipes, collaborating on best practices, and helping each other to succeed. Get rid of all those little "5 minute" tasks, and get ready for the difference in your workday.
+h3. {color:#f7681a}効率{color}
+Chef でインフラを自動化しておけば、6 ヵ月前に立ち戻って同じ作業を繰り返すなんて必要はなくなります。さらに、すべて自分で自動化する必要すらないのです。専門家たちがレシピを共有し、協同でベストプラクティスを作り、お互いが成功するように助け合っている活発なコミュニティを活用しましょう。1 日の労働時間からしょうもない「5 分で終わる」作業をなくし、本当に価値のある仕事に備えましょう。
 
-h3. {color:#f7681a}Scalability{color}
-The founders of Opscode have deep experience with what it takes to run infrastructure at scale. When we wrote Chef, we put that knowledge to work. Chef scales horizontally like a web application, so you'll be able to trust that Chef can keep up with even the fastest growing environment. Find out in the morning that you're being featured on CNN that afternoon? You're going to need some more horsepower! When your infrastructure is built with Chef, that's a snap, Just bring the new servers online, and let Chef take care of the rest. 
+h3. {color:#f7681a}スケーラビリティ{color}
+Opscode を創設者たちは、深い経験からスケールするインフラを運用するにはどうしたらよいか心得ています。Chef には、そのようなノウハウがうまく動くように組み込まれています。Chef はウェブアプリケーションのように水平方向にスケールするので、ものすごく急速に成長しているような環境でも Chef が一緒にスケールしてくれると信頼して大丈夫です。今朝になって午後の CNN 放送で取り上げられることが分かったって？ ちょっとした馬力が必要ですね！ インフラが Chef で構築されているなら、お茶の子さいさいです。新しいサーバを用意してオンラインにすれば、あとは Chef が面倒を見てくれます。
 
-h2. It Works The Way You Want It To
+h2. 望んだ通りに動いてくれます
 
-h3. {color:#f7681a}Set It. Forget It.{color}
-Chef is infrastructure aware. When you add new servers, Chef automatically discovers thousands of data points about your system. When you need to know which web servers to load balance in production, you simply ask Chef – no need to change source code, or manually reconfigure based on static documentation. When you need to model new classes of data, from users to virtual machines, simply use the Chef API to store the information, and re-use the data instantly.
+h3. {color:#f7681a}設定したら、あとはほったらかし{color}
+Chef はインフラのことを気にかけてくれます。新しいサーバを追加したら、Chef は自動的にシステム上の数多くの箇所からデータを収集してくれます。本番環境でロードバランサに組み込むべきウェブサーバの一覧を知りたかったら、Chef に尋ねるだけです。ソースコードを変更する必要はないし、ドキュメントを読みながら手動で再設定を行う必要もありません。ユーザ一覧でも仮想マシン一覧でもなんでも、新しいデータをクラスとしてモデル化したかったら、Chef の API を使ってその情報を保存し、すぐにそのデータを再利用することができます。
 
-h3. {color:#f7681a}Your Problems. Your Solutions.{color}
+h3. {color:#f7681a}あなたの問題に合った解決策があります{color}
 
-Other solutions impose their model on your process. But who knows your problems best, you or them? Chef allows you to automate your current processes - your model, your decisions.
+ほかのアプリケーションは、問題を解決する過程でモデルを押しつけてきます。だけど、あなたの問題を一番よく分かっているのは、アプリケーションではなくあなたですよね。Chef なら、あなたが今まさに問題を解決しようとしている過程、あなたのモデルや、あなたの決定を自動化できます。
 
-Most infrastructure solutions force you to adapt to their "one-size-fits-all" approaches, even though every infrastructure challenge is different. That's crazy-talk. And it's precisely the reason why Chef is built directly on top of Ruby, a dynamic, open-source programming language.  Integrated with well-known cloud platforms like Rackspace and EC2, Chef is built to seamlessly integrate into your existing environment. We designed Chef from the ground up to allow you to focus on solving your real business problems - because reality is chaotic enough. Dealing with it shouldn't be.
+ほとんどのインフラ自動化アプリケーションでは、「1 つのサイズですべてを間に合わせようとする」アプローチが強要されます。インフラ上の課題は多種多様なのに。おかしな話ですよね。だからこそ、Chef は Ruby という動的な、オープンソースのプログラミング言語を使って構築されているのです。Rackspace や EC2 といった有名なクラウド・プラットフォームと連携できるので、Chef は継ぎ目なく既存の環境を統合できます。私たちは Chef の設計を頭からつま先まで、現実の業務上の問題を解決することに集中できるよう設計しました。なぜなら、現実は十分に混沌としているからです。その現実に対処する行為自体が混沌となっていいはずがありません。
 
-h3. {color:#f7681a}Modeling That's Truly Meaningful{color}
+h3. {color:#f7681a}本当に意味のあるモデリング{color}
 
-Chef allows you to create perfect clones of your environments, from QA to pre-production to partner preview and more. Once automated, you hold a blueprint for your infrastructure, enabling you to build, or rebuild, automatically in minutes or hours – not weeks or months. Better still, when you take those environments live and reality intrudes - which, trust us, it will - Chef gives you endless flexibility to adapt on the fly. We all know business is "a series of managed disasters." Chef gives you the power to deal with them quickly, accurately and intelligently.
+Chef を使えばあなたの環境の完全なクローンを作ることができます。品証向けでもお試し用でもパートナー向けのプレビュー環境でもなんでもござれです。一度自動化してしまえば、インフラの設計図が手元にあるようなもので、数分か数時間の間に、インフラを作ったり作り直したりできます。数週間や数ヶ月かかるなんてことはあり得ません。さらに良いのは、そのような環境を運用しはじめて現実的なトラブルが発生したとき (信じてください、必ず発生するものですよ)、Chef は限りなく柔軟なのですぐに問題に対応することができます。業務というのは「対処されるべき災害の連続」のようなものですよね。Chef を使えば正確に、頭の良いやり方で災害に対処する力を得ることができます。
 
 !_MG_5138.jpg|align=right,hspace=8,vspace=8!
 
-h2. It is Truly a Community Effort
+h2. コミュニティが本当に頑張っています
 
-h3. {color:#f7681a}Sharing is the Norm{color}
+h3. {color:#f7681a}共有することが規範となっています{color}
 
-We released Chef on January 15th, 2009. As of Sept 17, 2011, more than 430 people and 90 companies have signed up to contribute to Chef. Companies like Dell, VMware and Engine Yard have integrated it into their business offerings directly. Many different cookbooks, automating everything from Apache web servers to Xen virtual machines have been published, and put to work in hugely different environments. When you use Chef, you join a community of professionals who have been there before, understand the problems we all face, and are working together to make things better for everyone. The results are far greater than any of us could have possibly achieved alone.
+私たちは 2009 年 1 月 15 日に Chef をリリースしました。2011 年 9 月 17 日の時点で 430 人と 90 の企業が Chef のソースコードに貢献する契約を結んでいます。Dell や VMware、Engine Yard は自分たちが提供する製品に Chef を組み込んでいます。Apache ウェブサーバから Xen 仮想マシンにいたるまで、あらゆる分野に関するたくさんのクックブックが発表され、多種多様な環境でうまく動いています。Chef を使うというのは、過去に似たような問題に取り組み、誰もが直面するような問題をよく知っており、今も皆のために状況をよくしようとしている専門家たちのコミュニティに参加するということです。そうすることで、皆がひとりで取り組んでいたらなし得なかったような素晴らしい結果を得ることができます。
 
-h3. {color:#f7681a}Chef is Apache Licensed{color}
+h3. {color:#f7681a}Chef には Apache ライセンスが適用されています{color}
 
-Opscode is an open source company, and [we've written extensively about what that means to us | http://www.opscode.com/blog/2009/08/11/why-we-chose-the-apache-license/]. We released Chef under the Apache License to ensure that, no matter how you want to use Chef, you can. No matter how you contribute, the license ensures that we are all equals.
+Opscode はオープンソースの会社であり、[それが私たちにとってどんな意味をもつか詳しく書いています|http://www.opscode.com/blog/2009/08/11/why-we-chose-the-apache-license/]。Chef に Apache ライセンスを適用してリリースしたのは、どんな風に Chef を使おうと自由であるというのを保証するためです。どんな風にソースコードに貢献してくれたにせよ、Opscode とあなたが対等であるというのを保証するためなのです。
 
 \\
 {column}
@@ -52,7 +52,7 @@ Opscode is an open source company, and [we've written extensively about what tha
 {section}
 {column:width=15%|align=left}
 
-[Chef Core Principles]
+[Chef のコアをなす原則]
 !leftarrow.png|hspace=4,align=center! 
 
 {column}
@@ -61,7 +61,7 @@ Opscode is an open source company, and [we've written extensively about what tha
 
 {column:width=15%|align=right}
 
-[The Different Flavors of Chef]
+[さまざまな種類の Chef]
 !rightarrow.png|hspace=4,align=center!
 
 \\

@@ -48,7 +48,7 @@ h4. {color:#f7681a}システム統合{color}
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[Chef のコアとなる原則]
+[Chef のコアをなす原則]
 
 \\
 \\

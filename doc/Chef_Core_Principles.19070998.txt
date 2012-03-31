@@ -35,7 +35,7 @@ Chef は考えやすく、変更しやすく、拡張しやすいように設計
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[Chef とは何か|What is Chef?]
+[Chef とは何か]
 
 {column}
 {column:width=40%}
@@ -44,7 +44,7 @@ Chef は考えやすく、変更しやすく、拡張しやすいように設計
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[どうして Chef を使うべきか|Why Chef?]
+[どうして Chef を使うべきか]
 
 \\
 \\

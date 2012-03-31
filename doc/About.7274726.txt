@@ -37,7 +37,7 @@ h4. _その結果は完全に自動化されたインフラです_：新しい�
 {panel:bgColor=#d7d4c3}
 
 !90spacer.png|align=left!
-h3. [Chef とは何か|What is Chef?]
+h3. [Chef とは何か]
 
 {panel}
 {td}
@@ -45,7 +45,7 @@ h3. [Chef とは何か|What is Chef?]
 {panel:bgColor=#d7d4c3}
 
 !90spacer.png|align=left!
-h3. [Chef のコアをなす原則|Chef Core Principles]
+h3. [Chef のコアをなす原則]
 
 {panel}
 {td}
@@ -53,7 +53,7 @@ h3. [Chef のコアをなす原則|Chef Core Principles]
 {panel:bgColor=#d7d4c3}
 
 !90spacer.png|align=left!
-h3. [どうして Chef を使うべきか|Why Chef?]
+h3. [どうして Chef を使うべきか]
 
 {panel}
 {td}
@@ -61,14 +61,14 @@ h3. [どうして Chef を使うべきか|Why Chef?]
 {panel:bgColor=#d7d4c3}
 
 !90spacer.png|align=left!
-h3. [さまざまな種類の Chef|The Different Flavors of Chef]
+h3. [さまざまな種類の Chef]
 {panel}
 {td}
 {td}
 {panel:bgColor=#d7d4c3}
 
 !90spacer.png|align=right!
-h3. [よくある質問と答え|FAQ]
+h3. [FAQ]
 {panel}
 {td}
 {tr}

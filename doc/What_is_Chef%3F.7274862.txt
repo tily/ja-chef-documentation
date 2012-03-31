@@ -39,7 +39,7 @@ h4. {color:#f7681a}システム統合{color}
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[概要|About]
+[概要]
 
 {column}
 {column:width=40%}
@@ -48,7 +48,7 @@ h4. {color:#f7681a}システム統合{color}
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[Chef のコアとなる原則|Chef Core Principles]
+[Chef のコアとなる原則]
 
 \\
 \\

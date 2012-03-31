@@ -34,7 +34,7 @@ Chef ホスティングのパワー・柔軟性・可用性・パフォーマン
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[どうして Chef を使うべきか|Why Chef?]
+[どうして Chef を使うべきか]
 
 {column}
 {column:width=40%}
@@ -43,7 +43,7 @@ Chef ホスティングのパワー・柔軟性・可用性・パフォーマン
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[よくある質問と答え|FAQ]
+[FAQ]
 
 \\
 \\

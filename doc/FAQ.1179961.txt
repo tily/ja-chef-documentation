@@ -8,9 +8,9 @@
 !OC_Chef_Logo_small.png!
 
 
-h4. _This is an "About Chef" FAQ._
+h4. _これは「Chef の概要についての」FAQ です。_
 
-h5. {color:#f7681a}For common troubleshooting tips and a Technical FAQ, see [Troubleshooting and Technical FAQ]{color}
+h5. {color:#f7681a}一般的なトラブルシューティング TIPS と技術的な FAQ に関しては、[トラブルシューティングと技術的な FAQ|Troubleshooting and Technical FAQ]をご参照ください。{color}
 {column}
 {column:width=35%}
 \\
@@ -27,72 +27,72 @@ h5. {color:#f7681a}For common troubleshooting tips and a Technical FAQ, see [Tro
 {column}
 {column:width=60%}
 !tim-group-color.jpg|align=right,hspace=8,vspace=8!
-h2. Why did we create Chef?
+h2. どうして Chef を作ったのですか？
 
-[Opscode|http://www.opscode.com] began as a consulting company called [HJK Solutions|http://www.hjksolutions.com].  We built fully automated infrastructure for startups - everything from OS installation to Application Deployment, fully integrated and ready to rock.  ([You can see a presentation on our approach on Slideshare|http://www.slideshare.net/adamhjk/why-startups-need-automated-infrastructures])
+[Opscode|http://www.opscode.com] は [HJK Solutions|http://www.hjksolutions.com] という名前のコンサル会社としてスタートしました。スタートアップ企業のために完全に自動化されたインフラを構築していましたーーOS のインストールからアプリケーションのデプロイまで、すべてが統合され準備万端となっていました ([どんなアプローチだったかは Slideshare の資料で知ることができます|http://www.slideshare.net/adamhjk/why-startups-need-automated-infrastructures])。
 
-Over the course of building a dozen or so different startups on the same infrastructure baseline over a year, we realized that we just were never going to get to a place where *everyone* could have a fully automated infrastructure, regardless of their Systems Administration expertise.  A few things were in the way:
+1 年もの間、同じやり方で数十のさまざまなスタートアップ企業のインフラを構築してきましたが、このやり方では、たとえシステム管理の専門知識を持っていたとしても、 *誰もが* 完全に自動化されたインフラを持つようにはならないだろうなと気づきました。いくつか課題点があったのです：
 
-* A fully automated infrastructure is a fully integrated infrastructure - the different components need to be able to communicate with each other. (Your application informs your infrastructure, just like your infrastructure informs your application.)
-* Configuration Management is the fundamental bedrock of infrastructure automation - for the infrastructure to be fully automated, you need to be able to expose Configuration Management as a Service.
-* It was too difficult to share the code that builds the infrastructure - the tools at hand all required a level of specificity that made sharing difficult.
+* 完全に自動化されたインフラは完全に統合されたインフラですーーさまざまな要素がお互いに意思疎通できる必要があります (アプリケーションがインフラに情報を伝えたり、インフラがアプリケーションに情報を伝えたり)。
+* 構成管理はインフラ自動化にとって根本的であり書かせない要素ですーーインフラを完全に自動化するためには、構成管理がサービスとして利用できるようになっている必要があります。
+* インフラを構築するためのコードを共有するのが難しいですーーその時使っていたツールには高度な専門的な知識が必要だったので、共有することが困難でした。
 
-We solve these problems by:
+私たちは下記のようなやり方でこのような問題を解決しようとしています：
 
-* Building a systems integration framework on top of a configuration management system.  That framework is powered by Ruby, but has a very simple DSL - making it very approachable for beginners.
-* Making it possible to extend the capabilities of Chef easily, and by making Chef's [Resources] capable of taking action from ad-hoc sources. (This isn't released yet, but it will be soon - and trust us, it is awesome.)
-* Every decision about Chef was made with an eye to keeping as much as possible inside of [Cookbooks] \- sharable chunks of automation that are easily re-used and extended.
+* 構成管理システムをベースとしてシステム統合フレームワークを作ります。フレームワークは Ruby で動き、とてもシンプルな DSL が使えますーー初心者でも近づきやすいように。
+* Chef が扱える範囲を簡単に拡張できるようにし、ぱっと書いたソースコードから Chef の[リソース]がアクションを起こせるようにします。 (この機能はまだリリースされていませんが、もうすぐ発表したいと思っています。素晴らしい機能ですよ。)
+* Chef に関するすべての決断は、できる限り[クックブック]の中で行われるように考慮されていますーークックブックという単位で自動化を共有し、簡単に再利用・拡張が行えるようにします。
 
-The goal is to remove ourselves from the process of building automated infrastructure entirely - Chef is the first part of a framework that allows us to do that.
+目標はインフラ自動化の手順を完全に自動化することですーーChef はそれを実現するためのフレームワークにとっての、最初の一部分なのです。
 
-h2. How can I help?
+h2. どうやって援助すればいいですか？
 
-Join us on [IRC], sign up for the [Chef Mailing Lists|Support#MailingLists], and read the [instructions on how to contribute to an Opscode Open Source project|chef:How To Contribute].
+私たちの [IRC] に参加したり、[Chef のメーリングリスト|Support#MailingLists]に登録したり、[Opscode のオープンソースプロジェクトに貢献するにはどうすればいいか|chef:How To Contribute]を読んだりしてください。
 
 !sethC-explaining.jpg|align=left,hspace=20,vspace=8!
-h2. Who is using Chef?
+h2. どんな人が Chef を使っているのですか？
 
-See a sample of the [companies & organizations already using Chef|http://www.opscode.com/adoption].
+[Chef 導入済みの会社・組織一覧|http://www.opscode.com/adoption] の一例をご覧ください。
 
-h2. Can I trust Chef?
+h2. Chef を信頼して大丈夫ですか？
 
-Yes.  Chef won't do anything to your system that isn't in a [Recipe|Recipes]. Since Chef is an Open Source project, you have full access to the source code.
+大丈夫です。Chef があなたのシステムに対して行うのは、[レシピ]に書いていることだけです。Chef はオープンソースのプロジェクトなので、ソースコードはすべて参照可能です。
 
-h2. Do I need to know Ruby to use Chef?
+h2. Chef を使うのに Ruby の知識は必要ですか？
 
-It helps, but its not required. You can learn [Just Enough Ruby for Chef].
+知識があれば役に立ちますが、必須ではありません。[Chef を使うために必要なほんの少しだけの Ruby|Just Enough Ruby for Chef] を学習できます。
 
-h2. Why did you create Chef rather than adapt an existing Open Source tool?
+h2. なぜオープンソースのツールに修正を加えるのではなく新たに Chef を作ったのですか？
 
-Chef was born out of our experience building fully automated production infrastructures with a variety of tools.  That experience helped us define clear requirements for tool that went far beyond traditional configuration management.  After surveying many different Open Source tools, we found that none met our needs.   
+Chef はさまざまなツールを使って自動化された本番インフラを構築してきた経験から生まれたものです。そのような経験から伝統的な構成管理よりもずっと良いツールの要件をはっきりと定義することができました。多種多様なオープンソースのツールを調査しましたが、私たちの要件に合ったものは見つかりませんでした。
 
-Developers need a tool they can safely integrate into their code.  Chef and Ohai are licensed under the [Apache License Version 2.0|http://www.apache.org/licenses] - a liberal, non-copyleft free software license.  We maintain Contributor License Agreements, which allows anyone who uses Chef or Ohai to know they are free from any copyright or patent entanglements.
+開発者は自分のソースコードに組み込んで使えるツールが必要としています。Chef と Ohai には [Apache License Version 2.0|http://www.apache.org/licenses] が適用されていますーー自由主義でコピーレフトかつフリーなソフトウェア・ライセンスです。私たちは貢献のためのライセンス合意書を管理しているので、誰もが著作権や特許権のゴタゴタがないと安心して Chef や Ohai を使うことができます。
 
-h2. Why did you choose the Apache License?
+h2. どうして Apache ライセンスを選んだのですか？
 
-We've written extensively about [why we chose the Apache License on our blog|http://blog.opscode.com/blog/2009/08/11/why-we-chose-the-apache-license/].
+[「どうして Apache ライセンスを選んだか」というブログ記事|http://blog.opscode.com/blog/2009/08/11/why-we-chose-the-apache-license/]で詳しく書いています。
 
-h2. How is Chef different than Puppet?
+h2. Chef は Puppet とどう違うのですか？
 
 !sethF-2645.jpg|align=right,hspace=20,vspace=8!
 
-[Puppet evolved from Cfengine|http://reductivelabs.com/trac/puppet/wiki/CfengineVsPuppet] and showed the potential of a new kind of configuration management.  
+[Puppet は Cfengine を元に進化し|http://reductivelabs.com/trac/puppet/wiki/CfengineVsPuppet]、構成管理には新しいやり方にもありうることを示しました。
 
-The original design of Chef was strongly influenced by our own experiences working with and contributing to the Puppet project.  However, Chef does not share any code from Puppet, and is not a "fork" of the Puppet project.  
+Chef のもともとの設計は、私たちが Puppet のプロジェクトと協同し、貢献してきた経験から強い影響を受けています。しかしながら、Chef は Puppet のコードを少しも使っていないし、Puppet から「派生した」プロジェクトではありません。
 
-h4. Chef is different from Puppet in a number of important ways:
+h4. Chef は、いくつかの重要な点で Puppet とは異なります：
 
-* Chef uses Ruby as the configuration language, rather than a custom DSL.  
-* Chef is designed from the ground up to integrate with other tools, or to make that integration as simple as possible.  Chef is not the canonical representation of your infrastructure. It is a service that exposes data about the state of your infrastructure.
-* Chef applies resources in the order they are specified in your [Recipes] \- there is no dependency management.  This means multiple Chef runs will always apply the [Resources] under management in the same order, every time.
-* Chef [Resources] have Actions, which can be signaled.
-* [Resources] can appear more than once in Chef, and they inherit the attributes of the earlier resource. (ie: you can tell Apache to start and stop in a recipe by specifying the resource twice, with the second one only changing the action attribute).
+* Chef は Ruby を設定ファイル用の言語として使っています。特別な DSL としては使っていません。
+* Chef は頭からつま先まで他のツールと連携できるように、そしてその連携ができる限りシンプルになるように設計されています。Chef はインフラの正準表現ではありません。インフラの状態についてのデータを見えるようにしてくれるサービスなのです。
+* Chef は[レシピ]で指定された順番にリソースを適用しますーー依存性の管理は行いません。これは何度 Chef を実行しても管理下にあるリソースは毎回同じ順番で適用されるということを意味しています。
+* Chef の[リソース]にはアクションという概念があり、アクションに合図を送ることができます。
+* [リソース]は Chef の中に 2 度以上現われることがありますが、以前に現れたときの属性を受け継いでいます (すなわち、レシピの中で Apache に起動して停止するように命令するときには、リソースを 2 回指定しますが、2 度目のときには「アクション」という属性を変えるだけでよいのです)。
 
-As Chef grows, the services we expose will likely be integrated with Puppet as well.  There is more than one way to do it.
+Chef が成長すれば、サービスのインタフェースは Puppet とも連携できるようになるでしょう。やり方は 1 つではないです。
 
-h2. How is it different than Cfengine?
+h2. Cfengine とはどう違うのですか？
 
-It bears very little in common with Cfengine, other than embracing Single Copy Nirvana.
+Cfengine とはほとんど共通点がありません。Single Copy Nirvana を採用しているというぐらいです。
 
 \\
 \\
@@ -107,7 +107,7 @@ It bears very little in common with Cfengine, other than embracing Single Copy N
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[The Different Flavors of Chef]
+[さまざまな種類の Chef]
 
 {column}
 {column:width=40%}
@@ -116,7 +116,7 @@ It bears very little in common with Cfengine, other than embracing Single Copy N
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[Chef Basics]
+[Chef の基本]
 
 \\
 \\

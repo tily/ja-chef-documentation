@@ -1,0 +1,156 @@
+{section}
+{column:width=3%}
+{column}
+{column}
+\\
+{panel:borderColor=#f7681a|borderWidth=2}
+!basics.png|align=left,hspace=20,thumbnail!
+\\
+h5. {color:#f7681a}As you learn to use Chef, you'll need to understand what each of the different components are, and how they work together. 
+
+This page provides a brief overview of those components, and each has a more in-depth page.{color}
+\\
+{panel}
+h1. Modeling Your Infrastructure
+
+h3. [Nodes]
+A [node|Nodes] is a host that runs the Chef client. The primary features of a node, from Chef's point of view, are its [attributes|Attributes] and its run list. [Nodes] are the thing that [Recipes] and [Roles] are applied to. You want to work with [Nodes] any time you want to:
+
+* Add a recipe to a system
+* Update an attribute
+
+h4. Run List
+In the simplest case, the run list is a list of the [recipes|Recipes] that a node will run. Assuming the cookbook metadata is correct, you can put just the recipes you want to run in the run list, and dependent recipes will be run automatically as needed. Ordering is important: the order in which recipes are listed in the run list is exactly the order in which chef will run them.
+
+In more advanced usage, the run list will include [roles|Roles] that a node has been assigned in addition to any recipes set on the node explicitly. In this case, when the Chef client runs, the run list is "expanded" into a list of recipes by replacing the role's entry in the run list with the list of recipes the role specifies in its run list.
+
+{column} 
+{column:width=25%}
+\\
+{panel:bgColor=#d7d4c3} 
+{toc:minLevel=1|maxLevel=4|printable=no} 
+{panel} 
+\\
+{info:title=Introduction to Chef}
+\\
+Opscode team member [Sean O'Meara|http://community.opscode.com/users/someara] has a nice [Introduction to Chef|http://speakerdeck.com/u/someara/p/introduction-to-chef-lisa11] from a presentation at LISA in 2011.
+\\
+{info}
+{column}
+{column:width=5%}
+{column}
+{section} 
+{section}
+{column:width=3%}
+{column}
+{column}
+
+h4. [Node Attributes|Attributes]
+Nodes and roles have associated [attributes|Attributes], which are a structure of nested key&ndash;value pairs. Node and role attributes are commonly used as inputs for resource attributes. For example, your production boxes might be using one version of nginx, but you'd like to install a newer version on your staging servers for testing. By using a node or role attribute to specify the version, you can use the same recipe in both environments.
+
+Chef allows attributes to be set in attribute files (among other myriad ways). Code in these files accesses the node chef is running on, and manages attributes on that node directly. In ruby terms, the value of `self` within attribute files is the node. Using attribute files, you can rely on a node having a sane value for an attribute when writing a recipe without having to worry that the node may not have defined that attribute. 
+
+Advanced Chef users often make heavy use of attributes defined in roles to manage attributes on many nodes at once.
+
+h3. [Roles]
+A [role|Roles] provides a means of grouping similar features of similar nodes. At web scale, you almost never have just one of something, so you use roles to express the parts of the configuration that are shared by a group of nodes. Roles consist of the same parts as a node: [attributes|Attributes] and a run list. When the Chef client runs, it merges its own attributes and run list with those of any roles it has been assigned.
+
+h1. Configuring Nodes
+
+h3. [Cookbooks]
+A cookbook is a collection of [recipe|Recipes], [resource definition|Definitions], [attribute|Attributes], [library|Libraries], [cookbook file|File Distribution] and [template|Templates] files that chef uses to configure a system, plus [metadata|Metadata]. Cookbooks are typically grouped around configuring a single package or service. The MySQL cookbook, for example, contains recipes for both client and server, plus an attributes file to set sane defaults for tunable values.
+
+Cookbooks are the unit of distribution and sharing in Chef.  Most of the time you are using Chef, you are writing cookbooks.
+
+h3. [Recipes]
+Recipes are the files where you write your [resources|Resources] (described below). Recipes can also contain arbitrary ruby code, but you need to understand a little bit about how Chef runs to make productive use of this. Each Chef run is a two stage process: in the first step, called the compilation step, Chef evaluates the recipe files, building up a list of the resources. In the next step, Chef executes the desired action for each resource on the provider for that resource. Any arbitrary code in a recipe will be run during the compilation step, not the execution step. To defer execution until the execution phase of the Chef run, use the [ruby\_block|Resources#Resources-RubyBlock] resource. For a more detailed discussion of this process, refer to the [anatomy of a chef run|Anatomy of a Chef Run]
+
+h3. [Metadata]
+Cookbooks often rely on other cookbooks for pre-requisite functionality. In order for the server to know which cookbooks to ship to a client, a cookbook that depends on another one needs to express that dependency somewhere. That "somewhere" is in [cookbook metadata|Metadata]. Dependency tracking is the most visible part of metadata, but metadata also can contain information about authorship, licensing, a description of the cookbook, what platforms the cookbook is expected to work on, and whether or not a cookbook plays nice with other cookbooks. At the moment, Chef supports many more fields for metadata than it actually uses, but maintaining accurate dependency information is absolutely essential, since nodes may not get all of the cookbooks they need if this information is incomplete.
+
+h3. [Resources]
+A [resource|Resources] is _usually_ a cross platform abstraction of the thing you're configuring on the host. For example, packages may be installed via apt, yum, or the BSD ports and packages systems, but the [package resource|Resources#Package] abstracts these differences away so you can specify that a package should be installed in a cross-platform way. Chef's resources are mostly just containers for data, with some basic validation functionality.
+
+Resources are declared in [Recipes] and [Definitions].  They are the basic unit of work in Chef.
+
+{float:right|background=#f4f2e6|padding=10px|width=660px}
+{tip:title=Resource Attributes or Parameters}
+\\
+The Chef developers have discussed renaming Resource Attributes as "parameter" to avoid overloading the term "attribute," as that term is also used to describe data associated with nodes and roles. _The current documentation uses the term "attribute," so keep in mind that these are different from node attributes._
+{tip}
+{float}
+h4. Resource Attributes 
+As noted above, resources are mostly containers for data. Attributes are the pieces of data that resources contain. In the case of managing a package, this might be the name of the package you want to install, the version you want to install, or options to pass to the package manager.
+
+h4. Actions
+The action is what you want Chef to do with the resource: should the package be installed? Upgraded to the latest version? Removed? Actions are usually specific to the resource, but all resources support the _nothing_ action, which does what its name suggests.
+
+h3. [Providers]
+The [provider|Providers] is the platform-specific implementation of the thing a resource abstracts. On Red Hat or CentOS, a package resource will use the yum package provider to get the package installed, but on Debian and Ubuntu, the apt package provider will be used. Providers contain most of the intelligence: they're responsible for making Chef idempotent by checking if an action needs to be taken and issuing the commands to the system to take that action. In the case of package providers, they first check if the desired version of a package is installed and run the yum, apt-get, or or other package manager commands to install or upgrade as needed. When working with Chef, you normally don't need to worry about providers. For the occasions when you do, Chef provides "shortcut" resources which will always use the desired provider. The dpkg\_package and rpm\_package resources allow you to install packages directly from the filesystem, using providers specific to these package managers, for example.
+
+Providers take action on [Resources].  A given [Node|Nodes] decides what [Provider|Providers] should be used for a [Resource|Resources] by default, or a [Resource|Resources] can specify a provider explicitly.  
+
+h3. [Search]
+
+[Search] are built by the [Chef Server], and allow you to query arbitrary data about your infrastructure.  Most often, you utilize this service via [search calls in a recipe|Recipes#Searching].
+
+{float:right|background=#f4f2e6|padding=10px|width=660px}
+{info:title=Chef Version Requirement for Data Bags}
+\\
+As of version 0.10.4, Data Bags are available for all flavors of Chef. For Chef-Clients prior to version 0.10.4, you need to be using Hosted Chef, or an Open Source Chef Server at that version or later.
+{info}
+{float}
+h3. [Data Bags]
+
+[Data Bags] store nested key&ndash;value data (like attributes) on the chef server. Data Bag data are searchable, and can also be loaded directly by name in a recipe. Data Bags are global for your chef-server installation&ndash;you can think of them as attributes for your whole infrastructure.
+
+h3. [Environments]
+
+[Environments] provide a mechanism for managing different architectural segmented spaces such as production, staging, development, and testing, etc with one Chef setup (or one organization on Hosted Chef). With environments, you can specify per environment run lists in roles, per environment [cookbook|Cookbooks] versions, and environment attributes: allowing you to set policies to dictate which versions of a given cookbook may be used in an infrastructure segment. Environments are not a multi-tenancy isolation of particular interactions on a single system, they act as cookbook version constraints upon a grouping of systems that span uses - for example: development, test, production - where there are application servers and database server, etc.  [Roles] are groupings of systems that perform a like function and which can span environments - for example: application server, web server, database server. Thus you can have per-environment run lists within roles - for example: in your development environment you want your application server to connect to a different load balancer than you do in your test environment - which are included in the same [recipe|Recipes].
+
+h1. Managing Chef
+
+h3. [Knife]
+
+[Knife] is the command line interface to the Chef server, though it also provides some features that are useful for chef-solo as well.
+
+h3. [Management Console]
+
+The [Management Console] is a web UI interface to the chef-server API. Many components can be managed through the console including users, nodes, roles, cookbooks, data bags, and API clients. Search can also be done on the console. The [Hosted Chef Management Console] also allows customers to edit information in their user profile such as billing or account information, and to manage Hosted Chef Authorization.
+
+h3. [Shef]
+[Shef] is the chef console&mdash;it allows you to write, run, and debug recipes interactively. As of Chef 0.9.8, it includes support for reading and editing data on a chef-server as well.
+
+\\
+----
+bq. *NOTE:* Some of the information on this page is adapted from [Chef Speak|http://kallistec.com/2010/02/01/the-chef-way-episode-2-chef-speak/], with permission from author Opscode Team Member [Dan DeLeo|https://twitter.com/#!/kallistec].
+\\
+
+\\
+\\
+\\
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[Architecture Introduction]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[Introduction to Cookbooks and More]
+
+\\
+\\
+{column}
+{section}

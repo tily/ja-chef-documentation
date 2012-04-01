@@ -6,50 +6,50 @@
 !myzk-john-intent.jpg|align=left,hspace=20,vspace=12!
 ----
 {center}
-h4. {color:#f7681a}Chef is a systems integration framework, built to bring the benefits of configuration management to your entire infrastructure. 
+h4. {color:#f7681a}Chef はシステム統合フレームワークであり、構成管理の恩恵をインフラ全体にもたらします。
 
-With Chef, you write abstract definitions as source code to describe how you want each part of your infrastructure to be built, and then apply those descriptions to individual servers.{color}
+Chef を利用するなら、インフラの各パーツがどんな風に作られてほしいのか、抽象化されたソースコードの形で定義し、それからその内容をそれぞれのサーバに適用する、という流れになります。{color}
 {center}
 \\
 
 !Joshua-laughing.jpg|align=right,hspace=10,vspace=26!
-h1. {color:#f7681a}Chef Basics{color}
-h5. To use Chef, you first need to get acquainted with some central concepts.  The following articles are basic introductions to core chef concepts.  
+h1. {color:#f7681a}Chef の基本{color}
+h5. Chef を利用するためにはまず、いくつかの主だった概念に慣れる必要があります。次の記事では Chef のコアとなる概念について基本的な紹介を行っています。
 
-* h5. [Architecture Introduction]
-An introduction to Nodes, Chef Workstation, and Chef Server. This article covers the role of each of these components and how they interact.  If you are new to Chef, start here!
+* h5. [アーキテクチャの紹介]
+ノード・Chef ワークステーション・Chef サーバについての紹介です。この記事では、それら 3 つの要素がどのような役割を果たし、どのように関わり合っているのかを説明しています。Chef がはじめてなら、まずはこれを読みましょう！
 
-* h5. [Core Components]
-A single-page overview of the terminology and concepts within Chef.
+* h5. [コアとなる要素]
+1 ページで Chef に含まれる用語や概念をざっと解説しています。
 
-* h5. [Introduction to Cookbooks and More]
-An introduction to cookbooks, recipes, resources, and roles.  This article covers the core ideas of how one builds a node's configuration using the Chef DSL.
+* h5. [クックブックその他いろいろの紹介]
+クックブック・レシピ・リソース・ロールの紹介です。この記事では、Chef の DSL を使ってノードの設定を作る際に必要な、コアとなる概念を説明しています。
 
-* h5. [Introduction to Search and Data Bags]
-An introduction to two of Chef's most powerful features: Search and Data bags.  This article covers how node configuration can be generated dynamically using data about your infrastructure.
+* h5. [検索とデータバッグの紹介]
+Chef の非常にパワフルな 2 つの機能、検索とデータバッグについての紹介です。この記事では、どうすればインフラに関するデータを使ってノードの設定を動的に生成できるのかを説明しています。
 
-h1. {color:#f7681a}Guides and Tutorials{color}
+h1. {color:#f7681a}ガイド・チュートリアル{color}
 {float:right|background=#eeeeee|border=8px solid #d7d4c3|padding=10px|width=480px|margin=10px}
-h5. Want to Get Started Quickly?
-Head over to the [Fast Start Guide] to get up and running with Hosted Chef as quickly as possible, then head back here for a basic overview of Chef concepts.
+h5. 手っ取り早く触ってみたい？
+[すぐに始めるためのガイド] に進んで、ちゃちゃっと Chef ホスティングを使ってみましょう。それが終わったらここに戻ってきて、Chef の概念についてざっと見渡してみましょう。
 {float}
-For those looking for hands-on tutorials, the *[Guides]* and *[Fast Start Guide]* section include a number of useful articles. Including:
+手を動かせるチュートリアルを探しているなら、*[ガイド]* と *[すぐに始めるためのガイド]* の節にたくさんの役立つ記事があります。たとえば：
 
-* [Guide to Creating A Cookbook and Writing A Recipe]
-* [Deploying OpenStack with Chef]
-* [Cookbook Fast Start Guide]
-* [EC2 Bootstrap Fast Start Guide]
-* [Client Bootstrap Fast Start Guide]
+* [クックブックを作りレシピを書くためのガイド]
+* [Chef を使って OpenStack をデプロイする方法]
+* [すぐにクックブックを使い始めるためのガイド]
+* [すぐに EC2 でブートストラップするためのガイド]
+* [すぐにクライアントをブートストラップさせるためのガイド]
 
-In addition to *[Walkthrough Guides and Webcasts|Guides]* take you step by step through the installation of 6 different common server stacks, _and more_.
+さらに *[手順を説明してくれているガイドやウェブキャスト|ガイド]* の箇所を見れば、ステップ・バイ・ステップで 6 つのさまざまなよくあるサーバ・スタックをインストールすることができます。その他にもいろいろあります。
 
-h1. {color:#f7681a}From the Community{color}
+h1. {color:#f7681a}コミュニティの人たちによる解説{color}
 
-* *[Introduction to Chef|http://learnchef.getharvest.com/introduction.html]* - A nice and concise overview, from [Warwick Poole|http://warwickp.com/]
+* *[Introduction to Chef|http://learnchef.getharvest.com/introduction.html]* - よくまとまった概要です。作者は [Warwick Poole|http://warwickp.com/]。
 
-* *[Chef in the Cloud and On the Ground|http://www.infoq.com/presentations/Chef-in-the-Cloud-and-On-the-Ground]* - Great 60 minute presentation demonstrating use of Chef, from [Michael Nygard|http://community.opscode.com/users/mtnygard]
+* *[Chef in the Cloud and On the Ground|http://www.infoq.com/presentations/Chef-in-the-Cloud-and-On-the-Ground]* - 素晴らしい 60 分間のプレゼンテーションで Chef の使い方をデモしています。作者は [Michael Nygard|http://community.opscode.com/users/mtnygard]。
 
-* *[Introduction to Chef|http://speakerdeck.com/u/someara/p/introduction-to-chef-lisa11]* - slides from Opscode Team Member [Sean O'Meara's|http://community.opscode.com/users/someara] presentation at LISA.
+* *[Introduction to Chef|http://speakerdeck.com/u/someara/p/introduction-to-chef-lisa11]* - Opscode のチーム・メンバーである [Sean O'Meara's|http://community.opscode.com/users/someara] が LISA のプレゼンテーションで使ったスライドです。
 
 \\
 \\
@@ -73,7 +73,7 @@ h1. {color:#f7681a}From the Community{color}
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[Architecture Introduction]
+[アーキテクチャの紹介]
 
 \\
 \\

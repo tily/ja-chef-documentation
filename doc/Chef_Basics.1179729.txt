@@ -1,0 +1,81 @@
+{section}
+{column:width=3%}
+{column}
+{column}
+\\
+!myzk-john-intent.jpg|align=left,hspace=20,vspace=12!
+----
+{center}
+h4. {color:#f7681a}Chef is a systems integration framework, built to bring the benefits of configuration management to your entire infrastructure. 
+
+With Chef, you write abstract definitions as source code to describe how you want each part of your infrastructure to be built, and then apply those descriptions to individual servers.{color}
+{center}
+\\
+
+!Joshua-laughing.jpg|align=right,hspace=10,vspace=26!
+h1. {color:#f7681a}Chef Basics{color}
+h5. To use Chef, you first need to get acquainted with some central concepts.  The following articles are basic introductions to core chef concepts.  
+
+* h5. [Architecture Introduction]
+An introduction to Nodes, Chef Workstation, and Chef Server. This article covers the role of each of these components and how they interact.  If you are new to Chef, start here!
+
+* h5. [Core Components]
+A single-page overview of the terminology and concepts within Chef.
+
+* h5. [Introduction to Cookbooks and More]
+An introduction to cookbooks, recipes, resources, and roles.  This article covers the core ideas of how one builds a node's configuration using the Chef DSL.
+
+* h5. [Introduction to Search and Data Bags]
+An introduction to two of Chef's most powerful features: Search and Data bags.  This article covers how node configuration can be generated dynamically using data about your infrastructure.
+
+h1. {color:#f7681a}Guides and Tutorials{color}
+{float:right|background=#eeeeee|border=8px solid #d7d4c3|padding=10px|width=480px|margin=10px}
+h5. Want to Get Started Quickly?
+Head over to the [Fast Start Guide] to get up and running with Hosted Chef as quickly as possible, then head back here for a basic overview of Chef concepts.
+{float}
+For those looking for hands-on tutorials, the *[Guides]* and *[Fast Start Guide]* section include a number of useful articles. Including:
+
+* [Guide to Creating A Cookbook and Writing A Recipe]
+* [Deploying OpenStack with Chef]
+* [Cookbook Fast Start Guide]
+* [EC2 Bootstrap Fast Start Guide]
+* [Client Bootstrap Fast Start Guide]
+
+In addition to *[Walkthrough Guides and Webcasts|Guides]* take you step by step through the installation of 6 different common server stacks, _and more_.
+
+h1. {color:#f7681a}From the Community{color}
+
+* *[Introduction to Chef|http://learnchef.getharvest.com/introduction.html]* - A nice and concise overview, from [Warwick Poole|http://warwickp.com/]
+
+* *[Chef in the Cloud and On the Ground|http://www.infoq.com/presentations/Chef-in-the-Cloud-and-On-the-Ground]* - Great 60 minute presentation demonstrating use of Chef, from [Michael Nygard|http://community.opscode.com/users/mtnygard]
+
+* *[Introduction to Chef|http://speakerdeck.com/u/someara/p/introduction-to-chef-lisa11]* - slides from Opscode Team Member [Sean O'Meara's|http://community.opscode.com/users/someara] presentation at LISA.
+
+\\
+\\
+\\
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[FAQ]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[Architecture Introduction]
+
+\\
+\\
+{column}
+{section}

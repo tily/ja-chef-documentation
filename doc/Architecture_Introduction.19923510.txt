@@ -6,84 +6,85 @@
 {panel:borderColor=#f7681a|borderWidth=2}
 \\
 {center}
-h3. {color:#f7681a} This article is an introduction to Chef's architecture.  
-It covers the basic functions of the Chef Server, Nodes, and Chef Workstations when using Chef and how these components communicate. 
+h3. {color:#f7681a}この記事では Chef のアーキテクチャについて紹介します。
+Chef を使う際に Chef サーバ・ノード・Chef ワークステーションがどのように機能し、どのように関わり合っているのかを説明します。
 
-For those using the Open Source Chef Server, you may also be interested in [Chef Server], which goes into greater detail regarding the components of a Chef Server.{color}
+オープンソース版の Chef サーバを使っているなら、[Chef サーバ]も読む価値があるかもしれません。こちらでは Chef サーバの構成要素についてかなり詳しく解説しています。{color}
 {center}
 \\
 {panel}
 
-h1. Chef Server, Nodes, and Workstations
+h1. Chef サーバ・ノード・ワークステーション
 {float:right|background=#eeeeee|border=4px solid #d7d4c3|padding=10px|margin=10px}
 {center}!chef-basics-nwc.png|align=center,vspace=4,hspace=16!{center}  
 {float}
-When using Chef to manage your infrastructure, you will be dealing with three types of hosts: a Chef Server, Nodes, and Chef Workstations.
+Chef を使ってインフラを管理するなら、3 種類のホストを扱うことになります。Chef サーバ、ノード、Chef ワークステーションの 3 つです。
 
-h4. {color:navy}Chef Server{color}
-{color:#f7681a}The Chef Server is the central store of your infrastructure's configuration data.{color}  The Chef Server stores the data necessary to configure your nodes and provides search, a powerful tool that allows you to dynamically drive node configuration based on data.  A REST API makes this data accessible to nodes and chef workstations. Optionally, you can use the Chef Server's WebUI to manage your infrastructure via a web interface. {color:#f7681a}Hosted Chef users{color} have a hosted Chef Server, managed as a service by Opscode with a WebUI interface that is accessible at [http://manage.opscode.com].
+h4. {color:navy}Chef サーバ{color}
+{color:#f7681a}Chef サーバはインフラの設定データを集中的に保存する場所です。{color}Chef サーバはノードを設定するために必要なデータを保存し、検索できるようにします。検索はパワフルなツールであり、このおかげでデータに基づき動的にノードに設定適用することができるのです。ノードや Chef ワークステーションは REST API 経由でデータにアクセスします。Chef サーバの WebUI を利用して、ウェブ・インタフェース経由でインフラを管理するという選択肢もあります。{color:#f7681a}Chef ホスティングの利用者{color}なら、Opscode のサービスとして管理されているホスティング Chef サーバがあり、[http://manage.opscode.com] から WebUI インタフェースにアクセスすることができます。
 
-h4. {color:navy}Nodes{color}
+h4. {color:navy}ノード{color}
 
-{color:#f7681a}A Node is any host that is configured using chef-client.{color}  Chef-client runs on your nodes, contacting the Chef Server for the information necessary to configure the node.  From the point of view of the Chef Server, a node is little more than a *run list*, the list of recipes and roles that will be applied to the node and define its configuration, and *attributes*, a set of data about the node itself.  Since a Node is a machine that runs the {{chef-client}} software, nodes are sometimes be referred to as "clients". (This is separate from API clients, that are authenticating against the Chef-Server API.)
+{color:#f7681a}ノードとは chef-client 経由で設定が行われるすべてのホストのことです。{color}chef-client はノードで起動すると、Chef サーバと通信してそのノードを設定するために必要な情報を取得します。Chef サーバから見れば、ノードは単なる *実行リスト* (そのノードにどんな設定が適用されるべきかを決めてくれるレシピとロールの一覧) と属性 (ノード自体に関するデータの集合) にすぎません。ノードは {{chef-client}} というソフトウェアを実行するマシンなので時々「クライアント」と呼ばれることもあります。(ここでいうクライアントは、Chef サーバの API に対して認証を求める API クライアントとは別のものです。)
 
-When nodes are referenced as "clients", it implies the link between the chef-client executable, the API call made for authentication and authorization using the identity information in the API client object, to save the node object on the server.
+ノードを「クライアント」と呼ぶときには、chef-client という実行ファイルが「API クライアント」内にある ID 情報を利用して認証・権限取得の API リクエストを送り、サーバに「ノード」オブジェクトを保存するということを暗に示しています。
 
-h4. {color:navy}Chef Workstations{color}
-{color:#f7681a}A Chef Workstation is the host you use to modify your cookbooks and other configuration data--typically the local workstation of a system administrator.{color}  Such a workstation has two key components: 
-# the knife executable shipped with chef and 
-# a repository containing your infrastructure's configuration documents.  
+h4. {color:navy}Chef ワークステーション{color}
+{color:#f7681a}Chef ワークステーションはクックブックや他の設定データを修正するのに使うホストですーー典型的なパターンでは、システム管理者がローカルで利用しているワークステーションが使われます。{color}このようなワークステーションには 2 つのキーとなる構成要素があります：
+# Chef に同梱されている knife という実行ファイル
+# インフラの設定ドキュメントを含むレポジトリ
 
-As we will see, these configuration documents include cookbooks, data bags, roles, and more.  Ideally, these configuration documents are managed by a version control system.  Using {{knife}}, your workstation is used to upload configuration data to the Chef Server as well as communicate with individual nodes over SSH when necessary.  
+あとで説明しますが、設定ドキュメントにはクックブックやデータバッグ、ロールなどが含まれます。設定資料はバージョン管理システムで管理されているのが理想的です。{{knife}} を使えば、ワークステーションから Chef サーバに設定データをアップロードしたり、必要なときには各ノードに SSH で通信することもできます。
 
-h1. Clients, Authentication, and Authorization
+h1. クライアント・認証・権限管理
 {float:right|background=#eeeeee|border=4px solid #d7d4c3|padding=10px|margin=10px|width=240px}
 {center}
-{color:navy}*The Chef Server's role within your infrastructure is simple*{color}
+{color:navy}*インフラにおける Chef サーバの役割はシンプルです。*{color}
 
-It stores configuration information that is uploaded to it, and returns that information when asked by an authorized API client.
+アップロードされた設定情報を保存し、認証済みの API クライアントが求めてきたらその情報を返してやるのです。
 {center}
 {float}
 
-{color:#f7681a}Chef uses API Clients and a system of authentication and authorization to ensure that your configuration data is only read and updated by those authorized to do so.{color}  *Chef-client (running on nodes) and knife (running on workstations) communicate with the Chef Server using API clients.*  
+{color:#f7681a}Chef は API クライアントと認証・権限管理システムを利用して、権限のある人だけが設定情報を参照・更新できることを保証しています。{color} *Chef クライアント (ノード上で起動) と knife (ワークステーション上で起動) は API クライアントを利用して Chef サーバと通信します。*
 
-In other words, _Chef Client_ is the 'chef-client' software executable itself. An _API Client_ is the object that represents the cryptographic identity used for authentication and authorization in every API call.
+言い換えるなら、 _Chef クライアント_ は 'chef-client' というソフトウェアであり実行ファイルそのものを指すのに対し、 _API クライアント_ というのは API リクエスト毎に認証・権限取得を行うのに必要な、暗号化された ID 情報を示すオブジェクトのことなのです。
 
-To ensure that requests are coming from known API clients, Chef uses public key encryption, with Hosted Chef users having some additional fine-grained controls.  API clients have associated private and public encryption keys.  Every API request made by chef-executable is signed with a specific API client's private key.  The Chef Server then verifies that the request is authentic with the client's public key.  
+リクエストが既知の API クライアントからのものであることを保証するために、Chef は公開鍵暗号を利用します。Chef ホスティングではきめ細かい鍵の管理も行えます。API クライアントは関連する秘密鍵暗号キーと公開鍵暗号キーを持っています。Chef の実行ファイルが行う API リクエストは毎回、特定の API クライアントであることを示す秘密鍵で署名されています。Chef サーバはクライアントの公開鍵と照らし合わせてリクエストが信頼できるかを検証します。
 
-Once the Chef-Server verifies that the request is authentic, it then ensures that the client making the request, has permission to take whatever action they are requesting (such as uploading a cookbook or retrieving a run_list).  This process is known as *authorization*. Open source Chef Server and Hosted Chef use different authorization systems.
+Chef サーバは、リクエストが信頼できるかの検証が済んだら、今度はリクエストを行おうとしているクライアントが、、今リクエストしようとしているアクション (クックブックのアップロードでも実行リストの取得でもなんでも) を行う権限があるかどうかを確かめます。この過程は*権限管理*として知られています。オープンソース版の Chef と Chef ホスティングでは、権限管理の仕組みに違いがあります。
 
-h4. {color:navy}Open Source Chef{color}
+h4. {color:navy}オープンソース版 Chef{color}
 
-{color:#f7681a}In Open Source Chef, certain API clients can be marked as "admin clients."{color}  Authorization for various actions is determined by whether the API clients is marked as an admin or not. Admin clients are used when making requests via knife and have all possible permissions. Non-admin clients have limited permissions and are used for nodes within your infrastructure.
+{color:#f7681a}オープンソース版の Chef では、特定の API クライアントに「管理者クライアント」 (admin clients) という印がついています。{color}さまざまなアクションに対して権限があるかどうかは、管理者の印がついているかどうかで決定されます。管理者クライアントは knife 経由でリクエストを送る際に使われ、可能なかぎりすべてのアクションを実行する権限を持っています。管理者でないクライアントには限られた権限しかなく、インフラの中のノードによって使われます。
 
-h4. {color:navy}Hosted Chef{color}
+h4. {color:navy}Chef ホスティング{color}
 
-{color:#f7681a}Hosted Chef uses a more complex authorization system that provides fine-grained control on a client-by-client (or user-by-user) basis{color}.   In this system, API clients and users can have *CREATE*, *READ*, *UPDATE*, *DELETE*, or *GRANT* permission on the objects stored on Hosted Chef (node data, cookbook data, etc).  Hosted Chef ensures that the requesting client has the appropriate permission for the requested action.  In order to make managing permissions easy, Hosted Chef provides a number of pre-made groups that have permissions appropriate for different roles.  Users and Clients that are members of the "admin" group have all permissions on all objects.  Non-human API clients (such as those used by nodes) will automatically be placed in the client's group, which has permissions similar to non-admin clients in Open Source Chef, while human users can be placed in the "users" group, which has permissions similars to admin clients in Open Source Chef.  For more details see [Hosted Chef Authorization].
+{color:#f7681a}Chef ホスティングは、クライアント毎 (またはユーザ事) に管理が可能な、もっと複雑な権限管理システムを採用しています{color}。このシステムの中では、API クライアントとユーザは Chef ホスティングに保存されたオブジェクト (ノードのデータやクックブックのデータ等) に対して *CREATE*、*READ*、*UPDATE*、*DELETE*、*GRANT* を実行する権限を持つことができます。Chef ホスティングは、そのクライアントがリクエストしているアクションに対して適切な権限を持っているか確かめます。権限管理を簡単にするために、Chef ホスティングにはいくつかのデフォルト・グループが提供されており、それぞれの役割に応じて適切な権限を付与されています。ユーザやクライアントは「管理者」グループに所属し、すべてのオブジェクトに対してすべての権限を持っています。人間ではない API クライアント (ノードによって利用されるものとか) は自動で「クライアント」グループに分類されますが、オープンソース版 Chef の管理者でないクライアントと似たような権限を持っています。人間である「ユーザ」グループに分類され、ユーザはオープンソース版 Chef の管理者クライアントと似たような権限を持つこともあります。詳しくは[Chef ホスティングの権限管理]を参照してください。
 
-{color:#f7681a}When chef-client runs on new nodes, Chef is designed to automatically create a new API client for the given node.{color} Because of this, once your users or admin clients are set up properly to use knife and log into the WebUI or Management Console, there is often little need to think about the specifics of API clients, authentication, or authorization. 
+{color:#f7681a}chef-client が新しいノードで起動するとき、Chef はそのノードに対して自動的に API クライアントを作成するように設計されています。{color}なので、ユーザや管理者クライアントが適切に設定されてさえいれば、knife を使ったり WebUI や管理コンソールにログインすることができるし、ほとんどの場合は API クライアントや認証、権限管理について細かいことを気にする必要はほとんどありません。
 
-h1. Hosted Chef
+h1. Chef ホスティング
 !gears.png|align=right,hspace=6,vspace=6!
-{color:#f7681a}In addition to the more fine-grained authorization system, Hosted Chef has two concepts not used in Open Source Chef: Users and Organizations.{color} 
+{color:#f7681a}Chef ホスティングには、よりきめ細かな権限管理システムだけでなく、オープンソース版の Chef にない 2 つの概念があります：ユーザと組織です。{color}
 
-h4. {color:navy}Users{color}
+h4. {color:navy}ユーザ{color}
 
-{color:#f7681a}Users are what you think they are: credentialed entities used by humans to connect to Hosted Chef.{color} Like clients, they have keys that they can use to connect to Hosted Chef programmatically, via api.opscode.com or knife. But they also have passwords that they can use to log in to the various web pages that Hosted Chef exposes.
+{color:#f7681a}ユーザはあなたが想像する通りのものです：Chef ホスティングに接続するために人間が利用する認証情報です。{color}
+クライアントと同じで、ユーザはプログラムから api.opscode.com や knife を呼び出して、Chef ホスティングに接続することができます。またそれだけでなく、パスワードを利用して Chef ホスティングが表示してくれるさまざまなウェブページを閲覧することも可能です。
 
-Users can be associated with an organization, which gives them certain rights to interact with and manage that organization. However, unlike API clients, Users can be associated with more than one organization, for example a consultant could create a separate organization for each of his customers.  When thinking about authentication and authorization issues, it is easiest to think about a user as just another API client.
+ユーザは組織と関連づけられており、所属ユーザがその組織とどんなやり取りができるか、その組織を管理することができるかを組織に設定することができます。しかしながら、API クライアントと違って、ユーザは 2 つ以上の組織と関連づけることができるので、たとえばコンサルタントなら顧客ごとに別々の組織に属するということが可能です。認証や権限管理について考えるならば、ユーザはただの API クライアントだと考えるのが一番手っ取り早いです。
 
-Users have single accounts across all the Opscode web pages. The same username and password can be used to log in to Hosted Chef Management Console, the Opscode Cookbooks Site, or help.opscode.com.
+ユーザは Opscode 内のウェブページではどこでも 1 つのアカウントを持っています。同じユーザ名・パスワードで Chef ホスティングの管理者コンソールでも、Opscode のクックブック用サイトでも、help.opscode.com にでもログインすることができます。
 
-h4. {color:navy}Organizations{color} 
+h4. {color:navy}組織{color} 
 
-{color:#f7681a}When you sign up for Hosted Chef, you create a user account and an organization.{color} Your organization may represent your entire company, or the department you work in, or any other grouped set of server infrastructure you plan on managing. Organizations are the things that get billed for use of Hosted Chef. With the exception of users, nothing is shared between organizations.  An API client in one organization cannot read node data from another organization. {color:#f7681a}When using Hosted Chef, it is as if each organization has its own, private chef server, managed by Opscode.{color}
+{color:#f7681a}Chef ホスティングに登録するとき、ユーザ・アカウントと組織を作成します。{color} 組織は、会社全体でも所属部署でも、管理しようとしているインフラでサーバをグループ化できる表現ならなんでも構いません。組織は、Chef ホスティングが課金を行う単位です。ユーザを除いて、複数の組織で共有できるものはありません。ある組織の API クライアントが別の組織のノードデータを読み取ることができるということはあり得ません。{color:#f7681a}Chef ホスティングを利用するときには、それぞれの組織が Opscode の手によって管理されるプライベートな Chef サーバを持っている、という感じになります。
 
-h1. Summary
+h1. まとめ
 
-* The Chef Server is the central store of configuration information.
-* Nodes and Workstations communicate with the Chef Server using API Clients that make requests to a REST API.
-* All API requests are checked for authenticity and authorization.
+* Chef サーバは集中的に設定情報を保存する場所。
+* ノードとワークステーションは API クライアントを利用して Chef サーバと通信し、API クライアントが REST API へのリクエストを生成する。
+* すべての API リクエストで認証チェック・権限チェックが行われている。
 
 \\
 \\
@@ -98,7 +99,7 @@ h1. Summary
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[Chef Basics]
+[Chef の基本]
 
 {column}
 {column:width=40%}
@@ -107,7 +108,7 @@ h1. Summary
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[Core Components]
+[コアとなる要素]
 
 \\
 \\

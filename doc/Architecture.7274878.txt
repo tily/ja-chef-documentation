@@ -1,0 +1,87 @@
+{section}
+{column:width=3%}
+{column}
+{column:width=70%}
+\\
+{panel:borderColor=#f7681a|borderWidth=2}
+h3. {color:#f7681a}Clients{color}
+{panel}
+
+h5. Chef includes several clients with the distribution:
+
+* [*Chef Solo:*|Chef Solo] is a client application that works entirely from on-disk data, and is a light-weight alternative to a full client-server configuration. 
+* [*Chef Client:*|Chef Client] is the client application that works with a [Chef Server] to persist data and download cookbooks. Chef Clients can also take advantage of Chef Server's search abilities to dynamically integrate your applications with the rest of your infrastructure.
+* [*Knife:*|Knife] is the command line interface to Chef. Knife is primarily used to interact with the Chef Server API, and it can be used for local [Chef Repository] maintenance.
+* [*Shef:*|Shef] is the interactive Chef shell. Shef allows you to write, run, and debug recipes interactively and also provides a programmatic interface for viewing and editing data on your Chef Server.
+
+\\
+{panel:borderColor=#f7681a|borderWidth=2}
+h3. {color:#f7681a}Server Architecture{color}
+{panel}
+
+h5. The Chef Server that the Chef Client interacts with is either:
+
+h6. {color:#f7681a}Hosted Chef{color}
+* [Hosted Chef] customers do not need to manage their Chef Server, as that is done for them by [Opscode|http://www.opscode.com/hosted-chef/]. 
+* If you are a Hosted Chef Customer and have a question, please contact [support@opscode.com|mailto:support@opscode.com].
+
+!chef-server-arch.png|align=right,hspace=14!
+
+h6. {color:#f7681a}Private Chef{color}
+* Private Chef customers should refer to their separate Private Chef Administration Documention for the Private Chef Server.
+* If you are a Private Chef Customer and have a question, please contact [support@opscode.com|mailto:support@opscode.com].
+
+h6. {color:#f7681a}Open Source Chef Server{color}
+* An Open Source Chef Server is comprised of the following components:
+** [*Chef Server:*|Chef Server] services HTTP API requests from the Web UI, nodes, and other clients (see above).
+** [*Chef Server Web UI:*|Chef Server#ChefServer-WebUserInterface] the web-based management console for the Chef Server. It manages your infrastructure by making API calls to Chef Server.
+** [*CouchDB:*|http://couchdb.apache.org/] the primary data store for a Chef server.
+** [*RabbitMQ:*|http://www.rabbitmq.com/] stores and then forwards data from Chef Server to the Chef Solr Indexer. It acts as a buffer for cases when high write loads temporarily exceed the ability of the Chef Solr Indexer to update the search index.
+** [*Chef Solr Indexer:*|Chef Indexer#ChefIndexer-ChefSolrIndexer] flattens and expands data to enhance searchability, then writes the data to Chef Solr.
+** [*Chef Solr:*|Chef Indexer#ChefIndexer-ChefSolr] a thin wrapper around the [Apache Solr search engine|http://lucene.apache.org/solr/]. Chef Solr allows you to find your way around your infrastructure by querying its metadata.
+
+\\
+{panel:bgColor=#d7d4c3|borderColor=#f7681a|borderWidth=2}
+h3. {color:#f7681a}Further Detail{color}
+
+* [Authentication and Authorization]
+* [Anatomy of a Chef Run]
+* [Chef Client]
+* [Chef Solo]
+* [Chef Server]
+* [Hosted Chef]
+* [Server API]
+* [Cookbook Site API]
+* [Chef Concepts as UML]
+
+{panel}
+
+
+\\
+\\
+\\
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[Introduction to Search and Data Bags]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[Authentication and Authorization]
+
+\\
+\\
+{column}
+{section}

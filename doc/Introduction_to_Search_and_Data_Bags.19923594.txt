@@ -1,0 +1,106 @@
+{section}
+{column:width=3%}
+{column}
+{column}
+\\
+{panel:borderColor=#f7681a|borderWidth=2}
+{center}
+\\
+h3. {color:#f7681a}The article introduces the basics of search and data bags.{color}
+
+h5. {color:#f7681a}These are two of Chef's most powerful features and allow you to dynamically change the configuration of your infrastructure based on data.{color}
+{center}
+\\
+{panel}
+
+h1. Search
+!SEARCH-1-1.png|align=left,thumbnail,hspace=8,vspace=6!
+
+Search is a feature of the Chef Server that allows you to use a full-text search engine (based on Apache Solr) to query information about your infrastructure and applications. Information contained in Node attributes, data bags (see below), environments, roles, and API clients are all searchable.
+
+{color:#f7681a}Search can be used both within recipes and from the Chef Workstations using knife.{color} For example, in a recipe, I might want a list of all my application servers so that I can add them to my load-balancers configuration.  To do this, I might search for all of the nodes that are using the role "appserver":
+
+{code}
+app_servers = search(:node, 'role:appserver')
+{code}
+
+*Note that the results of this search will likely not be static.*  Rather, each time chef-client runs, the results will reflect the appservers within your infrastructure at that time.  _This gives you the power to scale infrastruture and ensure that new components will be properly integrated with existing components such as a load-balancer._
+
+Alternatively, you might want to quickly list the nodes serving as your application servers from your workstation:
+
+{code}
+knife search node 'role:appserver'
+{code}
+
+For more information on search see [Search].
+
+h1. Data Bag
+
+!big_data_nerd_bag-p1496631464820063122wl62_125.png|align=right,hspace=8,vspace=6!
+
+{color:#f7681a}Data Bags store nested key–value data (like attributes) on the chef server.{color} Data Bag data are searchable, and can also be loaded directly by name in a recipe. *Data Bags are global for your chef-server installation–you can think of them as attributes for your whole infrastructure.*
+
+For example, a given node many need many user accounts.  Rather than writing a new user resource description for each of those users, we could store information about each user in a data bag and simplify our recipe:
+
+{code}
+search(:users, '*:*') do |u|
+  user u["username"] do
+    home u["home"]
+    shell u["shell"]
+    comment u["comment"]
+  end
+end
+{code}
+
+Now, whenever we want to add a user to our nodes, we can do so by editing the data bag rather than the recipe. _Not only does this simplify our recipes, but it ensures that important data about our infrastructure is now available over search._  Having this data be searchable means that we can quickly answer questions we might have about our infrastructure, using knife.  For instance, say we wanted to know the default shell the user "hank" is using, we could do the following using knife:
+
+{code}
+knife search users 'username:hank' -a shell
+{code}
+
+{color:#f7681a}For data bags containing sensitive data, Chef provides *Encrypted Data Bags* which allows you to securely store information on the Chef Server in an encrypted form.{color}  For more information about data bags and encrypted data bags see [Data Bags] and [Encrypted Data Bags].
+
+
+h1. Summary
+
+* Search allows you to query information about your infrastructure from within a recipe or via knife.
+* Data bags allow you to store data in a searchable fashion.  This data is then searchable and can be used within recipes.
+
+h1. Allons-y!
+
+Now that you've read about the basic concepts of Chef, you may want to check out [Guide to Creating A Cookbook and Writing A Recipe] for a guided tour of writing your first cookbook or [Fast Start Guide] to quickly set up your Chef Workstation and a Node using Hosted Chef as your Chef Server.
+
+h1. Advanced Reading
+
+* [Search]
+* [Data Bags]
+* [Encrypted Data Bags]
+
+\\
+\\
+\\
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[Introduction to Cookbooks and More]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[Architecture]
+
+\\
+\\
+{column}
+{section}

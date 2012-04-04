@@ -6,41 +6,41 @@
 {panel:borderColor=#f7681a|borderWidth=2}
 {center}
 \\
-h3. {color:#f7681a}The article introduces the basics of search and data bags.{color}
+h3. {color:#f7681a}この記事では検索とデータバッグの基本を紹介しています。{color}
 
-h5. {color:#f7681a}These are two of Chef's most powerful features and allow you to dynamically change the configuration of your infrastructure based on data.{color}
+h5. {color:#f7681a}Chef の非常に強力な機能であり、データに基づいてインフラの設定を動的に変更することができます。{color}
 {center}
 \\
 {panel}
 
-h1. Search
+h1. 検索
 !SEARCH-1-1.png|align=left,thumbnail,hspace=8,vspace=6!
 
-Search is a feature of the Chef Server that allows you to use a full-text search engine (based on Apache Solr) to query information about your infrastructure and applications. Information contained in Node attributes, data bags (see below), environments, roles, and API clients are all searchable.
+検索は Chef サーバの機能であり、(Apache Solr ベースの) 検索エンジンを利用してインフラやアプリケーションに関する情報を問い合わせることができます。ノードの属性やデータバッグ (下記参照)、環境、ロール、API クライアントに含まれる情報はすべて検索が可能です。
 
-{color:#f7681a}Search can be used both within recipes and from the Chef Workstations using knife.{color} For example, in a recipe, I might want a list of all my application servers so that I can add them to my load-balancers configuration.  To do this, I might search for all of the nodes that are using the role "appserver":
+{color:#f7681a}レシピの中で検索したり、Chef ワークステーションで knife を使って検索したりすることができます。{color}たとえばレシピの中でアプリケーションサーバの一覧を取得し、ロードバランサの設定に追加したいことがあるでしょう。これをやるには、"appserver" というロールを使っているノードのすべてを検索すると思います：
 
 {code}
 app_servers = search(:node, 'role:appserver')
 {code}
 
-*Note that the results of this search will likely not be static.*  Rather, each time chef-client runs, the results will reflect the appservers within your infrastructure at that time.  _This gives you the power to scale infrastruture and ensure that new components will be properly integrated with existing components such as a load-balancer._
+*検索結果は静的ではないものになるでしょう。* むしろ、chef-client が起動するたびに、結果はその時点でインフラに存在するすべてのアプリサーバを反映すると思います。 _こういう仕組みのおかげでインフラをスケールさせることができ、ロードバランサのような既存の構成要素とうまく連携できます。_
 
-Alternatively, you might want to quickly list the nodes serving as your application servers from your workstation:
+また他のやり方として、ワークステーションでも素早くアプリケーションサーバの役割を持つノードを一覧することができます：
 
 {code}
 knife search node 'role:appserver'
 {code}
 
-For more information on search see [Search].
+検索についての詳しい情報は[検索]を参照してください。
 
-h1. Data Bag
+h1. データバッグ
 
 !big_data_nerd_bag-p1496631464820063122wl62_125.png|align=right,hspace=8,vspace=6!
 
-{color:#f7681a}Data Bags store nested key–value data (like attributes) on the chef server.{color} Data Bag data are searchable, and can also be loaded directly by name in a recipe. *Data Bags are global for your chef-server installation–you can think of them as attributes for your whole infrastructure.*
+{color:#f7681a}データバッグは Chef サーバに (属性と同じような) ネストしたキーバリューのデータを保存します。{color} データバッグ内のデータは検索可能であり、レシピから直接名前を指定してロードすることも可能です。データバッグは Chef サーバがインストールされている環境ではどこからでもアクセスできますーーインフラ全体の属性と考えてもよいでしょう。
 
-For example, a given node many need many user accounts.  Rather than writing a new user resource description for each of those users, we could store information about each user in a data bag and simplify our recipe:
+たとえば、あるノードでたくさんのユーザアカウントが必要だとします。ユーザ毎に新しいリソースを書かずに、ユーザの情報をすべてデータバッグに保存し、レシピをシンプルにすることができます：
 
 {code}
 search(:users, '*:*') do |u|
@@ -52,29 +52,29 @@ search(:users, '*:*') do |u|
 end
 {code}
 
-Now, whenever we want to add a user to our nodes, we can do so by editing the data bag rather than the recipe. _Not only does this simplify our recipes, but it ensures that important data about our infrastructure is now available over search._  Having this data be searchable means that we can quickly answer questions we might have about our infrastructure, using knife.  For instance, say we wanted to know the default shell the user "hank" is using, we could do the following using knife:
+こうしておけば、ノードに新しいユーザを追加したいときでも、レシピを編集せず、データバッグを編集すればよくなります。 _レシピがシンプルになるだけでなく、検索すればいつでもインフラに関する重要なデータが利用できるのです。_ このようにデータが検索できるということは、インフラに関して知りたいことが出てきたときでも knife を使えば素早く回答できるということです。たとえば "hank" というユーザが使っているデフォルトのシェルを知りたかったら、knife で下記のコマンドを打てばよいです：
 
 {code}
 knife search users 'username:hank' -a shell
 {code}
 
-{color:#f7681a}For data bags containing sensitive data, Chef provides *Encrypted Data Bags* which allows you to securely store information on the Chef Server in an encrypted form.{color}  For more information about data bags and encrypted data bags see [Data Bags] and [Encrypted Data Bags].
+{color:#f7681a}繊細なデータを含むデータバッグならば、Chef の *暗号化データバッグ* を使って安全に暗号化された内容を Chef サーバに保存することもできます。{color}  データバッグと暗号化データバッグについての詳細は[データバッグ]と[暗号化データバッグ]をご参照ください。
 
 
-h1. Summary
+h1. まとめ
 
-* Search allows you to query information about your infrastructure from within a recipe or via knife.
-* Data bags allow you to store data in a searchable fashion.  This data is then searchable and can be used within recipes.
+* 検索によってレシピや knife からインフラに関する情報を問い合わせることができる。
+* データバッグにデータを保存し検索することができる。データは検索可能となり、レシピで利用することができる。
 
-h1. Allons-y!
+h1. レッツゴー
 
-Now that you've read about the basic concepts of Chef, you may want to check out [Guide to Creating A Cookbook and Writing A Recipe] for a guided tour of writing your first cookbook or [Fast Start Guide] to quickly set up your Chef Workstation and a Node using Hosted Chef as your Chef Server.
+Chef の基本的な概念について読了したので、はじめてのクックブックを書くためのガイドとして[クックブックを作りレシピを書くためのガイド]をチェックしてみてはどうでしょうか。手っ取り早く Chef ワークステーションとノードを設定して Chef ホスティングの Chef サーバを利用してみたいなら [すぐに始めるためのガイド] がオススメです。
 
-h1. Advanced Reading
+h1. もっとよく知りたいなら
 
-* [Search]
-* [Data Bags]
-* [Encrypted Data Bags]
+* [検索]
+* [データバッグ]
+* [暗号化データバッグ]
 
 \\
 \\
@@ -89,7 +89,7 @@ h1. Advanced Reading
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[Introduction to Cookbooks and More]
+[クックブックその他いろいろの紹介]
 
 {column}
 {column:width=40%}
@@ -98,7 +98,7 @@ h1. Advanced Reading
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[Architecture]
+[アーキテクチャ]
 
 \\
 \\

@@ -10,7 +10,7 @@
 !Steven-Nathan-Noah-Dan.jpg|align=right,hspace=18,vspace=6!
 !5631502-3d-image-of-a-synapses.jpg|align=left,vspace=10,hspace=6!
 {center}
-h3. {color:#f7681a}Understanding and use of these essential components will provide you the capability to take advantage of the power of Chef.{color}
+h3. {color:#f7681a}必要不可欠な部品を理解して使えば、Chef が持つパワーの恩恵を受けることができるはずです。{color}
 {center}
 \\
 ----
@@ -26,23 +26,10 @@ h3. {color:#f7681a}Understanding and use of these essential components will prov
 {tr}
 {tr}
 {td}
-h4. [Attributes] 
+h4. [属性] 
 {td}
 {td}
-Node data such as the IP address, hostname, loaded kernel modules, version of programming languages available on the system and more.
-{td}
-{tr}
-{tr}
-{td}
-----
-{td}
-{tr}
-{tr}
-{td}
-h4. [Cookbooks] 
-{td}
-{td}
-The fundamental units of distribution in Chef. They encapsulate all the resources you need to automate your infrastructure and are easily sharable with other Chef users.
+ノードの持つデータであり、IP アドレス・ホスト名・ロードされたカーネル・モジュールの一覧・そのシステムで利用可能な各プログラミング言語のバージョン等を含んでいます。
 {td}
 {tr}
 {tr}
@@ -52,23 +39,10 @@ The fundamental units of distribution in Chef. They encapsulate all the resource
 {tr}
 {tr}
 {td}
-h4. [Definitions] 
+h4. [クックブック] 
 {td}
 {td}
-Allow the creation of new Resources by stringing together existing resources.
-{td}
-{tr}
-{tr}
-{td}
-----
-{td}
-{tr}
-{tr}
-{td}
-h4. [Libraries] 
-{td}
-{td}
-Allow inclusion of arbitrary Ruby code, either to extend Chef's language or to implement your own classes directly. They are the secret sauce that will allow you to plug in to your existing infrastructure and utilize it to inform how your systems are configured.
+Chef で配布の基本となる単位です。インフラ自動化に必要なリソースをすべてカプセル化してくれ、他の Chef ユーザとも簡単に共有することができます。
 {td}
 {tr}
 {tr}
@@ -78,23 +52,10 @@ Allow inclusion of arbitrary Ruby code, either to extend Chef's language or to i
 {tr}
 {tr}
 {td}
-h4. [Metadata] 
+h4. [定義] 
 {td}
 {td}
-A small amount of meta-data is required in cookbooks. This information is used to provide hints to the Chef Server as to what cookbooks should be deployed to a given node, and in the future it will be integral to an automated system for discovering and installing cookbooks.
-{td}
-{tr}
-{tr}
-{td}
-----
-{td}
-{tr}
-{tr}
-{td}
-h4. [Recipes] 
-{td}
-{td}
-The fundamental configuration in Chef. Recipes encapsulate collections of [resources] which are executed in the order defined to configure the [nodes].
+定義を使えば、既存のリソース同士を結びつけることで新しいリソースを作成することができます。
 {td}
 {tr}
 {tr}
@@ -104,10 +65,49 @@ The fundamental configuration in Chef. Recipes encapsulate collections of [resou
 {tr}
 {tr}
 {td}
-h4. [Templates]
+h4. [ライブラリ] 
+{td}
+{td}
+ライブラリの中に Ruby のコードを書き、Chef の DSL を拡張したり直接自分のクラスを実装したりすることができます。秘伝のタレのようなもので、既存のインフラ向けにプラグインを書いて Chef にシステムの設定方法を教えてやることができます。
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4. [メタデータ] 
+{td}
+{td}
+クックブックにはほんの少しだけメタデータが必要となります。Chef サーバはこの情報をヒントにして、あるノードにどのクックブックを適用するべきかを知ります。自動的にクックブックを見つけインストールしてくれるシステムを作ろうとしているのなら、必要不可欠なものとなるでしょう。
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4. [レシピ] 
+{td}
+{td}
+Chef における基本の設定です。レシピはリソースの集まりをカプセル化します。Chef はレシピで定義された順にリソースを実行し、[ノード]を設定します。
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4. [テンプレート]
 {td}
 {td} 
-Files written in a markup language that allows one to dynamically generate the file's final content based on variables or more complex logic. Templates are commonly used to manage configuration files with Chef.
+マークアップ言語のテンプレートをファイルに書き、変数やもっと複雑なロジックに基づいて動的に完成版のファイルを生成できます。一般的に、Chef で設定ファイルを管理する際にはテンプレートを使います。
 {td}
 {tr}
 {tr}
@@ -117,23 +117,10 @@ Files written in a markup language that allows one to dynamically generate the f
 {tr}
 {tr}
 {td}
-h4. [Chef Repository] 
+h4. [Chef レポジトリ] 
 {td}
 {td}
-The place where cookbooks, roles, config files and other artifacts for managing systems with Chef will live. 
-{td}
-{tr}
-{tr}
-{td}
-----
-{td}
-{tr}
-{tr}
-{td}
-h4. [Data Bags] 
-{td}
-{td}
-Provide an arbitrary stores of globally available JSON data.
+Chef でシステムを管理するために必要な、クックブック・ロール・設定ファイルその他の作成物が息づく場所です。
 {td}
 {tr}
 {tr}
@@ -143,10 +130,23 @@ Provide an arbitrary stores of globally available JSON data.
 {tr}
 {tr}
 {td}
-h4.  [Environments] 
+h4. [データバッグ] 
+{td}
+{td}
+どこからでも使える JSON データを好きなように保存する場所を提供します。
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4.  [環境] 
 {td}
 {td} 
-Provide a mechanism for managing different environments such as production, staging, development, and testing, etc with one Chef setup (or one organization on Hosted Chef). 
+1 つの Chef システム (または Chef ホスティングなら 1 つの組織) の中で、本番・ステージング・開発・テストといったさまざまな環境を管理するためのメカニズムです。
 {td}
 {tr}
 {tr}
@@ -156,23 +156,10 @@ Provide a mechanism for managing different environments such as production, stag
 {tr}
 {tr}
 {td}
-h4. [Exception and Report Handlers]  
+h4. [例外・レポートハンドラ]  
 {td}
 {td}
-A feature of Chef that allow you to run code in response to a Chef run succeeding or failing. 
-{td}
-{tr}
-{tr}
-{td}
-----
-{td}
-{tr}
-{tr}
-{td}
-h4. [Lightweight Resources and Providers (LWRP)]  
-{td}
-{td}
-Resource and providers whose implementation is quick and easy, requiring less Ruby knowledge than their heavier counterparts.
+Chef の実行が成功したり失敗したりしたときに応じてコードを実行することができる Chef の機能です。
 {td}
 {tr}
 {tr}
@@ -182,23 +169,10 @@ Resource and providers whose implementation is quick and easy, requiring less Ru
 {tr}
 {tr}
 {td}
-h4.  [Nodes]  
+h4. [軽量リソース／プロバイダ(LWRP)]  
 {td}
 {td}
-Hosts that runs the Chef client. The primary features of a node, from Chef's point of view, are its [attributes] and its run list. Nodes are the thing that [Recipes] and [Roles] are applied to.
-{td}
-{tr}
-{tr}
-{td}
-----
-{td}
-{tr}
-{tr}
-{td}
-h4.  [Providers] 
-{td}
-{td}
-Take a resource, compare that resource to the current state of the part of the system it is managing, and then takes the Action specified in the resource. They are the way that Chef supports multiple platforms with a single Resource.
+手っ取り早くて簡単に実装できるリソース／プロバイダです。元々の重量級のリソース／プロバイダとは異なり、Ruby の知識があまり無くても実装できます。
 {td}
 {tr}
 {tr}
@@ -208,10 +182,10 @@ Take a resource, compare that resource to the current state of the part of the s
 {tr}
 {tr}
 {td}
-h4.  [Resources]  
+h4.  [ノード]  
 {td}
 {td}
-A cross platform abstraction of the thing you're configuring on the host. For example, packages may be installed via apt, yum, or the BSD ports and packages systems, but the package resource abstracts these differences away so you can specify that a package should be installed in a cross-platform way. Chef's resources are mostly just containers for data, with some basic validation functionality.
+Chef クライアントを実行するホストのことです。Chef サーバから見ると、ノードの主に[属性]・実行リストとして機能します。ノードには[レシピ]と[ロール]が適用されます。
 {td}
 {tr}
 {tr}
@@ -221,10 +195,36 @@ A cross platform abstraction of the thing you're configuring on the host. For ex
 {tr}
 {tr}
 {td}
-h4.   [Roles] 
+h4.  [プロバイダ] 
+{td}
+{td}
+リソースが管理しようとしている箇所をサーバの現状と比較し、リソースに指定されたアクションを実行します。プロバイダのおかげで Chef は 1 つのリソースがあればマルチプラットフォームで動作することができます。
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4.  [リソース]  
+{td}
+{td}
+そのホストに対する設定内容を、プラットフォームを意識しなくてよいレベルまで抽象化してくれます。たとえば、パッケージというものは apt や yum、 BSD ports/packages 等のパッケージ・システムを通してインストールしますが、パッケージというリソースは各システム間の違いを抽象化してくれるので、「あるパッケージがインストールされているべき」というのがプラットフォームを意識せずに指定することができます。Chef のリソースはだいたいは単なるデータの入れ物であり、いくつか基本的なバリデーションの機能を持っています。
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4.   [ロール] 
 {td}
 {td} 
-Provide a means of grouping similar features of similar nodes, providing a mechanism for easily composing sets of functionality. At web scale, you almost never have just one of something, so you use roles to express the parts of the configuration that are shared by a group of Nodes.
+[ロール]を使えば、たくさんあるノードの中から機能の似ているものをグループとしてまとめることができます。簡単に機能ごとのグループを作ることができるメカニズムです。ウェブをスケールさせる際には、「1 つしかない」ということはほとんどあり得ないので、ロールを使ってグループ内で共有されるべき設定項目を表現します。
 {td}
 {tr}
 {tr}
@@ -234,10 +234,10 @@ Provide a means of grouping similar features of similar nodes, providing a mecha
 {tr}
 {tr}
 {td}
-h4. [Search] 
+h4. [検索] 
 {td}
 {td}
-A feature of the Chef Server that allows you to use a full-text search engine (based on Apache Solr) to query information about your infrastructure and applications. Searches are built by the Chef Server, and allow you to query arbitrary data about your infrastructure. 
+Chef サーバの機能であり、(Apache Solr ベースの) 検索エンジンを利用してインフラやアプリケーションに関する情報を問い合わせることができます。検索機能は Chef サーバ上に構築されており、インフラに関するデータを好きなように問い合わせることができます。
 {td}
 {tr}
 {tr}
@@ -260,7 +260,7 @@ A feature of the Chef Server that allows you to use a full-text search engine (b
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[Chef Concepts as UML]
+[UML で見る Chef の概念図]
 
 {column}
 {column:width=40%}
@@ -269,7 +269,7 @@ A feature of the Chef Server that allows you to use a full-text search engine (b
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[Attributes]
+[属性]
 
 \\
 \\

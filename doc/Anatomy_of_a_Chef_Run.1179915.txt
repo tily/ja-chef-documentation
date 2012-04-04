@@ -1,0 +1,95 @@
+{section}
+{column:width=3%}
+{column}
+{column}
+\\
+!Anatomy-of-Chef-Run-0.10.png|align=right,hspace=16,vspace=4!
+\\
+h4. *{color:#f7681a}As you work with Chef, it will be important to understand the path we take during execution of the{color} [Chef Client].*
+
+h2. Convergence
+We call the process of running the [Chef Client] or [Chef Solo] and taking any needed actions on [Resources] "Convergence".  In a nutshell, Convergence in systems automation speak means "bringing the system closer to correct with each action you take".  Ideally, a single run of the [Chef Client] should always bring the system into the fully expected state - not just half-way.  But if it doesn't work out, trying again should continue to bring the system closer to correct.  
+
+{panel}
+h3. Build, Register, and Authenticate the Node
+{panel}
+h4. {color:#f7681a}Build the Node{color}
+The first thing [Chef Client] or [Chef Solo] do is build a new [Node|Nodes].  The node is constructed from:
+## [Ohai|ohai] - Ohai discovers the data about the Operating System first.
+## The previous data for the node is fetched from the [Chef Server] (unless we are running under [Chef Solo]).
+## Any JSON [Attributes] or [Recipes] are added.
+## All the Ohai attributes are added.
+
+h4. {color:#f7681a}Registering With The Chef Server{color}
+Once the initial [node|Nodes] is constructed, the [Chef Client] checks for the existence of its private key file, usually located in {{/etc/chef/client.pem}}.  If the private key does not exist, the client will attempt to register itself. To register itself, the client temporarily assumes the identity of the _chef-validator_ client. _chef-validator_ is a special purpose client used exclusively for registering new clients. By default, the private key for _chef-validator_ is stored in {{/etc/chef/validation.pem}}. Using the identity of the _chef-validator_ chef-client (the application) will register a new client identity with the server and store its private key in {{/etc/chef/client.pem}}. From this point forward, chef-client will authenticate with the server using its own identity.
+
+{panel}
+h3. Synchronize Cookbooks
+{panel}
+
+h4. {color:#f7681a}Synchronize Libraries, Attributes, Definitions and Recipes{color}
+The [Chef Client] then queries the [Chef Server] for a list of all the [Libraries], [Attributes], [Definitions] and [Recipes] in all [Cookbooks], and transfers them to the local file cache.
+
+h2. Compile - Resource Collection
+Now that we have all information from the Cookbooks, it's time to assemble the specific collection of resources needed to converge this node. 
+
+h4. {color:#f7681a}Load Libraries{color}
+We first load all the [Libraries] from every cookbook, making any language extensions or ruby classes available.
+
+h4. {color:#f7681a}Load Attributes{color}
+Then we load all the [Attribute|Attributes] files, which update the [Node|Nodes] attributes and [Recipes].
+
+h4. {color:#f7681a}Load Definitions{color}
+[Definitions] must be loaded before [Recipes], since they create new pseudo-[Resources]. 
+
+h4. {color:#f7681a}Load Recipes{color}
+At this point, the [Recipes] themselves are evaluated.  We are not taking any action on the resources in the recipes at this stage - we are taking each evaluated [resource|Resources] and putting it in the *Resource Collection*.  
+* This is essentially an Array of each evaluated [resource|Resources], along with some helpful functions. 
+* Plain Ruby code outside of resources is evaluated, however. 
+* If you would like Ruby code executed with other resources, use a [Ruby Block Resource|Resources#RubyBlock]. 
+* *{color:#f7681a}You can have Chef [Evaluate and Run Resources at Compile Time], too.{color}*
+
+h2. Execute - Configure Node
+Now Chef is ready to configure the system.
+
+h4. {color:#f7681a}Converge{color}
+This is the actual convergence step.  Each [Resource|Resources] in the Resource Collection is mapped to a [Provider|Providers], which then takes Action on it.  The system is configured.
+
+h4. {color:#f7681a}Save Node{color}
+After converging, Chef saves the state of the node to persist its node data and make it available for [search|Search].
+
+h4. {color:#f7681a}Run Notifications{color}
+Finally, any [notification handlers|Exception and Report Handlers] you've configured will be run.
+
+h2. If Something Went Wrong...
+When chef-client fails, it finishes the run by executing any [exception handlers|Exception and Report Handlers] you've configured.
+
+
+\\
+\\
+\\
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[API Clients]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[Evaluate and Run Resources at Compile Time]
+
+\\
+\\
+{column}
+{section}

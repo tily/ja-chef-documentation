@@ -1,0 +1,277 @@
+{section}
+{column:width=3%}
+{column}
+{column}
+\\
+
+
+
+----
+!Steven-Nathan-Noah-Dan.jpg|align=right,hspace=18,vspace=6!
+!5631502-3d-image-of-a-synapses.jpg|align=left,vspace=10,hspace=6!
+{center}
+h3. {color:#f7681a}Understanding and use of these essential components will provide you the capability to take advantage of the power of Chef.{color}
+{center}
+\\
+----
+
+\\
+\\
+\\
+{table}
+{tr}
+{td}
+&nbsp;
+{td}
+{tr}
+{tr}
+{td}
+h4. [Attributes] 
+{td}
+{td}
+Node data such as the IP address, hostname, loaded kernel modules, version of programming languages available on the system and more.
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4. [Cookbooks] 
+{td}
+{td}
+The fundamental units of distribution in Chef. They encapsulate all the resources you need to automate your infrastructure and are easily sharable with other Chef users.
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4. [Definitions] 
+{td}
+{td}
+Allow the creation of new Resources by stringing together existing resources.
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4. [Libraries] 
+{td}
+{td}
+Allow inclusion of arbitrary Ruby code, either to extend Chef's language or to implement your own classes directly. They are the secret sauce that will allow you to plug in to your existing infrastructure and utilize it to inform how your systems are configured.
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4. [Metadata] 
+{td}
+{td}
+A small amount of meta-data is required in cookbooks. This information is used to provide hints to the Chef Server as to what cookbooks should be deployed to a given node, and in the future it will be integral to an automated system for discovering and installing cookbooks.
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4. [Recipes] 
+{td}
+{td}
+The fundamental configuration in Chef. Recipes encapsulate collections of [resources] which are executed in the order defined to configure the [nodes].
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4. [Templates]
+{td}
+{td} 
+Files written in a markup language that allows one to dynamically generate the file's final content based on variables or more complex logic. Templates are commonly used to manage configuration files with Chef.
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4. [Chef Repository] 
+{td}
+{td}
+The place where cookbooks, roles, config files and other artifacts for managing systems with Chef will live. 
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4. [Data Bags] 
+{td}
+{td}
+Provide an arbitrary stores of globally available JSON data.
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4.  [Environments] 
+{td}
+{td} 
+Provide a mechanism for managing different environments such as production, staging, development, and testing, etc with one Chef setup (or one organization on Hosted Chef). 
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4. [Exception and Report Handlers]  
+{td}
+{td}
+A feature of Chef that allow you to run code in response to a Chef run succeeding or failing. 
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4. [Lightweight Resources and Providers (LWRP)]  
+{td}
+{td}
+Resource and providers whose implementation is quick and easy, requiring less Ruby knowledge than their heavier counterparts.
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4.  [Nodes]  
+{td}
+{td}
+Hosts that runs the Chef client. The primary features of a node, from Chef's point of view, are its [attributes] and its run list. Nodes are the thing that [Recipes] and [Roles] are applied to.
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4.  [Providers] 
+{td}
+{td}
+Take a resource, compare that resource to the current state of the part of the system it is managing, and then takes the Action specified in the resource. They are the way that Chef supports multiple platforms with a single Resource.
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4.  [Resources]  
+{td}
+{td}
+A cross platform abstraction of the thing you're configuring on the host. For example, packages may be installed via apt, yum, or the BSD ports and packages systems, but the package resource abstracts these differences away so you can specify that a package should be installed in a cross-platform way. Chef's resources are mostly just containers for data, with some basic validation functionality.
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4.   [Roles] 
+{td}
+{td} 
+Provide a means of grouping similar features of similar nodes, providing a mechanism for easily composing sets of functionality. At web scale, you almost never have just one of something, so you use roles to express the parts of the configuration that are shared by a group of Nodes.
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{tr}
+{td}
+h4. [Search] 
+{td}
+{td}
+A feature of the Chef Server that allows you to use a full-text search engine (based on Apache Solr) to query information about your infrastructure and applications. Searches are built by the Chef Server, and allow you to query arbitrary data about your infrastructure. 
+{td}
+{tr}
+{tr}
+{td}
+----
+{td}
+{tr}
+{table}
+
+\\
+\\
+\\
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[Chef Concepts as UML]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[Attributes]
+
+\\
+\\
+{column}
+{section}

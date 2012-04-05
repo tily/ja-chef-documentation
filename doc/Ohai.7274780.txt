@@ -1,0 +1,57 @@
+{section}
+{column:width=3%}
+{column}
+{column}
+\\
+!3301830-green-radar-screen-on-a-black-background.jpg|align=left,hspace=20,vspace=4!
+h2. Ohai Overview
+
+h5. {color:#f7681a}Ohai detects data about your operating system. It can be used standalone, but its primary purpose is to provide node data to Chef.{color}
+
+When invoked, it collects detailed, extensible information about the machine it's running on, including Chef configuration, hostname, FQDN, networking, memory, CPU, platform, and kernel data.
+
+When used standalone, Ohai will print out a JSON data blob for all the known data about your system. When used with Chef, that JSON output is reported back via "automatic" node [attributes|Attributes] to update the node object on the chef-server.
+{float:right|background=#eeeeee|border=4px solid #d7d4c3|padding=4px|margin=10px|width=300px}
+{center}{color:navy}*Ohai Version Dependencies*{color}{center} 
+* Use of Ohai Version 0.6.x, requires the use of Chef version 0.9.x or greater.  
+
+* Chef version 0.10 requires Ohai Version 0.6.x or greater, and will not function with earlier versions.
+{float}
+h2. Ohai Use and Plugins
+This section of the Wiki describes using Ohai and writing plugins for it.
+
+* h5. [Ohai Installation and Use]
+* h5. [Writing Ohai Plugins]
+* h5. [Loading Custom Ohai Plugins]
+* h5. [Distributing Ohai Plugins]
+* h5. [Disabling Ohai Plugins]
+* h5. [Ohai Release Notes|Release MVPs#Ohai]
+\\
+\\
+\\
+\\
+
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[Nodes]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[Ohai Installation and Use]
+
+\\
+\\
+{column}
+{section}

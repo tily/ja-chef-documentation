@@ -4,28 +4,28 @@
 {column}
 \\
 !3301830-green-radar-screen-on-a-black-background.jpg|align=left,hspace=20,vspace=4!
-h2. Ohai Overview
+h2. Ohai の概要
 
-h5. {color:#f7681a}Ohai detects data about your operating system. It can be used standalone, but its primary purpose is to provide node data to Chef.{color}
+h5. {color:#f7681a}Ohai は OS からデータを検出してくれます。単体でも使えますが、一番の目的はノードのデータを Chef に提供することです。{color}
 
-When invoked, it collects detailed, extensible information about the machine it's running on, including Chef configuration, hostname, FQDN, networking, memory, CPU, platform, and kernel data.
+Ohai は、起動したマシンについて詳細で広範囲にわたる情報を収集します。Chef の設定・ホスト名・FQDN・ネットワーク・メモリ・CPU・プラットフォーム・カーネルデータ等を含みます。
 
-When used standalone, Ohai will print out a JSON data blob for all the known data about your system. When used with Chef, that JSON output is reported back via "automatic" node [attributes|Attributes] to update the node object on the chef-server.
+単体で使えば、Ohai はシステムについて分かっているデータのすべてを JSON データのかたまりとして出力してくれるでしょう。Chef と一緒に使えば、JSON 出力は "automatic" なノードの[属性]として報告され、Chef サーバ上のノードオブジェクトへと反映されます。
 {float:right|background=#eeeeee|border=4px solid #d7d4c3|padding=4px|margin=10px|width=300px}
-{center}{color:navy}*Ohai Version Dependencies*{color}{center} 
-* Use of Ohai Version 0.6.x, requires the use of Chef version 0.9.x or greater.  
+{center}{color:navy}*Ohai のバージョン依存関係*{color}{center} 
+* Ohai 0.6.x を利用するには、Chef 0.9.x かそれ以上が必要になります。
 
-* Chef version 0.10 requires Ohai Version 0.6.x or greater, and will not function with earlier versions.
+* Chef 0.10 では Ohai 0.6.x 以上が必要であり、それ以前のバージョンではうまく動きません。
 {float}
-h2. Ohai Use and Plugins
-This section of the Wiki describes using Ohai and writing plugins for it.
+h2. Ohai の使い方・プラグイン
+Wiki の中でこのセクションでは Ohai の使い方やプラグインの書き方を記述します。
 
-* h5. [Ohai Installation and Use]
-* h5. [Writing Ohai Plugins]
-* h5. [Loading Custom Ohai Plugins]
-* h5. [Distributing Ohai Plugins]
-* h5. [Disabling Ohai Plugins]
-* h5. [Ohai Release Notes|Release MVPs#Ohai]
+* h5. [Ohai のインストールと使い方]
+* h5. [Ohai プラグインを書く方法]
+* h5. [独自 Ohai プラグインを読み込む方法]
+* h5. [Ohai プラグインを配布する方法]
+* h5. [Ohai プラグインを無効にする方法]
+* h5. [Ohai リリースノート|リリース MVPs#Ohai]
 \\
 \\
 \\
@@ -40,7 +40,7 @@ This section of the Wiki describes using Ohai and writing plugins for it.
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[Nodes]
+[ノード]
 
 {column}
 {column:width=40%}
@@ -49,7 +49,7 @@ This section of the Wiki describes using Ohai and writing plugins for it.
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[Ohai Installation and Use]
+[Ohai のインストールと使い方]
 
 \\
 \\

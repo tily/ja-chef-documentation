@@ -5,64 +5,65 @@
 \\
 !Anatomy-of-Chef-Run-0.10.png|align=right,hspace=16,vspace=4!
 \\
-h4. *{color:#f7681a}As you work with Chef, it will be important to understand the path we take during execution of the{color} [Chef Client].*
+h4. *{color:#f7681a}Chef を使うときには、{color}[Chef クライアント]{color:#f7681a}実行のあいだにどんな過程があるのか理解しておくことが重要です。{color}*
 
-h2. Convergence
-We call the process of running the [Chef Client] or [Chef Solo] and taking any needed actions on [Resources] "Convergence".  In a nutshell, Convergence in systems automation speak means "bringing the system closer to correct with each action you take".  Ideally, a single run of the [Chef Client] should always bring the system into the fully expected state - not just half-way.  But if it doesn't work out, trying again should continue to bring the system closer to correct.  
-
-{panel}
-h3. Build, Register, and Authenticate the Node
-{panel}
-h4. {color:#f7681a}Build the Node{color}
-The first thing [Chef Client] or [Chef Solo] do is build a new [Node|Nodes].  The node is constructed from:
-## [Ohai|ohai] - Ohai discovers the data about the Operating System first.
-## The previous data for the node is fetched from the [Chef Server] (unless we are running under [Chef Solo]).
-## Any JSON [Attributes] or [Recipes] are added.
-## All the Ohai attributes are added.
-
-h4. {color:#f7681a}Registering With The Chef Server{color}
-Once the initial [node|Nodes] is constructed, the [Chef Client] checks for the existence of its private key file, usually located in {{/etc/chef/client.pem}}.  If the private key does not exist, the client will attempt to register itself. To register itself, the client temporarily assumes the identity of the _chef-validator_ client. _chef-validator_ is a special purpose client used exclusively for registering new clients. By default, the private key for _chef-validator_ is stored in {{/etc/chef/validation.pem}}. Using the identity of the _chef-validator_ chef-client (the application) will register a new client identity with the server and store its private key in {{/etc/chef/client.pem}}. From this point forward, chef-client will authenticate with the server using its own identity.
+h2. 収束
+[Chef クライアント]や[Chef Solo]を実行し、必要となったすべてのアクションを起こすプロセスを「収束 (Convergence)」と呼んでいます。簡潔に言うと、収束というのはシステム自動化の分野では「アクションを起こす度にシステムをより正しい状態へと持っていく」ことです。理想としては、[Chef クライアント]を 1 回実行するだけで完全に期待される状態へと持っていくべきであり、「半分だけ正しい状態になった」とかではダメです。しかし、もしうまく行かなかったとしても、もう 1 度試したときには前からの続きとして、システムがより正しい状態になっているべきです。
 
 {panel}
-h3. Synchronize Cookbooks
+h3. ノードの作成・登録・認証
+{panel}
+h4. {color:#f7681a}ノードの作成{color}
+
+[Chef クライアント]や [Chef Solo] はまず最初に新しい[ノード]を作ります。どんな風に作るかというと：
+## [Ohai] ーーまず Ohai が OS に関するデータを発見します。
+## 以前のノードに関するデータが [Chef サーバ] から取得されます ([Chef Solo] を実行している場合は当てはまりません)。
+## [属性]ファイルや[レシピ]の JSON が追加されます。
+## Ohai が取得したすべてのデータが追加されます。
+
+h4. {color:#f7681a}Chef サーバへの登録{color}
+初期化された[ノード]が作られると、[Chef クライアント]は秘密鍵ファイル (普通は {{/etc/chef/client.pem}}) が存在するかどうか確認します。もし秘密鍵が存在しなければ、クライアントは自分自身を登録しようとします。自分自身を登録するために、クライアントは一時的に _chef-validator_ クライアントの証明書を借ります。_chef-validator_ は新しいクライアントを登録するための特別な専用クライアントです。デフォルトでは、_chef-validator_ の秘密鍵は {{/etc/chef/validation.pem}} に保存されます。_chef-validator_ の認証情報を利用し、chef-client (というアプリケーション) はサーバに新しいクライアント用の証明書を登録し、秘密鍵を {{/etc/chef/client.pem}} に保存します。この時点から、chef-client は自分自身の証明書を使ってサーバへの認証を行います。
+
+{panel}
+h3. クックブックの同期
 {panel}
 
-h4. {color:#f7681a}Synchronize Libraries, Attributes, Definitions and Recipes{color}
-The [Chef Client] then queries the [Chef Server] for a list of all the [Libraries], [Attributes], [Definitions] and [Recipes] in all [Cookbooks], and transfers them to the local file cache.
+h4. {color:#f7681a}ライブラリ・属性・定義・レシピの同期{color}
+[Chef クライアント]は [Chef サーバ]から、すべての[クックブック]に含まれる[ライブラリ]・[属性]・[定義]・[レシピ]の一覧を問い合わせ、取得したものをローカルファイルのキャッシュへと転送します。
 
-h2. Compile - Resource Collection
-Now that we have all information from the Cookbooks, it's time to assemble the specific collection of resources needed to converge this node. 
+h2. コンパイルーーリソース一覧の作成
+クックブックからすべての情報を取得したら、今度はノードを収束するために必要な、実際のリソースを集めて一覧にします。
 
-h4. {color:#f7681a}Load Libraries{color}
-We first load all the [Libraries] from every cookbook, making any language extensions or ruby classes available.
+h4. {color:#f7681a}ライブラリのロード{color}
+各クックブックからすべての[ライブラリ]をロードし、DSL の拡張部分や Ruby のクラスが使えるようにします。
 
-h4. {color:#f7681a}Load Attributes{color}
-Then we load all the [Attribute|Attributes] files, which update the [Node|Nodes] attributes and [Recipes].
+h4. {color:#f7681a}属性のロード{color}
+それから、すべての[属性]ファイルをロードし、[ノード]の属性と[レシピ]を更新します。
 
-h4. {color:#f7681a}Load Definitions{color}
-[Definitions] must be loaded before [Recipes], since they create new pseudo-[Resources]. 
+h4. {color:#f7681a}定義のロード{color}
+[定義]は[レシピ]の前にロードしなければなりません。疑似[リソース]を作成するからです。
 
-h4. {color:#f7681a}Load Recipes{color}
-At this point, the [Recipes] themselves are evaluated.  We are not taking any action on the resources in the recipes at this stage - we are taking each evaluated [resource|Resources] and putting it in the *Resource Collection*.  
-* This is essentially an Array of each evaluated [resource|Resources], along with some helpful functions. 
-* Plain Ruby code outside of resources is evaluated, however. 
-* If you would like Ruby code executed with other resources, use a [Ruby Block Resource|Resources#RubyBlock]. 
-* *{color:#f7681a}You can have Chef [Evaluate and Run Resources at Compile Time], too.{color}*
+h4. {color:#f7681a}レシピのロード{color}
+この時点で、[レシピ]自体が評価されます。この段階ではレシピ内リソースに書かれたどんなアクションも実行されませんーーそれぞれの[リソース]を評価し *リソース一覧* に追加していきます。
+* これは本質的には評価されたそれぞれの[リソース]からなる配列であり、便利な機能がいくつかついています。
+* リソースの外側に記述しっぱなしの Ruby のコードは評価されてしまいます。
+* Ruby のコードをその場ではなくリソースで実行したい場合には、[Ruby Block リソース|リソース#RubyBlock]を使ってください。
+* *{color:#f7681a}Chef に[リソースをコンパイル時に評価・実行|コンパイル時にリソースを評価・実行するには]させることもできます。{color}*
 
-h2. Execute - Configure Node
-Now Chef is ready to configure the system.
+h2. 実行ーーノードへの設定適用
+やっと Chef はシステムへ設定を適用する準備が整いました。
 
-h4. {color:#f7681a}Converge{color}
-This is the actual convergence step.  Each [Resource|Resources] in the Resource Collection is mapped to a [Provider|Providers], which then takes Action on it.  The system is configured.
+h4. {color:#f7681a}収束{color}
+この段階で実際に収束が行われます。リソース一覧に含まれるそれぞれの[リソース]は[プロバイダ]に割り当てられ、そのプロバイダがリソースに対してアクションを実行します。システムへの設定適用が行われるということです。
 
-h4. {color:#f7681a}Save Node{color}
-After converging, Chef saves the state of the node to persist its node data and make it available for [search|Search].
+h4. {color:#f7681a}ノードの保存{color}
+収束のあと、Chef はノードのデータを永続化し[検索]可能とするために、ノードの状態を保存します。
 
-h4. {color:#f7681a}Run Notifications{color}
-Finally, any [notification handlers|Exception and Report Handlers] you've configured will be run.
+h4. {color:#f7681a}実行時の通知{color}
+最後に、設定しておいた[通知ハンドラ|例外・レポートハンドラ]のすべてが実行されます。
 
-h2. If Something Went Wrong...
-When chef-client fails, it finishes the run by executing any [exception handlers|Exception and Report Handlers] you've configured.
+h2. もし何か問題が起こったら…
+chef-client が失敗したときには、設定しておいたすべての[例外ハンドラ|例外・レポートハンドラ]を実行した上で、処理を終了します。
 
 
 \\
@@ -78,7 +79,7 @@ When chef-client fails, it finishes the run by executing any [exception handlers
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[API Clients]
+[API クライアント]
 
 {column}
 {column:width=40%}
@@ -87,7 +88,7 @@ When chef-client fails, it finishes the run by executing any [exception handlers
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[Evaluate and Run Resources at Compile Time]
+[コンパイル時にリソースを評価・実行するには]
 
 \\
 \\

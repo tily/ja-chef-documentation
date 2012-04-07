@@ -5,29 +5,29 @@
 
 !attributes.jpg|align=left,vspace=40,hspace=18,thumbnail!
 
-h1. Overview
+h1. 概要
 
-h5. {color:#f7681a}Attributes are [Node|Nodes] data such as the IP address, hostname, loaded kernel modules, version of programming languages available on the system and more. New attributes can be dynamically added to the node in a variety of ways.
+h5. {color:#f7681a}属性は[ノード]の持つデータであり、IP アドレス・ホスト名・ロードされたカーネル・モジュールの一覧・そのシステムで利用可能な各プログラミング言語のバージョン等を含んでいます。さまざまなやり方で新しい属性を動的にノードへと追加することができます。
 
-During the [Chef run|Anatomy of a Chef Run], the [Chef Client] saves these node attributes on the [Chef Server] where they are indexed for [Search|Search]. When the [Chef Client] runs again, it will retrieve the attributes that were saved previously and merge in attributes based on the priority rules described below.{color}
+[Chef が実行|Chef 実行の解剖図]されている間に、属性は[Chef クライアント]によって[Chef サーバ]に保存され、[検索]のためにインデクスされます。[Chef クライアント]がもう一度実行されたときには、以前保存された属性をまた取り出して、下記に述べる優先順位にもとづき、現在の属性とマージします。{color}
 
-h1. Attribute Type and Precedence
+h1. 属性の種別と優先度
 
 !attribute-priority-stack.png|align=right,hspace=8!
 
-There are three types of attributes in order of precedence, highest to lowest.
+優先度が高い順に 3 種類の属性があります。
 
 * override
 * normal
 * default
 
-*{color:#f7681a}Write your cookbooks with default attributes, but override these with role-specific or node-specific values as necessary.{color}*
+*{color:#f7681a}クックブックでは default 属性を使い、必要になったらロールやノードのほうで値を指定し上書きします。{color}*
 
-A fourth attribute type, {{automatic}}, contains [Ohai|ohai] data and has the highest precedence. 
+4 種類目として {{automatic}} という属性もありますが、これは [ohai] で収集したデータであり、優先度が一番高くなっています。
 
-_*Chef doesn't provide any way to modify automatic attributes because any modifications you make will be overwritten with [Ohai|ohai] data again on the next run.*_  {color:#f7681a}Review *[Automatic Attributes]* for those reserved namespaces.{color}
+_*Chef には automatic な属性に変更を加える手段はありません。なぜなら、どんな変更を加えたとしても、次の Chef 実行時に [ohai] によって上書きされてしまうからです。*_ {color:#f7681a}予約済みの名前空間を知りたければ *[Automatic 属性]* を見てください。{color}
 
-Attributes are a special key-value store called a *Mash* within the Ruby DSL context.  A *Mash* is just a *Hash* where the key can be either a Ruby symbol (:key) or a string ("key"). The keys are also auto-vivified into accessor methods, which we'll talk about in a moment. 
+属性は、Ruby の DSL の中では *Mash* と呼ばれる特別なキーバリューストアとなっています。*Mash* はただの *Hash* なのですが、キーが Ruby のシンボル (:key) でも文字列 ("key") でも構わないという性質を持っています。キーは自動的にアクセサメソッドとしても追加されているのですが、これについてはすぐあとで触れます。
 {column} 
 {column:width=2%}
 {column}
@@ -39,8 +39,8 @@ Attributes are a special key-value store called a *Mash* within the Ruby DSL con
 {panel} 
 
 \\
-{warning:title=Attributes that Aren't}
-A number of pieces of data related to a node are methods rather than attributes.  As such, they cannot be accessed using the syntax for attributes, but rather must be accessed as method.  Important node methods include:
+{warning:title=属性ではないもの}
+ノードに関連するいくつかのデータは、属性ではなくメソッドです。なので、属性に使われるような文法でアクセスすることはできず、メソッドとしてアクセスしなければなりません。ノードの持つ重要なメソッドの例：
 {code}
 node.name
 node.run_list
@@ -55,87 +55,89 @@ node.chef_environment
 {column:width=3%}
 {column}
 {column}
-h1. Attribute Persistence
+h1. 属性がいつまで残るか
 {float:right|background=#f4f2e6|padding=2px|margin=8px|width=360px}
 {center}
-{info:title=0.10.x behavior}
-The behavior described in this section refers to the behavior of Chef 0.10+.
+{info:title=0.10.x の振る舞いです}
+この節に書いてある振る舞いは Chef 0.10 以上のものです。
 {info}
 {center}
 {float}
 
-{color:#f7681a}At the beginning of each {{chef-client}} run, {{default}}, {{override}}, and {{automatic}} attributes are completely reset.{color}  
-They are then rebuilt using the currently applicable cookbooks, recipes, roles, environment and Ohai data.  
-_Thus, default and override attributes set in cookbook attribute files, roles, recipes, or environments will disappear once the recipe, role, or environment is removed from the node and chef-client is run on the node._
+{color:#f7681a}{{chef-client}} の実行が行われる度に、まず {{default}} 属性, {{override}} 属性, {{automatic}} 属性が完全にリセットされます。{color}
+それから属性は、現在適用できるクックブック／レシピ／ロール／環境／ohai のデータを利用して再構築されます。
+_なので、クックブックの属性ファイル／ロール／レシピ／環境の中で設定された default 属性・override 属性は、ノードからそのレシピ／ロール／環境を削除してから chef-client を実行すると、消えてしまいます。_
 
-{color:#f7681a}{{Normal}} attributes are not reset.{color}
-Rather, on each chef-client run, any new attributes passed to chef-client in a JSON file are merged with the existing {{normal}} attributes in the node's data(using [Deep Merge]).  
-_This means that any {{normal}} attribute set in a recipe or cookbook attribute file will remain even after the cookbook or role has been removed from the node's run list._
+{color:#f7681a}{{normal}} 属性はリセットされません。{color}
+むしろ、chef-client が実行されるたびに、JSON ファイルで chef-client に渡さされたどんな属性も、ノードのデータに元から存在する {{normal}} 属性とマージされます ([ディープ・マージ]を使います)。
+_つまり、レシピやクックブックの属性ファイルで設定された {{normal}} 属性はすべて、ノードの実行リストからそのクックブックやロールが削除されてしまったあとでも残り続けるということです。_
 
-h1. Setting Attributes
-Attributes may be set on the node from the following objects
+h1. 属性を設定する方法
+属性をノードに対して設定できるのは下記のオブジェクトです
 
-* cookbooks
-* environments _(Chef 0.10.0 or above only)_
-* roles
-* nodes
+* クックブック
+* 環境 _(Chef 0.10.0 以上のみ)_
+* ロール
+* ノード
 
-h3. Precedence
-*{color:#f7681a}The precedence of the attributes is as follows, from low to high:{color}*
+h3. 優先順位
+*{color:#f7681a}属性の優先順位は以下のようになっています。低い順から高い順です：{color}*
 
-# {{default}} attributes applied in an attributes file
-# {{default}} attributes applied in an environment
-# {{default}} attributes applied in a role
-# {{default}} attributes applied on a node directly in a recipe
-# {{normal}} or {{set}} attributes applied in an attributes file
-# {{normal}} or {{set}} attributes applied on a node directly in a recipe
-# {{override}} attributes applied in an attributes file
-# {{override}} attributes applied in a role
-# {{override}} attributes applied in an environment
-# {{override}} attributes applied on a node directly in a recipe
+# 属性ファイルの中で適用される {{default}} 属性
+# 環境の中で適用される {{default}} 属性
+# ロールの中で適用される {{default}} 属性
+# レシピの中で直接ノードに適用される {{default}} 属性
+# 属性ファイルの中で適用される {{normal}} または {{set}} 属性
+# レシピの中で直接ノードに適用される {{normal}} または {{set}} 属性
+# 属性ファイルの中で適用される {{override}} 属性
+# ロールの中で適用される {{override}} 属性
+# 環境の中で適用される {{override}} 属性
+# レシピの中で直接ノードに適用される {{override}} 属性
 
-{{default}} attributes applied in an attributes file have the lowest priority and {{override}} attributes applied on a node directly in a recipe have the highest priority. 
+属性ファイルの中で適用される {{default}} 属性の優先度が一番低く、レシピの中で直接ノードに適用される {{override}} 属性の優先度が一番高いのです。
 
-Write your cookbooks with default attributes, but override these with role-specific or node-specific values as necessary.
-{color:#f7681a}*See examples*{color} *[here...|Setting Attributes (Examples)]*
+クックブックにはデフォルトの属性を定義し、必要に応じてロールに特有な値やノードに特有な値で上書きしましょう。
+{color:#f7681a}*例は*{color} *[ここ|属性の設定例]* に載っています。
 
-_Again, the exception to this are {{automatic}} attributes. They have the highest precedence and may not be modified, as they are regenerated by [Ohai|ohai] every time Chef runs._  
+_ここでも、{{automatic}} 属性は例外です。一番優先度が高く変更することはできません。Chef が実行される度に [Ohai] によって再作成されるからです。_
 
-h3. Notation
-Attributes are a special key-value store called a *Mash* within the Ruby DSL context.  A *Mash* is just a *Hash* where the key can be either a Ruby symbol (:key) or a string ("key").  {color:#f7681a}It's easier to stick with string notation if you are just starting out with Chef and/or Ruby.{color} This allows you to just "quote it", rather than also having to learn about special cases, name space overlap (and method_missing), character constraints, and escaping work at the beginning.   
+h3. 記法
+属性は、Ruby の DSL の中では *Mash* と呼ばれる特別なキーバリューストアとなっています。*Mash* はただの *Hash* なのですが、キーが Ruby のシンボル (:key) でも文字列 ("key") でも構わないという性質を持っています。
+{color:#f7681a}Chef／Ruby の初心者ならばすべてに文字列を使うようにしたほうが簡単でしょう。{color} そうすれば、ただクオートで囲めばよいだけなので、名前空間の衝突 (や method_missing) や使ってよい文字の制限などの特別なケースを学習しなくてよいし、文字列なら最初からエスケープが効きます。
 
-That way, by the time you may want to use symbols stylistically or contextually, you can [learn to wield them|http://www.ruby-lang.org/en/] with an existing base of knowledge. Our examples and detail on attributes use a string notation for that reason. If you already know your way around symbols in ruby, you may of course use them.
+そうすることにしておき、スタイル・文脈に応じてシンボルを使いたくなったら、そのときまでに分かった知識を生かして[シンボルの使い方を学べば|http://www.ruby-lang.org/en/]よいのです。コード例や属性の説明で、文字列の記法を使っているのはこのような理由からです。Ruby でどのようにシンボルを使えばよいか知っているなら、もちろん使っても大丈夫です。
 
 {include:Attributes Cookbook|nopanel=true}
 
-h2. Environment Attributes
+h2. 環境の属性
 {float:right|background=#f4f2e6|padding=2px|margin=8px|width=360px}
 {center}
-{tip:title=Chef 0.10.0 or above}
-Environments attributes are only available in Chef 0.10.0 or above.
+{tip:title=Chef 0.10.0 以上の話です}
+環境の属性は Chef 0.10.0 以上でしか利用できません。
 {tip}
 {center}
 {float}
 
-{color:#f7681a}Environments can set {{default}} and {{override}} attributes.{color} 
+{color:#f7681a}環境は {{default}} 属性と {{override}} 属性を設定することができます。{color} 
 
-This is done with the {{default_attributes}} and {{override_attributes}} methods (respectively) in an Environment's [Ruby DSL|Environments#TheRubyDSL] file, or the {{default_attributes}} and {{override_attributes}} hashes in the Environment's JSON data. It is common to assign attributes that pertain to a particular environment. For example, the external load balancer's public DNS may be different in "production" than in "staging".
+実際に設定するときには、環境の [Ruby DSL|Environments#TheRubyDSL] 内でそれぞれ {{default_attributes}} メソッド・ {{override_attributes}} メソッドを使うか、環境の JSON データの中で {{default_attributes}} ・ {{override_attributes}} ハッシュを定義します。ある環境に特有の値を割り当てるのが一般的です。たとえば、"production" と "staging" では外部ロードバランサのパブリックなドメイン名が異なるでしょう。
 
-h2. Role Attributes
+h2. ロールの属性
 {float:right|background=#eeeeee|border=4px solid #d7d4c3|padding=10px|margin=10px|width=340px}
-{center}{color:navy}*You can have [deep merged|Deep Merge] Attributes*{color}{center}
-{center}[Deep merging|Deep Merge] allows you to layer role attributes.{center}
+{center}{color:navy}*属性を[ディープ・マージ]することができます。*{color}{center}
+{center}[ディープ・マージ]によってロールの属性を階層化することができます。{center}
 {float}
-{color:#f7681a}Roles can only set {{default}} and {{override}} attributes, they cannot set {{normal}} attributes.{color} This is done with the {{default_attributes}} and {{override_attributes}} methods in a Role's [Ruby DSL|Roles#TheRubyDSL] file, or the {{default_attributes}} and {{override_attributes}} hashes in the Role's JSON data. 
+{color:#f7681a}ロールで設定できるのは {{default}} 属性・ {{override}} 属性のみで、{{normal}} 属性を設定することはできません。{color} This is done with the {{default_attributes}} and {{override_attributes}} methods in a Role's [Ruby DSL|Roles#TheRubyDSL] file, or the {{default_attributes}} and {{override_attributes}} hashes in the Role's JSON data. 
+実際に設定するときには、ロールの [Ruby DSL|Environments#TheRubyDSL] 内で {{default_attributes}} メソッド・ {{override_attributes}} メソッドを使うか、ロールの JSON データの中で {{default_attributes}} ・ {{override_attributes}} ハッシュを定義します。
 
-It is common to assign attributes that pertain to a particular role. For example, a {{php_apache2_server}} role might use different tuning parameters for the same apache attributes than a {{mod_perl_apache2_server}}.
+あるロールに特有の値を割り当てるのが一般的です。たとえば、{{php_apache2_server}} というロールと {{mod_perl_apache2_server}} というロールでは、同じ Apache の属性に対して違うチューニングパラメタを使いたくなるでしょう。
 
-h2. Node Attributes
-{color:#f7681a}Finally, the node object can be modified directly to set the attributes.{color} Typically, this sets attributes at the {{normal}} priority level, and can be done by editing the node with knife or through the WebUI, or by passing JSON data to the node.
+h2. ノードの属性
+{color:#f7681a}最後に、ノードオブジェクトを直接変更して属性を設定することができます。{color} 典型的には 優先度 {{normal}} で属性を設定します。ノードの属性を設定するには、knife や WebUI でノードを編集する方法と、ノードに JSON データを渡してやる方法があります。
 
-h3. JSON Attributes
+h3. JSON 属性
 
-You can also specify node attributes with a JSON file. These are applied at the {{normal}} priority level.
+ノードの属性を JSON ファイルで指定することもできます。優先度は {{normal}} が適用されます。
 
 {code}
 chef-client --help
@@ -144,42 +146,42 @@ chef-client --help
         --json-attributes
 {code}
 
-For example, to set up some different ports for Apache to listen on:
+たとえば、Apache が listen するポート番号をいくつか指定するには下記のように書きます：
 
 {code:javascript|linenos=false|title=JSON attribute example}
 { "apache": { "listen_ports": ["81", "8080"] } }
 {code}
 
-Remember, that attributes passed via JSON file are merged with those stored on node and actually there is no way to override them in that way, however if there is a conflict, attributes from JSON file will win with those stored on node.
+忘れてならないのは、JSON ファイルで渡された属性はノードに保存された属性とマージされるため、上書きする方法がないということです。しかしながら、もし属性のキーに衝突があったら、JSON ファイルの属性がノードに保存された属性よりも優先されます。
 
-h2. [Automatic Attributes]
-This fourth attribute type cannot be modified, as any modifications you make will be overwritten with [Ohai|ohai] data again on the next run.
+h2. [Automatic 属性]
+この 4 種類目の属性を変更することはできません。なぜなら、どんな変更を加えたとしても次の実行で [Ohai] のデータによって上書きされてしまうからです。
 
-h1. How to Use Attributes
+h1. 属性の使い方
 
-{tip:title=Good Candidates for Attributes}
-* Cross-Platform abstractions for an application such as the path to a config file.
-* Default values for "tunable" settings such as memory assigned to processes or number of workers to spawn.
-* Anything else you may want to persist (in node data) between Chef runs.
+{tip:title=属性を使うとよい場面}
+* 設定ファイルへのパスなどのアプリケーションの設定を、プラットフォームを意識しなくてよいレベルで記述したいとき
+* プロセスに割り当てられるメモリ量や spawn するワーカーの数など、「設定可能な」項目のデフォルト値を設定したとき
+* その他、Chef の起動が終わっても (ノードデータ内に) 残っていてほしい値があるときならいつでも
 {tip}
 
-h3. Usage Best Practices
+h3. 属性を使う上でのベストプラクティス
 
-{color:#f7681a}The general pattern for attributes precedence is that cookbooks and roles should be setting defaults.{color} 
-* If you need to change the values for a specific node, use, the normal attributes on the node. 
-* Overrides are there so roles can force a certain value even if the node already has a value there. 
+{color:#f7681a}属性の優先順位をうまく使うためによく用いられるパターンは、「クックブックとロールでデフォルト値を設定すべき」というものです。{color} 
+* もし、あるノードの値を変更する必要があるなら、ノードに normal 属性を適用します。
+* override 属性というのは、既にノードに設定されている値をロールから強制的に上書きするために使います。
 
-There are certainly other ways to use it, but that is the pattern it was designed for.
+他にもいろいろな使い方がありますが、私たちが属性を設計する際に想定していたのは上記のパターンです。
 
-h3. Setting Attributes at the Same Precedence Level
+h3. 同じ優先度で属性を設定する
 
-{color:#f7681a}A common use case is to set default attributes in a cookbook's attribute files, and also set the same default attributes, but with different values, using a role.{color} In this scenario, the attributes set in the role will be [deep merged|Deep Merge] on top of the attributes from the attributes file. _The attributes set by the role will win if there is a conflict._
+{color:#f7681a}一般的なユースケースとして、クックブックの属性ファイルの中で default 属性を設定しておき、ロールでも同じ default 属性に対して異なる値を設定することがあります。{color} このような場合、ロールで設定された属性は、属性ファイルに書かれた属性に基づき[ディープ・マージ]されます。_衝突があった場合、ロールで設定された属性が優先されます。_
 
-h3. Setting a Value Only If the Attribute Has No Value
+h3. 属性に値が設定されていなかった場合にだけ値を設定する
 
-In attribute files, you can also set a value only if no value is currently set for that attribute using the {{\_unless}} variants of the attribute priority methods: {{default_unless}}, {{set_unless}}, and {{override_unless}}. These can be handy in some use cases, but *be careful\!*
+属性ファイルでは、「現在その値が設定されていなかった場合にだけ値を設定する」ということもできます。これを行うには、属性優先度指定メソッドの変化形である {{_unless}} メソッドが利用できます：{{default_unless}}, {{set_unless}}, {{override_unless}} の 3 つです。これを使うと便利な場面もあるにはありますが、 *注意してください！*
 
-When you use these methods, _the attributes applied to your nodes will become out-of-sync with the values in your cookbooks_ whenever you update your cookbooks. This means that building a new node with an identical set of recipes and roles as an existing node could result in a different configuration--a problem that can be frustrating to debug. For this reason, you should avoid using the {{\_unless}} methods whenever possible.
+このようなメソッドを使うと、クックブックを更新したときに _実際にノードに適用される属性と、クックブックの中に書いてある値の間で同期が取れなくなってしまいます。_ これが意味しているのは、同じレシピ・ロールを使って新しいノードを作ったときに、既存のノードとは異なる設定が適用されてしまうということですーーデバッグしづらくイライラする問題が起こってしまうのです。そういう訳で、{{\_unless}} メソッドは可能なかぎり使わないほうがよいでしょう。
 \\
 \\
 \\
@@ -194,7 +196,7 @@ When you use these methods, _the attributes applied to your nodes will become ou
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[Chef Essentials]
+[必要不可欠な要素]
 
 {column}
 {column:width=40%}
@@ -203,7 +205,7 @@ When you use these methods, _the attributes applied to your nodes will become ou
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[Automatic Attributes]
+[Automatic 属性]
 
 \\
 \\

@@ -5,9 +5,9 @@
 \\
 !952.gif|align=left,hspace=20,vspace=2!
 {panel:borderColor=#f7681a|borderWidth=2}
-h5. \\{color:#f7681a} This article is a brief introduction to cookbooks, recipes, attributes, and roles.  
+h5. \\{color:#f7681a} この記事ではクックブック・レシピ・属性・ロールを簡単に紹介しています。
 
-These items are created on a Chef Workstation or via the WebUI, and are stored on the Chef Server.
+これらの項目は Chef ワークステーション上、または WebUI から作成され、Chef サーバに保存されます。
 {color}
 \\
 {panel}
@@ -26,77 +26,77 @@ These items are created on a Chef Workstation or via the WebUI, and are stored o
 {column:width=3%}
 {column}
 {column}
-h1.Cookbooks
+h1.クックブック
 {float:left|background=#eeeeee|border=4px solid #d7d4c3|padding=4px|margin=10px|width=180px}
 {center}
-{color:navy}*Cookbooks are Chef's fundamental units of distribution*{color}
+{color:navy}*クックブックは Chef で配布の基本となる単位です。*{color}
 {center} 
 {float}
-{color:#f7681a}Cookbooks are the way Chef and Hosted Chef users package up, distribute, and share configuration information.{color} They encapsulate all the resources needed to automate your infrastructure, and are easily sharable with other Chef users as well.
+{color:#f7681a}クックブックによって Chef や Chef ホスティングのユーザは設定情報をパッケージ化し、配布し、共有します。{color} インフラ自動化に必要なリソースをすべてカプセル化してくれ、他の Chef ユーザとも簡単に共有することができます。
 !chef-basics-cookbook.png|align=right,hspace=10,vspace=14!
-They contain recipes, attribute files, templates, and other configuration artifacts.
+クックブックは、レシピ・属性ファイル・テンプレート・それ以外の設定情報に関する作成物を含んでいます。
 
-When Chef-Client runs, recipes listed in the node's run list are transfered to the node, along with the other contents of the cookbook containing the recipe.  These recipes are then applied to the node, bringing it into the proper configuration.  
+Chef が起動するとき、ノードの実行リストに並んでいるレシピは、そのレシピを含むクックブックの他の内容と共に、ノードに転送されます。転送されたレシピはノードに適用され、ノードは適切な状態に設定されます。
 
-Typically, a single cookbook contains the information necessary to configure a single service or single part of the system.  For instance, one may have a "users" cookbook for configuring the users who should have access to the system and an "apache" cookbook for configuring the apache web server.
+典型的には、1 つのクックブックは、そのサーバの 1 つのサービス・パーツだけを設定するのに必要な情報を含んでいます。たとえば、"users" というクックブックではそのサーバにアクセスする権限を持つユーザの一覧を設定するし、"apache" というクックブックでは Apache ウェブサーバを設定します。
 
-{color:#f7681a}Cookbooks can be authored by anyone with basic programming skills, and they can be written without storing any details about a particular deployed environment.{color} This means they can be shared safely and reused across organization and company boundaries. Opscode encourages users to publish their cookbooks on the [Opscode Community Site|http://community.opscode.com/cookbooks], where there are already over 300 cookbooks to choose from. As a result, you can install and configure many commonly used technologies without ever having to write a new cookbook.  
+{color:#f7681a}クックブックは基本的なプログラミングのスキルがある人なら誰でも作れるし、デプロイする環境に特化した詳細事項を保存しておく必要はありません。{color} このおかげでクックブックを安全に共有し、組織や会社の境界をこえて再利用することができるわけです。Opscode はユーザにぜひ [コミュニティのサイト|http://community.opscode.com/cookbooks] でクッブックを発表してほしいと思っています。サイトには既に自由に選べる 300 以上のクックブックがあります。その結果として、よく使われているような技術ならば、新しいクックブックを書かなくてもインストール・設定することができるのです。
 
-If your Chef repository is using git (see [Creating a Chef Repository] for details), you can quickly obtain and use cookbooks written by the community using Chef's command line tool, [Knife].  For instance, to download the simple "getting-started" cookbook, run the following from a chef repository:
+もし Chef のレポジトリに git を使うなら (詳しくは [Chef レポジトリの作り方] 参照)、Chef のコマンドラインツール [Knife] を利用してすばやくコミュニティの人たちが書いたクックブックを取得して使うことができます。たとえば、シンプルな "getting-started" クックブックをダウンロードするには、Chef レポジトリで下記を実行してください：
 
 {code}
 knife cookbook site install getting-started
 {code}
 
-To upload it to a Chef Server or Hosted Chef:
+このクックブックを Chef サーバ・Chef ホスティングへアップロードするには：
 
 {code}
 knife cookbook upload getting-started
 {code}
 
-And, to add the "default" recipe inside this cookbook to the run list of a node:
+そして、このクックブックに含まれる "default" レシピをあるノードの実行リストに追加するには：
 
 {code}
 knife node run_list add my_node 'getting-started::default'
 {code}
 
-Chef also provides tools to make it easier to create new cookbooks.  For instance, to create the basic structure of a new cookbook within your Chef Repository, you can use knife:
+Chef は新しいクックブックの作成が簡単になるツールも提供しています。たとえば、Chef レポジトリの中に新しいクックブックの基本構造を作るには、knife を使います：
 
 {code}
 knife cookbook create new_cookbook_name
 {code}
 
-h2. Recipes
+h2. レシピ
 {float:left|background=#eeeeee|border=4px solid #d7d4c3|padding=4px|margin=10px|width=180px}
 {center}
-{color:navy}*Recipes are Chef's fundamental units of configuration*{color}
+{color:navy}*レシピは Chef で設定の基本となる単位です。*{color}
 {center} 
 {float}
-{color:#f7681a}Recipes are Ruby files in which you use Chef's Domain Specific Language (DSL) to define how particular parts of a node should be configured.{color} As will be seen in later sections, you can use data, combined with the ability to use ruby code within recipes to dynamically change a node's configuration.  
+{color:#f7681a}レシピは Ruby のファイルであり、Chef のドメイン特化言語 (DSL) を使ってノードの特定個所がどのように設定されるべきかを定義します。{color}のちの節で見るように、レシピの中でデータと Ruby コードを組み合わせて使うことで、ノードの設定を動的に変化させることです。
 
-Cookbooks can contain multiple recipes, with the recipes added to a run list by their full name using with the form {{COOKBOOK_NAME::RECIPE_NAME}}. Only roles and recipes are added to a run list.
+クックブックには複数のレシピを含むことができ、それぞれのレシピは {{クックブック名::レシピ名}} というフルネーム形式で実行リストに追加することができます。ロールとレシピだけが実行リストに追加できます。
 
-Chef however provides a shortcut notation to name recipes and cookbooks in a run list command. (This is useful for the recipe that serves as a base configuration for a set of nodes.)
+しかしながら Chef は、実行リストの中にレシピやクックブックの名前を書く際に、ショートカット記法も用意してます。(いくつかのノードで基本設定を行うレシピを指定できるので便利です。)
 
-When you add {{COOKBOOK_NAME}} to a run list, Chef assumes that you want the recipe named "default" within the named cookbook. To see an example of this, we could modify the knife command used above to add a recipe to a node's run list.  Using this shortcut, we can simplify the command given above:
+{{COOKBOOK_NAME}} を実行リストに追加すると、Chef は指定したクックブックの中の "default" という名前のレシピを使いたいんだなと推測してくれます。たとえば、さっき出てきたノードの実行リストにレシピを追加する knife コマンドを修正してみましょう。このショートカットを使えば、さっきのコマンドをシンプルにすることができます：
 {code}
 knife node run_list add my_node getting-started
 {code}
 
-In this updated example, you've added the "default" recipe within the "getting-started" cookbook to the run_list of "my_node", just as before.
+この修正後の例でも、さっきの例と同じように "my_node" の実行リストに "getting-started" クックブックの中の "default" レシピを加えたことになるのです。
 
-h2. Resources and Providers
+h2. リソースとプロバイダ
 {float:left|background=#eeeeee|border=4px solid #d7d4c3|padding=4px|margin=10px|width=180px}
 {center}
-{color:navy}*Resources are Chef's fundamental units of work*{color}
+{color:navy}*リソースは Chef で機能の基本となる単位です。*{color}
 {center} 
 {float}
 
-{color:#f7681a}Resources are the building blocks you will use to to create a properly configured node.{color} They are cross platform abstraction of that which you are configuring on the node -  discrete chunks of a system's configuration that are placed in recipes and applied to your nodes. 
+{color:#f7681a}リソースは適切に設定されたノードを作るために使う構成部品です。{color} そのホストに対する設定内容を、プラットフォームを意識しなくてよいレベルまで抽象化してくれますーシステム設定を別々のカタマリにまとめたものであり、レシピへ書いておくとノードに適用されます。
 
-The key feature of resources is that they allow you to focus on describing the node's configuration rather than the specifics of how a given task is accomplished.  
+リソースの重要な特徴は、ノードの設定を記述することに集中することができ、設定作業をどうやって達成させたのかについて細かく気にしなくていいということです。
 
-For example, the following resource adds a user to a node:
+たとえば、下記のリソースではノードにユーザを追加します：
 
 {code:lang=ruby}
 user "sam" do
@@ -107,17 +107,17 @@ user "sam" do
 end
 {code}
 
-This resource describes a user, "sam", that we would like to create on our node. {color:#f7681a}The actual creation is performed by *[Providers]* which executes the necessary commands to create a new user.{color} 
+このリソースはノードに作成したいと思っている "sam" というユーザについて記述しています。{color:#f7681a}実際にユーザを作成するのは *[プロバイダ]* であり、新規ユーザ作成に必要なコマンドを実行します。{color}
 
 {float:left|background=#eeeeee|border=4px solid #d7d4c3|padding=4px|margin=10px|width=180px}
 {center}
-{color:navy}*Providers are how Chef supports multiple platforms with a single Resource*{color}
+{color:navy}*プロバイダのおかげで、1 つのリソースで複数のプラットフォームをサポートできるのです。*{color}
 {center} 
 {float} 
 
-An individual resource can have multiple providers, each of which knows how to perform the necessary task on a different platform.  Chef-client will choose the best provider for the node's platform.  Thus, this single resource description can be used to create the user "sam" on a Linux system and a FreeBSD system, without any modification.
+リソースはそれぞれ複数のプロバイダを持っており、各プロバイダがそれぞれのプラットフォームでどのように必要なタスクを遂行すればよいか把握しています。chef-client はノードのプロバイダに一番適したプロバイダを選んでくれます。それゆえ、1 つのリソースを記述するだけで、Linux でも FreeBSD でも特に修正を加えることなく、"sam" というユーザを作成することができます。
 
-{color:#f7681a}The user resource above is structured like all resource descriptions in the Chef Domain Specific Language (DSL):{color}
+{color:#f7681a}上に挙げたユーザ・リソースの書き方が良い例ですが、Chef のドメイン特化言語 (DSL) でのリソース記述方法は以下のようになっています：{color}
 
 {code:lang=ruby}
 resource_type "resource_name" do
@@ -126,39 +126,39 @@ resource_type "resource_name" do
 end
 {code}
 
-A *resource type* corresponds to the kind of resource that you need to configure.  Many different resources are defined by the Chef DSL.  A full list of these resources can be found on the [Resources] page.  As you advance to more complex uses of Chef, you can even extend the Chef DSL with your own resources.  
+*resource_type* にどんな種類のリソースを設定したいか書きます。いろいろな種類のリソースを Chef の DSL で定義することができます。どんなリソースがあるかは[リソース]のページを見れば分かります。Chef に詳しくなりもっと複雑な使い方をしたくなったら、Chef の DSL を拡張して自分のリソースが定義できるようにするさえ可能です。
 
-The *resource name* is a string that identifies this specific instance of a resource.  For a given node's configuration you may need to define many user resources, each of which will have their own name and can be referred to by other resources. The resource name is also, by default, used as the value for one of the resource's "resource attributes".  For example, in the user resource defined above, the name "sam" will be used as the username for the user chef-client will create.   
+*resource_name* にはそのリソース・インスタンスを識別するための一意な文字列を指定します。あるノードに設定を適用するために、たくさんのユーザ・リソースを定義する必要があるとしたら、それぞれのユーザ・リソースが自分の名前を持ち、他のリソースから参照可能となります。また、デフォルトでリソースの名前は、「リソースの属性」の 1 つとして扱われます。たとえば、上の例で定義されたユーザ・リソースの場合には、chef-client は "sam" という名前をユーザ名として利用して、ユーザを作成します。
 
-*Resource attributes* and the associated *values* describe the desired state of the resource.  Each resource has different attributes that are meaningful in the context of the given resource. The "action" attribute is an attribute used by all resources and defines what ought to be done with the resource.  In our example above, we used the "create" action to indicate we want the user to be created.  When sam leaves our organization, we may change this action to ":delete" to remove her user.
+*resource_attribute* とそこに指定された *value* に、リソースがどんな状態になってほしいかを記述します。リソースには種類によってさまざまな属性があり、それぞれのリソース内で独自の意味を持っています。上記の例では、"create" というアクションを使って「そのユーザを作成してほしい」ということを表現しています。sam が組織からいなくなったとしたら、アクションを ":delete" に変えてユーザを削除すればよいのです。
 
-The available resource attributes and their default values are described in detail for each resource on the [Resources] page.
+利用可能なリソース属性とデフォルト値の一覧は、[リソース]のページに細かく書いてあります。
 
-When chef-client loads the recipes in its run list, 
-# It runs each recipe as a piece of ruby code.  
-# Each time a resource is used, it is added to a collection of resources for that node.  
-# The providers of these resources then decide whether or not action is needed to fulfill the resources' description.  
+chef-client が実行リスト内のレシピを読み込むとき、
+# それぞれのレシピを ruby のコードとして実行します。
+# リソースが出てくるたびに、そのノードに関するリソース一覧に追加されていきます。
+# それからリソースのプロバイダが、リソースに書いてある通りの状態にするために、アクションを実行する必要があるかどうか判断します。
 
-_In this way, a core principal of Chef is achieved: idempotency._ {color:#f7681a}*Idempotency* ensure that a resource can be applied to a machine multiple times and always have the same result: a properly configured machine.{color}
+_このようにして、Chef のコアをなす原則「べき等」が実現されるのです。 _{color:#f7681a}*べき等* であるということは、あるマシンに何度リソースを適用したとしても結果は変わらず、常に適切に設定されたマシンを得ることができるということです。{color}
 
-h2. Attributes and Templates
+h2. 属性とテンプレート
 {float:left|background=#eeeeee|border=4px solid #d7d4c3|padding=4px|margin=10px|width=200px}
 {center}
-{color:navy}*Attributes are data about a Node and able to be dynamically loaded*{color}
+{color:navy}*属性はノードに関するデータであり、動的に読み込まれます。*{color}
 {center} 
 {float} 
 
-{color:#f7681a}Attributes provide a nested key-value store of data about a node and its configuration.{color}  Some attributes are collected automatically at the start of each chef-client run and include information such as the nodes IP address, hostname, or loaded kernel modules.  Other attributes are added from other sources such as cookbooks. (Roles and Environments can also set attributes, two features of Chef that are talked about in other sections.)  
+{color:#f7681a}属性というのは、ネスとしたキーバリューストアであり、ノード自体の情報やノードにどんな設定が適用されているかを知ることができます。{color}いくつかの属性は、chef-client を実行したとき一番はじめに収集されます。収集されるのはノードの IP アドレス・ホスト名・読み込まれたカーネルモジュールの一覧などです。他の属性は、クックブックなど別の場所から追加されます。 (ロールや環境でも属性を設定することができるのですが、この機能については他の節で詳しく書きます。)
 
-Attributes allow you to change configuration based on the characteristics of a node and set sane defaults for service configurations while also allowing them to be easily changed.  One way to set attributes is from an attribute files within a cookbook.  
+属性によって、ノードの特徴に基づいて設定内容を変更し、まともなデフォルト値を設定することができるし、そのデフォルト値を変更するのも簡単にできます。属性を設定する 1 つの方法として、クックブックの属性ファイルから行うやり方があります。
 
-For example the following sets some sane defaults for the location of a particular configuration file:
+たとえば、次の例ではとある設定ファイルの置き場所について、まともなデフォルト値を設定しています：
 
-{code:title=An attribute file}
+{code:title=属性ファイルの例}
 default["my_application"]["config_location"] = "/etc/myapp.conf"
 {code}
 
-This attribute could then be used directly in a resource controlling the configuration file:
+ここで設定された属性は、設定ファイルを管理するリソースの中ですぐに使うことができます：
 
 {code}
 template node["my_application"]["config_location"] do
@@ -168,75 +168,75 @@ end
 
 {float:left|background=#eeeeee|border=4px solid #d7d4c3|padding=10px|margin=4px|width=200px}
 {center}
-{color:navy}*A template is a configuration file allowing dynamic generation of file contents based on variables or more complex logic*{color}
+{color:navy}*テンプレートは設定ファイルのようなものですが、変数やもっと複雑なロジックに基づいて、ファイルの内容を動的に生成することができます*{color}
 {center} 
 {float} 
 
-{color:#f7681a}This defines a [Templates], which is a feature of Chef that allows you to create general files whose contents can be generated dynamically.{color}  If this configuration file was referenced multiple times in a recipe, changing its location is now a matter of changing a single attribute.   
+{color:#f7681a}[テンプレート]という Chef の機能で、ファイルの内容を動的に生成することができます。仮にそのファイルを何度もレシピの中で参照していたとしても、1 つの属性を変えるだけでファイルの置き場所を変更することができます。
 
-Node attributes also contain information about the node that can be used in recipes:
+ノードの属性を使い、レシピの中でノードの情報を使うこともできます：
 
 {code}
 if node.attribute?("ec2")
    # Do EC2 specific configuration tasks.
 end
 {code}
-This would allow a recipe to do some set of configuration tasks only if it was running on Amazon's EC2 cloud.  For complete documentation on Attributes see [Attributes].
+このような仕組みのおかげで、レシピに「Amazon EC2 で動かしているときだけ設定タスクを行いたい」というのを指定できます。属性についての完全なドキュメントを読みたいなら、[属性]を参照してください。
 
-h1. Roles
+h1. ロール
 {float:left|background=#eeeeee|border=4px solid #d7d4c3|padding=4px|margin=10px|width=200px}
 {center}
-{color:navy}*At web scale, you almost never have just one of something*{color}
+{color:navy}*ウェブをスケールさせる際には、「1 つしかない」ということはほとんどあり得ません。*{color}
 {center} 
 {float} 
 
-Configuring a single node may involve many different cookbooks. {color:#f7681a}In order to group similiar features of similar nodes, Chef provides Roles.{color}  Roles contain a run list (just like a node) and attributes pertaining to a specific function.  For example, you may create a "webserver" role that would contain a run list with all of the services needed on a typical webserver within your infrastructure.  A node's run list can contain these roles.  
+1 つのノードに設定を適用するにしても、さまざまなクックブックが必要となります。 {color:#f7681a}機能が似たノードをグループ分けしたいなら、Chef のロールを使えばよいでしょう。{color} ロールはノードと似ていますが、ある機能に特化した実行リストと属性を持っています。たとえば、"webserver" というロールを作成し、インフラでウェブサーバがよく受け持っているようなサービスをすべて含ませることができます。ノードの実行リストにはこのようなロールを含ませることができるのです。
 
-When a node's run list contains a role, the run list from the role itself is expanded and added to the node's run list, ensuring that all of the recipes for a given role are applied to the node.
+ノードの実行リストにロールが含まれるなら、ロール自体の実行リストが展開されてノードの実行リストに追加されます。これによって確実に、あるロールに必要なすべてのレシピをノードに適用することができます。
 
-Roles can also set attributes.  Setting attributes in a roles allows you to override the default attribute of a general-purpose cookbook with values more appropriate for a node with a particular role.
+ロールでは属性を設定することもできます。ロールで属性を設定すれば、クックブックに定義された汎用的なデフォルトの属性を、あるロールに特化したノード向けの値で上書きすることができます。
 
 {center}
 !chef-basics-roles.png!
 {center}
 
-h1. Environments
+h1. 環境
 {float:left|background=#eeeeee|border=4px solid #d7d4c3|padding=4px|margin=6px|width=200px}
 {center}
-{color:navy}*Manage multiple spaces with one Chef instance*{color}
+{color:navy}*1 つの Chef の中で複数のスペースを管理できます*{color}
 {center} 
 {float}
 
-{color:#f7681a}Environments in Chef provide a mechanism for managing different environments such as production, staging, development, and testing, etc within one Chef Server or Hosted Chef organization.{color} With environments, you can specify per environment run lists in roles, per environment cookbook version constraints, and environment attributes. [#Roles] differ in that they are groupings of systems that perform a like function and which _can span environments_ - for example: application server, web server, database server. Thus you can have per-environment run lists within roles - for example: in your development environment you want your application server to connect to a different load balancer than you do in your test environment, and this can be managed within a single [recipe|#Recipes].
+{color:#f7681a}[環境]は 1 つの Chef システム (または Chef ホスティングなら 1 つの組織) の中で、本番・ステージング・開発・テストといったさまざまな環境を管理するためのメカニズムです。{color} 環境を使えば、ロールの中に環境毎の実行リストを指定したり、環境毎の[クックブック]のバージョンを指定したり、環境固有の属性を指定したりできます。 _[#ロール]は環境と異なり、サーバを機能ごとにグループ分けしてくれるものであり、環境をまたぐことができます_ ーーたとえば：アプリケーションサーバ・ウェブサーバ・データベースサーバというように。すなわち、ロールの中で環境毎に実行リストを設定することができるのですーーたとえば：開発環境とテスト環境でアプリケーションサーバが接続するロードバランサを変えたいとか、そういう記述を同じ[#レシピ]の中に含めることができます。
 
-You can create and manage environments in multiple ways, thereby tailoring their use to your needs and infrastructure. See [Environments] for more details.
+環境を作成・管理するのにはいろいろなやり方があるので、置かれている状況やインフラの種類に合わせて選ぶことができます。詳しくは[環境]を参照してください。
 
-h1. Summary
+h1. まとめ
 
-* Cookbooks contain recipes, attribute files, and other configuration information.
-* Resources are the building blocks of recipes and describe a discrete piece of a Node's configuration. 
-* Resources are idempotent.  Applying the same resource to a node twice should have the same result.
-* Providers take the necessary actions required to ensure the Node's state matches the resource description.
-* Attributes provide tunable parameters that can be used within a recipe as well as information about the node.
-* Roles provide a way to describe a particular function or type of node.  Roles have run_lists and attributes.
-* Environments provide the means of managing different infrastructure spaces within one Chef instance.
+* クックブックにはレシピ・属性ファイル・その他の情報が含まれる。
+* リソースはレシピの構成部品であり、ノードの適切な設定内容を記述できる。
+* リソースはべき等。ノードに同じリソースを 2 度適用しても結果は同じになる。
+* プロバイダは必要になったときだけアクションを実行し、確実にノードの状態がリソースで記述したのと同じになるようにしてくれる。
+* 属性のおかげでレシピから、チューニング可能なパラメタやノードに関する情報を利用することができる。
+* ロールを使うと、特定の役割を持ったノードをまとめて記述することができる。ロールには実行リストと属性が含まれる。
+* 環境を使うと、 1 つの Chef の中でインフラをいくつかのスペースに区切り、管理することができる。
 
 
-h1. Onward!
+h1. 続きをどうぞ！
 
-Now on to two of Chef's most Powerful Features:
+さてお次は Chef の非常にパワフルな 2 つの機能：
 
-* Next Steps: [Introduction to Search and Data Bags]
+* 次のステップ：[検索とデータバッグの紹介]
 
-h1. Advanced Reading
+h1. もっとよく知りたいなら
 
-* [Cookbooks]
-* [Resources]
-* [Providers]
-* [Attributes]
-* [Roles]
-* [Templates]
-* [Environments]
+* [クックブック]
+* [リソース]
+* [プロバイダ]
+* [属性]
+* [ロール]
+* [テンプレート]
+* [環境]
 
 \\
 \\
@@ -251,7 +251,7 @@ h1. Advanced Reading
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[Core Components]
+[コアとなる要素]
 
 {column}
 {column:width=40%}
@@ -260,7 +260,7 @@ h1. Advanced Reading
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[Introduction to Search and Data Bags]
+[検索とデータバッグの紹介]
 
 \\
 \\

@@ -127,8 +127,7 @@ h2. ロールの属性
 {center}{color:navy}*属性を[ディープ・マージ]することができます。*{color}{center}
 {center}[ディープ・マージ]によってロールの属性を階層化することができます。{center}
 {float}
-{color:#f7681a}ロールで設定できるのは {{default}} 属性・ {{override}} 属性のみで、{{normal}} 属性を設定することはできません。{color} This is done with the {{default_attributes}} and {{override_attributes}} methods in a Role's [Ruby DSL|Roles#TheRubyDSL] file, or the {{default_attributes}} and {{override_attributes}} hashes in the Role's JSON data. 
-実際に設定するときには、ロールの [Ruby DSL|Environments#TheRubyDSL] 内で {{default_attributes}} メソッド・ {{override_attributes}} メソッドを使うか、ロールの JSON データの中で {{default_attributes}} ・ {{override_attributes}} ハッシュを定義します。
+{color:#f7681a}ロールで設定できるのは {{default}} 属性・ {{override}} 属性のみで、{{normal}} 属性を設定することはできません。{color} 実際に設定するときには、ロールの [Ruby DSL|Environments#TheRubyDSL] 内で {{default_attributes}} メソッド・ {{override_attributes}} メソッドを使うか、ロールの JSON データの中で {{default_attributes}} ・ {{override_attributes}} ハッシュを定義します。
 
 あるロールに特有の値を割り当てるのが一般的です。たとえば、{{php_apache2_server}} というロールと {{mod_perl_apache2_server}} というロールでは、同じ Apache の属性に対して違うチューニングパラメタを使いたくなるでしょう。
 

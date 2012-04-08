@@ -1,0 +1,113 @@
+{section}
+{column:width=3%}
+{column}
+{column}
+\\
+\\
+{panel:bgColor=#d7d4c3} 
+!OC_Chef_Logo_small.png|align=left,hspace=40,vspace=4!
+\\
+h3. {color:#f7681a}The Chef Client is where almost all of the work in Chef is done.  
+
+It communicates with the [Chef Server] via REST, authenticates via [Signed Header Authentication|Authentication and Authorization], and compiles and executes [Cookbooks].{color}
+{panel}
+
+h3. Clients do work for one or many Nodes
+A Chef Client does work on behalf of a [Node|Nodes].  A single Chef Client can run recipes for multiple [Nodes].  
+
+h3. Clients do all the work
+Clients are where all the action happens - the [Chef Server] and [Chef Indexer] are largely services that exist only to provide the Client with information.
+
+h2. You can run the client periodically
+If you want, you can run the Chef Client as a persistent daemon.  To do this, make your startup script for the chef client execute something like:
+
+{code:bash|linenos=false|title=Chef Client Interval and Splay}
+$ chef-client -i 3600 -s 600
+{code}
+
+The {{-i}} option provides an _Interval_ - it's how often the Chef client will attempt to wake up and Converge this [Node|Nodes].  The {{-s}} option is the _Splay_ - a random piece of time added to the interval, which helps avoid the [thundering herd problem|http://en.wikipedia.org/wiki/Thundering_herd_problem]. 
+
+{column} 
+{column:width=20%}
+\\ 
+\\
+{info:title=[Anatomy of a Chef Run]}
+\\
+[Anatomy of a Chef Run] describes the process taken by the [Chef Client] to configure an individual [Node|Nodes] in detail.
+{info}
+\\
+{tip}
+*_Chef-Client Cookbook_*  
+\\
+\\
+The [Opscode chef-client cookbook|http://community.opscode.com/cookbooks/chef-client] is available for use on systems that should have a `chef-client` daemon running, such as when Knife bootstrap was used to install Chef on a new system.  
+
+It includes the interval set at 1800 seconds and the splay set at 20 seconds, as configurable defaults, and additional configurable detail information as detailed on this page.
+{tip}
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+{column:width=3%}
+{column}
+{column}
+The entire set of options available can be found with the incantation:
+
+{code:title=Chef Client Option List}
+$ chef-client --help
+Usage: /usr/bin/chef-client (options)
+    -S, --server CHEFSERVERURL       The chef server URL
+    -k, --client_key KEY_FILE        Set the client key file location
+    -c, --config CONFIG              The configuration file to use
+    -d, --daemonize                  Daemonize the process
+    -E, --environment ENVIRONMENT    Set the Chef Environment on the node
+    -g, --group GROUP                Group to set privilege to
+    -i, --interval SECONDS           Run chef-client periodically, in seconds
+    -j JSON_ATTRIBS                  Load attributes from a JSON file or URL
+        --json-attributes
+    -l, --log_level LEVEL            Set the log level (debug, info, warn, error, fatal)
+    -L, --logfile LOGLOCATION        Set the log file location, defaults to STDOUT - recommended for daemonizing
+    -N, --node-name NODE_NAME        The node name for this client
+        --once                       Cancel any interval or splay options, run chef once and exit
+    -P, --pid PIDFILE                Set the PID file location, defaults to /tmp/chef-client.pid
+    -s, --splay SECONDS              The splay time for running at intervals, in seconds
+    -u, --user USER                  User to set privilege to
+    -K, --validation_key KEY_FILE    Set the validation key file location, used for registering new clients
+    -v, --version                    Show chef version
+    -h, --help                       Show this message
+{code}
+
+The JSON_ATTRIBS can be a {{[run_list|Setting the run_list in JSON during run time]}} and used to specify roles and/or recipes to add to the node.
+
+h2. Chef-Client Configuration Settings
+[Chef Configuration Settings] has detail on the configuration settings available for chef-client, and all the Chef executables. 
+
+\\
+\\
+\\
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[Evaluate and Run Resources at Compile Time]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[Chef Solo]
+
+\\
+\\
+{column}
+{section}

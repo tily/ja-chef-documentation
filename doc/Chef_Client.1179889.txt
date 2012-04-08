@@ -7,42 +7,42 @@
 {panel:bgColor=#d7d4c3} 
 !OC_Chef_Logo_small.png|align=left,hspace=40,vspace=4!
 \\
-h3. {color:#f7681a}The Chef Client is where almost all of the work in Chef is done.  
+h3. {color:#f7681a}Chef が行う作業のほとんどは Chef クライアントで行われます。
 
-It communicates with the [Chef Server] via REST, authenticates via [Signed Header Authentication|Authentication and Authorization], and compiles and executes [Cookbooks].{color}
+[Chef サーバ] と REST で通信し、[署名つきヘッダ|認証と権限管理]で認証を行い、[クックブック]のコンパイルと実行を行います。{color}
 {panel}
 
-h3. Clients do work for one or many Nodes
-A Chef Client does work on behalf of a [Node|Nodes].  A single Chef Client can run recipes for multiple [Nodes].  
+h3. クライアントが複数ノードのために作業を行います
+Chef クライアントは[ノード]の代わりに作業を行います。1 つの Chef クライアントで、複数ノードのためにレシピを実行することができます。
 
-h3. Clients do all the work
-Clients are where all the action happens - the [Chef Server] and [Chef Indexer] are largely services that exist only to provide the Client with information.
+h3. クライアントがすべての作業を行います
+クライアントですべてのアクションが行われますーー[Chef サーバ]と[Chef インデクサ]は大まかに言って、単にクライアントに情報を提供するためだけに存在しているサービスなのです。
 
-h2. You can run the client periodically
-If you want, you can run the Chef Client as a persistent daemon.  To do this, make your startup script for the chef client execute something like:
+h2. クライアントを定期的に起動させることができます
+もし必要ならば、Chef クライアントを永続するデーモンとして動かすことができます。これを行うには、Chef クライアントの起動スクリプトで下記のようなコマンドを実行します：
 
-{code:bash|linenos=false|title=Chef Client Interval and Splay}
+{code:bash|linenos=false|title=Chef クライアントの実行間隔とスプレー}
 $ chef-client -i 3600 -s 600
 {code}
 
-The {{-i}} option provides an _Interval_ - it's how often the Chef client will attempt to wake up and Converge this [Node|Nodes].  The {{-s}} option is the _Splay_ - a random piece of time added to the interval, which helps avoid the [thundering herd problem|http://en.wikipedia.org/wiki/Thundering_herd_problem]. 
+{{-i}} オプションには _実行間隔(Interval)_ を指定できますーーChef クライアントが起動し[ノード]を収束する間隔のことです。{{-s}} オプションには _スプレー(Splay)_ を指定しますーー実行間隔をランダムに増やし、[thundering herd problem|http://en.wikipedia.org/wiki/Thundering_herd_problem] を回避する助けとなります。
 
 {column} 
 {column:width=20%}
 \\ 
 \\
-{info:title=[Anatomy of a Chef Run]}
+{info:title=[Chef 実行の解剖図]}
 \\
-[Anatomy of a Chef Run] describes the process taken by the [Chef Client] to configure an individual [Node|Nodes] in detail.
+[Chef 実行の解剖図]では、[Chef クライアント]がそれぞれの[ノード]に設定を適用する際に、どんな過程をたどるのか詳しく解説しています。
 {info}
 \\
 {tip}
-*_Chef-Client Cookbook_*  
+*_Chef クライアント用クックブック_*  
 \\
 \\
-The [Opscode chef-client cookbook|http://community.opscode.com/cookbooks/chef-client] is available for use on systems that should have a `chef-client` daemon running, such as when Knife bootstrap was used to install Chef on a new system.  
+[Opscode 製の Chef クライアント用クックブック|http://community.opscode.com/cookbooks/chef-client]を利用して、サーバで `chef-client` デーモンを起動させることができます。knife bootstrap で新しいサーバに Chef クライアントをインストールする際などに有用です。
 
-It includes the interval set at 1800 seconds and the splay set at 20 seconds, as configurable defaults, and additional configurable detail information as detailed on this page.
+クックブックでは、実行間隔 1800 秒、スプレー 20 秒のデフォルト値が設定されています。さらに他にも、このページに書いてあるような細かい設定情報も含まれています。
 {tip}
 {column}
 {column:width=5%}
@@ -52,7 +52,7 @@ It includes the interval set at 1800 seconds and the splay set at 20 seconds, as
 {column:width=3%}
 {column}
 {column}
-The entire set of options available can be found with the incantation:
+お決まりの --help オプションをつければ chef-client のオプション引数一覧を見ることができます：
 
 {code:title=Chef Client Option List}
 $ chef-client --help
@@ -78,10 +78,10 @@ Usage: /usr/bin/chef-client (options)
     -h, --help                       Show this message
 {code}
 
-The JSON_ATTRIBS can be a {{[run_list|Setting the run_list in JSON during run time]}} and used to specify roles and/or recipes to add to the node.
+JSON_ATTRIBS に {{[実行リスト|実行時に JSON で実行リストを指定するには]}} を書き、そのノードに追加したいロール／レシピを指定することもできます。
 
-h2. Chef-Client Configuration Settings
-[Chef Configuration Settings] has detail on the configuration settings available for chef-client, and all the Chef executables. 
+h2. chef-client に関する設定項目
+[Chef に関する設定項目] を見れば、chef-client や他のすべてのコマンドの設定項目について詳しく書かれています。
 
 \\
 \\
@@ -96,7 +96,7 @@ h2. Chef-Client Configuration Settings
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[Evaluate and Run Resources at Compile Time]
+[コンパイル時にリソースを評価・実行するには]
 
 {column}
 {column:width=40%}

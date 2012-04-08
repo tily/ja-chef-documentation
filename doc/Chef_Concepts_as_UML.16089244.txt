@@ -1,0 +1,98 @@
+{section}
+{column:width=3%}
+{column}
+{column:width=70%}
+\\
+h5. {color:#f7681a}Despite rusty UML, we thought it would be worthwhile to share a diagram of relationships between the various Chef components. Feel free to update it or leave feedback if there appear to be incorrect connections. The original OmniGraffle file is attached.{color}
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+{column:width=3%}
+{column}
+{column:width=45%}
+
+!ChefConcepts.png|align=center!
+
+{column}
+{column:width=40%}
+
+{panel:borderColor=#f7681a|borderWidth=2}
+*Server*
+* There is 1 Server.
+
+*Client*
+* There may be multiple Clients.
+* Each Client has 1 Server.
+* A Client may or may not belong to a Node.
+
+*Environment*
+* There may be multiple Environments.
+* Each Environment has 0 or more versions of a Cookbook.
+
+*Node*
+* There may be multiple Nodes.
+* Each Node has 1 Server.
+* Each Node has 1 Client.
+* Each Node has 1 Run List.
+* Each Node has 1 Environment (_default if none is specified)
+* Each Node has 0 or more Attributes.
+
+*Run List*
+* The Run List may have 0 or more Roles.
+* The Run List may have 0 or more Recipes.
+
+*Role*
+* There may be multiple Roles.
+* Each Role has 1 Run List per Environment (with a default).
+
+*Recipe*
+* There may be multiple Recipes.
+* Each Recipe has 1 Cookbook.
+* Each Recipe has 0 or more Resources.
+
+*Resource*
+* There may be multiple Resources.
+
+*Cookbook*
+* There may be multiple Cookbooks.
+* Each Cookbook has 0 or more Recipes.
+* Each Cookbook has 1 or more versions.
+
+*Attribute*
+* There are precedence rules for setting Attributes within a Recipe, Cookbook, Role, Environment or directly on the Node.
+
+*Data Bag*
+* There may be multiple Data Bags.
+{panel}
+
+\\
+\\
+\\
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[Cookbook Site API]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[Chef Essentials]
+
+\\
+\\
+{column}
+{section}

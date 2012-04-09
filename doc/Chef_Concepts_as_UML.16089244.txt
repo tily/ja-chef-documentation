@@ -3,7 +3,7 @@
 {column}
 {column:width=70%}
 \\
-h5. {color:#f7681a}Despite rusty UML, we thought it would be worthwhile to share a diagram of relationships between the various Chef components. Feel free to update it or leave feedback if there appear to be incorrect connections. The original OmniGraffle file is attached.{color}
+h5. {color:#f7681a}UML は古くさいですが、さまざまな Chef の構成要素がどう関係しているかダイアグラムにして提供することには価値があるように思いました。もし間違った線を見つけたら、好きなように更新するかコメントで教えてください。元になっている OmniGraffle のファイルも添付してあります。{color}
 \\
 {column}
 {column:width=5%}
@@ -20,52 +20,52 @@ h5. {color:#f7681a}Despite rusty UML, we thought it would be worthwhile to share
 {column:width=40%}
 
 {panel:borderColor=#f7681a|borderWidth=2}
-*Server*
-* There is 1 Server.
+*サーバ*
+* 1 個ある。
 
-*Client*
-* There may be multiple Clients.
-* Each Client has 1 Server.
-* A Client may or may not belong to a Node.
+*クライアント*
+* 複数個ある。
+* それぞれが 1 個のサーバを持つ。
+* ノードに属していることもある。
 
-*Environment*
-* There may be multiple Environments.
-* Each Environment has 0 or more versions of a Cookbook.
+*環境*
+* 複数個ある。
+* それぞれが 0 個以上のクックブックのバージョンを持つ。
 
-*Node*
-* There may be multiple Nodes.
-* Each Node has 1 Server.
-* Each Node has 1 Client.
-* Each Node has 1 Run List.
-* Each Node has 1 Environment (_default if none is specified)
-* Each Node has 0 or more Attributes.
+*ノード*
+* 複数個ある。
+* それぞれが 1 個のサーバを持つ。
+* それぞれが 1 個のクライアントを持つ。
+* それぞれが 1 個の実行リストを持つ。
+* それぞれが 1 個の環境を持つ (指定されていなければ _default)。
+* それぞれが 0 個以上の属性を持つ。
 
-*Run List*
-* The Run List may have 0 or more Roles.
-* The Run List may have 0 or more Recipes.
+*実行リスト*
+* 実行リストは 0 個以上のロールを持つ。
+* 実行リストは 0 個以上のレシピを持つ。
 
-*Role*
-* There may be multiple Roles.
-* Each Role has 1 Run List per Environment (with a default).
+*ロール*
+* 複数個ある。
+* それぞれが環境別に 1 個の実行リストを持つ (デフォルト値あり)。
 
-*Recipe*
-* There may be multiple Recipes.
-* Each Recipe has 1 Cookbook.
-* Each Recipe has 0 or more Resources.
+*レシピ*
+* 複数個ある。
+* それぞれが 1 個のクックブックを持つ。
+* それぞれが 0 個以上のリソースを持つ。
 
-*Resource*
-* There may be multiple Resources.
+*リソース*
+* 複数個ある。
 
-*Cookbook*
-* There may be multiple Cookbooks.
-* Each Cookbook has 0 or more Recipes.
-* Each Cookbook has 1 or more versions.
+*クックブック*
+* 複数個ある。
+* それぞれが 0 個以上のレシピを持つ。
+* それぞれが 1 個以上のバージョンを持つ。
 
-*Attribute*
-* There are precedence rules for setting Attributes within a Recipe, Cookbook, Role, Environment or directly on the Node.
+*属性*
+* レシピ・クックブック・ロール・環境から設定したり、ノードから直接設定したりできるが、優先度のルールがある。
 
-*Data Bag*
-* There may be multiple Data Bags.
+*データバッグ*
+* 複数個ある。
 {panel}
 
 \\
@@ -81,7 +81,7 @@ h5. {color:#f7681a}Despite rusty UML, we thought it would be worthwhile to share
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[Cookbook Site API]
+[クックブック・サイトの API]
 
 {column}
 {column:width=40%}
@@ -90,7 +90,7 @@ h5. {color:#f7681a}Despite rusty UML, we thought it would be worthwhile to share
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[Chef Essentials]
+[必要不可欠な要素]
 
 \\
 \\

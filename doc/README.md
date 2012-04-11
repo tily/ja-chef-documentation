@@ -2,10 +2,29 @@
 
 ## 作業メモ
 
-	export $PATH=PATH:./bin
-	jdc download "Fast Far Guide" # ページの textile と添付画像をダウンロードして git commit まで行う
-	jdc preview page_id
-	jdc upload page_id
+jcd という ruby のコマンドで、Chef ドキュメント原文をダウンロード・プレビュー・アップロードしたりできるようになっています。
+
+	export $PATH=PATH:/path/to/ja-chef-documentation/bin
+
+とかやって、パスを通しておくとよい感じです。いくつかの ruby ライブラリに依存しているので、下記でインストールしておくといい感じです。
+
+	gem install mechanize highline git-style-binaries launchy
+
+なお、コマンドを実行するためには http://wiki.opscode.com のアカウントが必要です。
+
+### jcd download
+
+	jcd download PAGE_NAME
+	jdc download "What is Chef?" # ページ原文・添付画像をダウンロードし git commit する
+
+### jcd preview
+
+	jcd preview PAGE_ID
+        jcd preview 7274862 # "What is Chef?" の PAGE_ID=7274862 版をプレビューする (Win/Mac の場合はブラウザで開いてくれる)
+
+### jcd upload
+
+まだ実装していないので手動でアップロードしています。
 
 ## 翻訳メモ
 

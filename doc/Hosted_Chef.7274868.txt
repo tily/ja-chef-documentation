@@ -1,0 +1,91 @@
+\\
+{section}
+{column:width=3%}
+{column}
+{column}
+
+!Opscode_ColorText.jpg|align=left,hspace=14,vspace=10!
+h1. {color:#f7681a}Hosted Chef{color}
+_(formerly The Opscode Platform)_
+
+h3. {color:#f7681a}Powered by Opscode’s Chef systems integration software{color}
+
+\\
+{float:right|background=#d7d4c3|padding=4px|margin=10px|width=320px}
+{panel:title=Sign Up Now and Manage up to Five Nodes Free!|bgColor=#d7d4c3}
+\\
+[Sign up now|https://community.opscode.com/users/new] to begin building automated cloud infrastructure with Hosted Chef, the world's first and only SaaS platform for automated infrastructure deployment and configuration management. 
+
+\\
+Get instant access to a highly available, dynamically scalable, fully managed and supported automation environment - powered by the experts at Opscode.  Once you sign up and create an organization, you can choose from several different [pricing plans|http://www.opscode.com/pricing/]. 
+
+\\
+_*The first five nodes are free!*_
+
+{panel}
+{float}
+h2. Key Benefits:
+h5. {color:#f7681a}Speed{color} 
+*Start immediately and accelerate deployment and configuration management*
+h5. {color:#f7681a}Scale{color}
+*Deploy from tens to thousands of servers in public and/or private clouds*
+h5. {color:#f7681a}Agility{color}
+*Roll out complex changes to your entire fleet of servers and infrastructure*
+h5. {color:#f7681a}Elegance{color}
+*Solve complex problems with simple, dynamic code*
+
+h2. Functionality
+At its heart, Hosted Chef is a centrally managed data store into which Chef clients publish system information such as IP addresses, loaded kernel modules, OS versions and more. This data becomes useful across your entire infrastructure in several important ways:
+
+!opscode-platform-about.png|align=right,hspace=18,vspace=6!
+h3. * {color:#f7681a}*Search-based Automation:*{color}
+All the data collected by Hosted Chef is indexed and searchable. You can then dynamically query this data from within in your recipes to configure services that require complex configuration. Examples might include: dynamically discovering a master mySQL server, configuring nagios, or finding all the memcached servers in a cluster.
+
+h3. * {color:#f7681a}*Role-based Access Control:*{color}
+Layered on top of this data index is a fine-grained access control system that allows you to centrally manage the level of infrastructure access granted to employees, contractors, and other parties. Should auditors have read-only access to the entire infrastructure? Should DBA contractors only have access to mySQL slaves?
+
+h3. * {color:#f7681a}*Cookbooks Distribution:*{color}
+Hosted Chef allows you to centrally manage the cookbooks and roles that define your infrastructure. When you want to update every Apache web server in your development environment, just make one change and Hosted Chef will know where to go to work, whether in your own datacenter or in the cloud.
+
+h3. * {color:#f7681a}*Portability:*{color}
+The data stored on Hosted Chef serves as a blueprint of your infrastructure, making it much easier to create multiple environments that are perfect clones of your production environment. Examples of this include QA environments, pre-production environments, and partner preview environments.
+
+h2. Built to Scale
+Hosted Chef is built from the ground up by Opscode to be fully multi-tenant and horizontally scalable. {color:#f7681a}In working with Opscode, you don’t have to worry about the ability of your systems management tools to meet the growing demands of your infrastructure and of your business.{color}  
+
+As configuration management becomes more core to your business, the cost of maintaining a highly available system only increases.  _As you move from hundreds to thousands of systems under management, Hosted Chef will gracefully handle the load, with no concurrent increase in management overhead._
+
+*When new versions of Chef and the Opscode API are released, Hosted Chef will immediately be available to you* – data migrations and backwards compatibility are taken care of for you, virtually eliminating the work that may be required for major upgrades.
+\\
+\\
+{tip:title=Sign Up Now and Manage up to Five Nodes Free!}
+\\
+[Sign up now|https://community.opscode.com/users/new] to begin building automated cloud infrastructure with Hosted Chef, the world's first and only SaaS platform for automated infrastructure deployment and configuration management. Once you sign up and create an organization, you can choose from several different [pricing plans|http://www.opscode.com/hosted-chef/]. _*The first five nodes are free!*_
+{tip}
+
+\\
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[Backing Up Chef Server]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[Migrating to Hosted Chef from an Open Source Chef Server Implementation]
+
+\\
+\\
+{column}
+{section}

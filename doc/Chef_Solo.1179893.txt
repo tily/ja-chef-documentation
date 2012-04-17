@@ -1,0 +1,241 @@
+{section}
+{column:width=3%}
+{column}
+{column}
+\\
+{panel:bgColor=#d7d4c3}
+!OC_Chef_Logo_small.png|align=left,hspace=40,vspace=6!
+\\
+h3. {color:#f7681a}Chef Solo なら [Chef サーバ]がなくても Chef の[クックブック]を実行することができます。
+
+その場にあるクックブックのレシピを見て実行するので、クックブックの内容がすべてディスク上に存在している必要があります。{color}
+{panel}
+\\
+h5. Chef Solo では利用できないもの：
+
+- ノードデータの保存やインデクスによる検索はできません。
+- サーバによるクックブックの配布はできません。
+- 環境毎にクックブックのバージョン・ポリシーを設定することはできません。
+- サーバ API とやりとりしてインフラの構成要素どうしを統合することはできません。
+
+h5. この文書では、クックブックと Chef Solo の設定方法を説明します。
+----
+{column} 
+{column:width=15%}
+\\
+{panel:bgColor=#d7d4c3} 
+{toc:minLevel=1|maxLevel=2|printable=no} 
+{panel} 
+{column}
+{column:width=5%}
+{column}
+{section} 
+{section}
+{column:width=3%}
+{column}
+{column}
+
+{{chef-solo}} コマンドで使える 3 つのオプションについて説明します
+
+{code}
+-c, --config CONFIG
+-j, --json-attributes JSON_ATTRIBS
+-r, --recipe-url RECIPE_URL
+{code}
+
+その後、実際に {{chef-solo}} を起動する例をお見せします。
+
+h2. chef-solo の設定
+
+{color:#f7681a}最初のオプションは {{\-c}} または {{\--config}} です。設定ファイルのファイル名を指定します。{color} このオプションを設定しない場合、Chef Solo はデフォルトの動作として {{/etc/chef/solo.rb}} に設定ファイルを探しにいきます。この設定ファイルには、2 つの変数を指定する必要があります：{{file_cache_path}} と {{cookbook_path}} です。たとえば、[Chef に関する設定項目] のページでは、下記を {{~/solo.rb}} に書いています：
+
+{code:ruby|linenos=false|title=~/solo.rb}
+file_cache_path "/var/chef-solo"
+cookbook_path "/var/chef-solo/cookbooks"
+{code}
+
+自分のサーバに合わせて上の例を書き換え、好きなようにディレクトリを指定することもできますが、絶対パスで書く必要があり、{{cookbook_path}} は {{file_cache_path}} のサブディレクトリであるべきです。
+
+*注意してください* ：上述のように、[Chef レポジトリ]を作成しようと思ったら、クックブックを含めたディレクトリ構造を考えておく必要があります。ディレクトリ構造が決まったら、{{~/solo.rb}} の {{cookbook_path}} 変数の値も決まります。
+
+h3. 複数のクックブック・ディレクトリ
+
+{{cookbook_path}} に配列を指定し、複数のパスからクックブックを探すようにすることもできます。
+{code:ruby|linenos=false|title=~/solo.rb}
+file_cache_path "/var/chef-solo"
+cookbook_path ["/var/chef-solo/cookbooks", "/var/chef-solo/site-cookbooks"]
+{code}
+
+_指定するクックブックの順番に意味があることに気をつけてください_ 、また[順番のルールは Chef 0.8 で変更されました|Breaking Changes from 0.7.x to 0.8.x]。先に定義したクックブックは後で定義したクックブックによって上書きされるようになっています。また、後述のクックブック用 tar ファイルを作成するときには、アーカイブの中に両方のディレクトリが含まれている必要があり、展開されたクックブックのディレクトリは {{file_cache_path}} ディレクトリに配置されます。
+
+h2. JSON に属性とレシピを書く
+
+{color:#f7681a}{{chef-solo}} は [Chef サーバ]とやりとりしないので、JSON ファイルの中にノード固有の[属性]を指定しておく必要があります。{color}この JSON ファイルは chef-solo を実行するサーバ内に置いておくこともできるし、S3 のような外部のサーバに保存しておいたり、自分で管理しているネットワーク内のウェブサーバに置くこともできます。
+
+JSON ファイルの中身では、"run_list" に Chef が実行すべきレシピの一覧を指定する必要もあります。下記は resolv.conf を設定する JSON ファイルの例です：
+
+{code:javascript|linenos=false|title=~/node.json}
+{
+  "resolver": {
+    "nameservers": [ "10.0.0.1" ],
+    "search":"int.example.com"
+  },
+  "run_list": [ "recipe[resolver]" ]
+}
+{code}
+
+([opscode/cookbook の resolver|http://github.com/opscode/cookbooks/tree/master/resolver]を参照のこと)
+
+h2. [Cookbooks]の準備
+
+{color:#f7681a}{{chef-solo}} にローカルファイルシステム上のディレクトリを探しに行くように指示することもできるし、tar ファイルを含む URL を指示することもできます。{color}
+
+h3. Chef レポジトリとのやりとり
+
+[Chef レポジトリ|Chef レポジトリ]を作成し、クックブックやその他の作成物を保存し、バージョン管理下に置く場所を決める際には、[[Chef レポジトリ]]に関連して chef-solo で管理するサーバを設定したり、{{chef-solo}} が見に行くディレクトリを作ったりといったことを考慮する必要があります。
+
+h3. ディレクトリからの起動
+
+{{chef-solo}} が探しに行くディレクトリを設定したら、そこにクックブックを保存し、そのディレクトリに対して {{chef-solo}} を実行することができます。このやり方でよいならこのやり方を使ってください。
+
+h3. URL からの起動
+
+しかしながら、tar アーカイブを含む URL に対して {{chef-solo}} を実行するほうが、ディレクトリに対して実行するよりも一般的です。まずはクックブックの tar アーカイブを作成します。
+
+{code:bash|linenos=false|title=Creating a Chef Solo Tarball}
+tar zcvf chef-solo.tar.gz ./cookbooks
+{code}
+
+もし複数のクックブック用ディレクトリを使っているなら、chef-solo は取得する tar アーカイブが下記のようなディレクトリ構成になっていることを期待します：
+
+{noformat}
+    cookbooks/
+       |---- cbname1/
+              |--attributes/ ... etc
+       ...
+       |---- cbname2/
+              |--attributes/
+       ...
+{noformat}
+
+([Rake タスク|Chef レポジトリ#ChefRepository-RakeTasks]の「クックブックをバンドルする」の項目も読んでみてください。)
+
+solo.rb の cookbook_path に指定する値を修正し、[chef-solo の設定|#ChefSolo-chef-soloの設定] に書いたように両方のパスを含むようにしてください。
+
+{code:bash|linenos=false|title=複数の Chef クックブックディレクトリを使う}
+tar zcvf chef-solo.tar.gz ./cookbooks ./site-cookbooks
+{code}
+
+それから、生成された {{chef-solo.tar.gz}} を {{chef-solo}} 実行対象サーバからアクセス可能なウェブサーバにアップロードします。[Chef サーバと Chef クライアントを設定する|LEG:Bootstrap Chef Rubygems Installation] ブートストラップ用の tar ファイルは、このようにアップロードしています。
+
+h2. {{chef-solo}} の実行例
+{float:right|background=#eeeeee|border=4px solid #d7d4c3|padding=10px|margin=10px|width=380px}
+{center}
+h6. {color:navy}リマインダ：chef-solo は *Chef サーバに接続していません*{color}
+{center}
+
+認証や権限管理、検索用インデクス、永続する属性はありません。ただ単に[クックブック]を実行できるだけなのです。
+{float}
+{{chef-solo}} の設定が終わり、サーバに適用したい JSON データと[クックブック]の準備ができたなら、今度は実行してみましょう！
+
+{code:bash|linenos=false|title=URL を指定して chef-solo を起動する}
+chef-solo -c ~/solo.rb -j ~/node.json  -r http://www.example.com/chef-solo.tar.gz
+{code}
+
+実際には Chef の remote_file というリソースを使って指定された {{chef-solo.tar.gz}} を取得し、{{file_cache_path}} に置き、{{cookbooks_path}} に展開し、展開したクックブックで Chef を実行することになります。なので 1 度このコマンドを実行してしまえば、次からはローカルファイルシステム上のクックブックを編集した上で、ディレクトリに対して Chef を再実行することができます：
+
+{code:bash|linenos=false|title=ディレクトリを指定して chef-solo を起動する}
+chef-solo -c ~/solo.rb -j ~/node.json
+{code}
+
+シンプルに '{{\-r URL}}' を削除し、設定ファイルでどこを探しに行くべきか chef-solo に教えることもできます。
+
+JSON データを URL で指定することもできます。
+
+{code:bash|linenos=false|title=クックブックと JSON を URL で指定して chef-solo を起動する}
+chef-solo -c ~/solo.rb -j http://www.example.com/node.json  -r http://www.example.com/chef-solo.tar.gz
+{code}
+
+この 2 つのオプション、{{\-r}} と {{\-j}} はそれぞれ {{recipe_url}} と {{json_attribs}} という設定ファイルのオプションに対応しています。
+
+{code:ruby|title=solo.rb}
+file_cache_path "/var/chef-solo"
+cookbook_path "/var/chef-solo/cookbooks"
+json_attribs "http://www.example.com/node.json"
+recipe_url "http://www.example.com/chef-solo.tar.gz"
+{code}
+
+solo.rb を {{/etc/chef/solo.rb}} に作成することもできます。{{chef-solo}} はデフォルトでこのパスを探しに行くので、'{{\-c ~/solo.rb}}' のように指定する必要がなくなります。
+
+h2. ロール
+
+chef-solo でもロールが使えます。{color:#f7681a}[JSON フォーマット|Roles#As JSON]か [RubyDSL|Roles#The Ruby DSL] のどちらかで定義することができ、chef-solo の設定ファイルでロールがどこに定義されているかを教えてやります。前の例に付け加えるなら：
+
+{code:ruby|linenos=false|title=~/solo.rb}
+file_cache_path "/var/chef-solo"
+cookbook_path "/var/chef-solo/cookbooks"
+role_path "/var/chef-solo/roles"
+{code}
+
+ロールを定義した JSON ファイルはこんな感じです：
+
+{code:javascript|linenos=false|title=/var/chef-solo/roles/test.json}
+{
+  "name": "test",
+  "default_attributes": { },
+  "override_attributes": { },
+  "json_class": "Chef::Role",
+  "description": "This is just a test role, no big deal.",
+  "chef_type": "role",
+  "run_list": [ "recipe[test]" ]
+}
+{code}
+
+上記のファイルを Ruby DSL で書くならこんな風になります：
+
+{code:javascript|linenos=false|title=/var/chef-solo/roles/test.rb}
+name 'test'
+description 'This is just a test role, no big deal.'
+run_list 'recipe[test]'
+{code}
+
+そして、chef-solo に渡す JSON データはこうなります：
+
+{code:javascript|linenos=false|title=~/chef.json}
+{ "run_list": "role[test]" }
+{code}
+
+[実行リスト|実行時に JSON で実行リストを指定するには]も参照してみてください。
+
+h2. 環境
+
+現在 chef-solo では環境をサポートしていません。
+
+\\
+\\
+\\
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[Chef クライアント]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[Chef サーバ]
+
+\\
+\\
+{column}
+{section}

@@ -5,62 +5,62 @@
 {column}
 
 !Opscode_ColorText.jpg|align=left,hspace=14,vspace=10!
-h1. {color:#f7681a}Hosted Chef{color}
-_(formerly The Opscode Platform)_
+h1. {color:#f7681a}Chef ホスティング{color}
+_(旧称 Opscode プラットフォーム)_
 
-h3. {color:#f7681a}Powered by Opscode’s Chef systems integration software{color}
+h3. {color:#f7681a}Opscode のシステム統合ソフト Chef によって運営されています{color}
 
 \\
 {float:right|background=#d7d4c3|padding=4px|margin=10px|width=320px}
-{panel:title=Sign Up Now and Manage up to Five Nodes Free!|bgColor=#d7d4c3}
+{panel:title=登録しよう、5 ノードまでの管理なら無料！|bgColor=#d7d4c3}
 \\
-[Sign up now|https://community.opscode.com/users/new] to begin building automated cloud infrastructure with Hosted Chef, the world's first and only SaaS platform for automated infrastructure deployment and configuration management. 
+[今すぐ登録|https://community.opscode.com/users/new]して、Chef ホスティングで自動化されたクラウド上のインフラを構築しはじめましょう。これは世界で最初かつ唯一の、インフラ構築自動化・構成管理向け SaaS プラットフォームです。
 
 \\
-Get instant access to a highly available, dynamically scalable, fully managed and supported automation environment - powered by the experts at Opscode.  Once you sign up and create an organization, you can choose from several different [pricing plans|http://www.opscode.com/pricing/]. 
+可用性が高く、動的にスケール可能で、管理とサポートが充実した自動化のための環境へとすぐにアクセスできます。この環境は Opscode の専門家たちによって運営されています。一度登録して最初の組織を作成したら、いくつかの異なる[料金プラン|http://www.opscode.com/pricing/]から好きなものを選ぶことができます。
 
 \\
-_*The first five nodes are free!*_
+_*最初の 5 ノードは無料です！*_
 
 {panel}
 {float}
-h2. Key Benefits:
-h5. {color:#f7681a}Speed{color} 
-*Start immediately and accelerate deployment and configuration management*
-h5. {color:#f7681a}Scale{color}
-*Deploy from tens to thousands of servers in public and/or private clouds*
-h5. {color:#f7681a}Agility{color}
-*Roll out complex changes to your entire fleet of servers and infrastructure*
+h2. 得するポイント
+h5. {color:#f7681a}スピード{color} 
+*すぐに始めてデプロイと構成管理を加速させることができます*
+h5. {color:#f7681a}大規模化対応{color}
+*パブリッククラウドだろうがプライベートクラウドだろうが数十〜数千台のサーバをデプロイすることができます*
+h5. {color:#f7681a}機敏さ{color}
+*所有サーバ・インフラのすべてに対して複雑な変更を反映できます*
 h5. {color:#f7681a}Elegance{color}
-*Solve complex problems with simple, dynamic code*
+*シンプルで動的なコードを書くことで複雑な問題を解決できます*
 
-h2. Functionality
-At its heart, Hosted Chef is a centrally managed data store into which Chef clients publish system information such as IP addresses, loaded kernel modules, OS versions and more. This data becomes useful across your entire infrastructure in several important ways:
+h2. 機能
+本質的には、Chef ホスティングは集中管理されたデータストアであり、Chef クライアントたちはこのデータストアへと IP アドレスや読み込まれたカーネルモジュールの一覧、OS バージョン等々のシステム情報を保存します。このようなデータは、いくつかの重要な観点からあなたのインフラ全体にとって非常に便利なものとなります：
 
 !opscode-platform-about.png|align=right,hspace=18,vspace=6!
-h3. * {color:#f7681a}*Search-based Automation:*{color}
-All the data collected by Hosted Chef is indexed and searchable. You can then dynamically query this data from within in your recipes to configure services that require complex configuration. Examples might include: dynamically discovering a master mySQL server, configuring nagios, or finding all the memcached servers in a cluster.
+h3. * {color:#f7681a}*検索ベースの自動化：*{color}
+Chef ホスティングによって収集されるすべてのデータはインデクスされ検索可能となっています。このデータに対してレシピの中から動的に問い合わせを行えるので、複雑な設定が必要となるサービスでも設定することができます。たとえばですが：動的に MySQL のマスタサーバを検出する、nagios を設定する、クラスタ内のすべての memcached サーバを見つける等。
 
-h3. * {color:#f7681a}*Role-based Access Control:*{color}
-Layered on top of this data index is a fine-grained access control system that allows you to centrally manage the level of infrastructure access granted to employees, contractors, and other parties. Should auditors have read-only access to the entire infrastructure? Should DBA contractors only have access to mySQL slaves?
+h3. * {color:#f7681a}*ロールベースの権限管理：*{color}
+このようなデータに対するインデクスの一番上の層には、きめ細かい権限管理システムがあり、このおかげで従業員や受託会社その他のさまざまなグループにについて、どの程度インフラへアクセスを許すか集中管理することができます。監査役にはすべてのインフラについてリードオンリー権限を与えたいとか、DBA を担当する受託会社には MySQL のスレーブサーバに対するアクセス権だけ与えたいとか。
 
-h3. * {color:#f7681a}*Cookbooks Distribution:*{color}
-Hosted Chef allows you to centrally manage the cookbooks and roles that define your infrastructure. When you want to update every Apache web server in your development environment, just make one change and Hosted Chef will know where to go to work, whether in your own datacenter or in the cloud.
+h3. * {color:#f7681a}*クックブックの配布：*{color}
+Chef ホスティングなら、インフラを定義するクックブックとロールを集中管理することができます。開発環境の Apache ウェブサーバをすべて更新したいとして、Chef ホスティングがデータセンターだろうがクラウドだろうが、どこに変更を適用すればよいか把握していてくれます。
 
-h3. * {color:#f7681a}*Portability:*{color}
-The data stored on Hosted Chef serves as a blueprint of your infrastructure, making it much easier to create multiple environments that are perfect clones of your production environment. Examples of this include QA environments, pre-production environments, and partner preview environments.
+h3. * {color:#f7681a}*移植性：*{color}
+Chef ホスティングに保存されたデータはインフラの設計図として機能するので、本番環境とまったく変わらないクローン環境をいくつでも簡単に作れるようになります。
 
-h2. Built to Scale
-Hosted Chef is built from the ground up by Opscode to be fully multi-tenant and horizontally scalable. {color:#f7681a}In working with Opscode, you don’t have to worry about the ability of your systems management tools to meet the growing demands of your infrastructure and of your business.{color}  
+h2. スケールするように構築されています
+Chef ホスティングは Opscode によって頭からつま先まで完全に、たくさんのユーザが使えて水平方向にスケールするように構築されています。{color:#f7681a}Opscode を利用するなら、システム管理ツールが限界に達してインフラやビジネスについての需要を満たせなくなる心配は不要です。
 
-As configuration management becomes more core to your business, the cost of maintaining a highly available system only increases.  _As you move from hundreds to thousands of systems under management, Hosted Chef will gracefully handle the load, with no concurrent increase in management overhead._
+ビジネスにとって構成管理が重要になってくるにつれ、可用性の高いシステムを保守するコストもかなりかさんでいきます。 _もし管理するサーバが 100 台規模から 1000 台規模へと増えるのだとしても、Chef ホスティングが負荷をうまく処理してくれるので、管理コストが一緒に増えてしまうということはありません。_
 
-*When new versions of Chef and the Opscode API are released, Hosted Chef will immediately be available to you* – data migrations and backwards compatibility are taken care of for you, virtually eliminating the work that may be required for major upgrades.
+*新しいバージョンの Chef や Opscode API がリリースされたときでも、Chef ホスティングならすぐに最新版が使えます* ーーデータ移行や後方互換性の面倒も見てくれるので、大きなアップグレードの際でも作業する必要がなくなるというわけです。
 \\
 \\
-{tip:title=Sign Up Now and Manage up to Five Nodes Free!}
+{tip:title=登録しよう、5 ノードまでの管理なら無料！}
 \\
-[Sign up now|https://community.opscode.com/users/new] to begin building automated cloud infrastructure with Hosted Chef, the world's first and only SaaS platform for automated infrastructure deployment and configuration management. Once you sign up and create an organization, you can choose from several different [pricing plans|http://www.opscode.com/hosted-chef/]. _*The first five nodes are free!*_
+[今すぐ登録|https://community.opscode.com/users/new]して、Chef ホスティングで自動化されたクラウド上のインフラを構築しはじめましょう。これは世界で最初かつ唯一の、インフラ構築自動化・構成管理向け SaaS プラットフォームです。一度登録して最初の組織を作成したら、いくつかの異なる[料金プラン|http://www.opscode.com/pricing/]から好きなものを選ぶことができます。  _*最初の 5 ノードは無料です！*_
 {tip}
 
 \\
@@ -74,7 +74,7 @@ As configuration management becomes more core to your business, the cost of main
 {column:width=45%}
 
 !leftarrow.png|align=left,hspace=4! 
-[Backing Up Chef Server]
+[Chef サーバのバックアップ]
 
 {column}
 {column:width=40%}
@@ -83,7 +83,7 @@ As configuration management becomes more core to your business, the cost of main
 {column:width=15%}
 
 !rightarrow.png|align=right,hspace=4! 
-[Migrating to Hosted Chef from an Open Source Chef Server Implementation]
+[オープンソース版 Chef サーバ実装から Chef ホスティングへの移行]
 
 \\
 \\

@@ -1,0 +1,194 @@
+{section}
+{column:width=3%}
+{column}
+{column}
+{float:right|background=#d7d4c3|padding=4px|margin=18px|width=320px}
+{panel:bgColor=#d7d4c3} 
+{toc:minLevel=1|maxLevel=2|printable=no} 
+{panel}
+{float}
+!authentication.png|align=left,thumbnail,hspace=20,vspace=26!
+h1. Overview
+
+h4. {color:#f7681a}Chef-client and knife both communicate with the Chef Server using a [REST API|Server API].{color}
+   
+h5. [Chef-clients|Chef Client] make API requests to retrieve their run list, download their cookbooks, and save their state after a successful run.  
+
+h5. When developing cookbooks and managing your infrastructure, you will regularly use [Knife] commands which make API request to the [Chef Server].
+\\
+\\
+
+{panel:borderColor=#f7681a|borderWidth=2}
+{center}
+h3. {color:navy}Before being processed by the server, each request goes through two processes{color}
+{center}
+
+| h5. {color:#f7681a}Authentication:{color} Verifies the identity of the API client communicating with the Chef Server. | h5. {color:#f7681a}Authorization:{color}  Verifies that the identified client has the permission to perform the requested actions. |
+{center}!authz-and-authn-overview.png|align=center!{center}
+\\
+{panel}
+
+After your initial configuration of nodes and your workstations, these processes are largely transparent.  However, understanding both of these processes is often important when debugging potential problems.  
+
+{color:#f7681a}Since *[Chef-Solo|Chef Solo]* does not communicate with a Chef Server, authentication and authorization do not play a role in the normal use of chef-solo.{color} This article covers how a given API client's requests are authenticated and authorized. For information about specific errors see [Common Errors].
+
+h1. Authentication
+{float:left|background=#eeeeee|border=4px solid #d7d4c3|padding=4px|margin=10px|width=180px}
+{center}
+{color:navy}*Authentication ensures that requests received by the Chef Server are from known API clients*{color}
+{center} 
+{float}
+{color:#f7681a}The authentication process in Chef uses public key encryption, and is the same for users of the Open Source Chef Server as well as Hosted Chef and Private Chef.{color}
+
+When an API client is created, private and public encryption keys are created.  The public key is stored on the Chef Server, while the private key is returned to the user for safe keeping.  The private key is the ".pem" file that you put in your local {{.chef}} directory or in {{/etc/chef}}. Chef executables such as {{chef-client}} and {{knife}} authenticate requests to the Chef Server by encrypting a specially crafted set of HTTP Headers with the private key. The Chef Server then uses the public key to de-crypt the headers and verifies their content.
+
+This process helps ensure that requests are only accepted from known API clients.
+
+For technical details on how API requests are authentication see [Making Authenticated API Requests].  To debug common problems that can result in Authorization errors, see [Common Errors].
+
+h2. Initial Chef-client run
+
+!authn-flow.png|align=right!
+{color:#f7681a}Since every request from chef-client to the Chef Server must be authenticated, every node must have an API client.{color}  To avoid requiring administrators to create new API clients for each node they would like to add to their infrastructure, Chef uses a special *validator client* on the first run of chef-client.  
+
+The validator client's key pair is created when you first install an Chef Server or create a Hosted Chef organization and is moved onto clients by the [Knife Bootstrap] process or manually during the chef-client install process. _This validator client creates a new API client that the node can then use for all future request._  
+
+A check is done to see if a client key exists on the node (typically, {{/etc/chef/client.pem}})
+* If so, we use it to start signing requests.
+
+* If not, we check if a validation key exists on the node (typically, {{/etc/chef/validation.pem}}).
+** If so, we request a new API Client Key, signing our request with the validation key.
+** If not, we fail.
+
+If we were issued a new API Client Key, we start using it to sign subsequent requests.
+
+h2. Debugging Authentication Problems
+
+{color:#f7681a}Authentication problems are situations in which chef-client receives HTTP Status 401 in response to its request.{color}  If you are receiving HTTP Status 403, the problem is with *Authorization*.  
+
+An authentication error error may look like the following:
+{code}
+[Wed, 05 Oct 2011 15:43:34 -0700] INFO: HTTP Request Returned 401 Unauthorized: Failed to authenticate as NODENAME. Ensure that your node_name and client key are correct.
+{code}
+To debug authentication problems, the first piece of information to determine is the API client that chef-client is attempting to authenticate as.  You can usually see this in the log messages emitted by chef-client.  For instance if you turn on debug logging ({{chef-client -l debug}}) you will see a line such as:
+
+{code}
+[Wed, 05 Oct 2011 22:05:35 +0000] DEBUG: Signing the request as SOMENODENAMEHERE
+{code}
+
+*If the authentication is happening with your validator client, the problem is most likely with your validation key.*  
+
+*If the authentication is happening with the nodes API client, there are a number of common causes.*
+
+* Your client.pem file is incorrect.
+    This can be fixed by deleting client.pem and re-running chef-client. When chef-client runs, it will register the API client and generate the correct key.
+
+* You are trying to authenticate with a node_name that is different from the one you used on your first chef-client run.
+    This can happen for a number of reasons. For example, if your client.rb file does not specify your node name and you have recently changed the systems hostname. You can fix this by explicitly setting the node name in the client.rb file or with chef-client's -N option to match the name originally used to register. Alternatively, you can re-register using the method described above.
+
+* Your system clock has drifted from the actual time by more than 15 minutes. This can be fixed by syncing your clock with an NTP server.
+
+
+h2. WebUI
+
+{color:#f7681a}The WebUI also uses Chef Server's REST API to perform most operations.{color}  As such requests from the API are also authenticated.  The WebUI authenticates using a keypair that is generated during the installation.  Hosted Chef users need not worry about the management of the WebUIs authentication keys, as Opscode handles that for you. Private Chef users WebUI authentication keys are managed by the internal administrator(s) responsible for the Private Chef server.
+
+h1. Authorization
+{float:left|background=#eeeeee|border=4px solid #d7d4c3|padding=6px|margin=10px|width=180px}
+{center}
+{color:navy}*Authorization ensures the API client making a given request has the permission to perform the requested action*{color}
+{center} 
+{float}
+Open Source Chef has a single tenant access control model, which is very different from the role-based access control (RBAC) model of Hosted Chef and Private Chef.  
+
+_See *[Hosted Chef Authorization]* for the Hosted Chef and Private Chef authorization model._
+
+{color:#f7681a}Authorization in the Open Source Chef Server is governed by the designation of API clients as non-admin, admin, or validator clients.{color}  
+Certain functions are available to all clients, others are available to either admin clients or the validator clients, and some are only available to admin clients.  Further, API clients are permitted to perform certain actions on themselves or their related node but not on other clients.
+
+Admin clients are created by setting the client's {{admin}} attribute to true.  
+This attribute can be set upon client create when using {{knife client create}} or by using {{knife client edit}}.
+
+Validator clients are created during the Chef Server installation.
+
+{color:#f7681a}*Admin Clients Only*{color}
+The following API requests can only be made by admin clients.
+
+||Request Description||Knife Equivalent||
+||Client Index|{{knife client list}}|
+|||Client Update|{{knife client edit NAME}}|
+||Client Destroy|{{knife client delete NAME}}|
+||Cookbook Update|{{knife cookbook upload COOKBOOK}}|
+||Cookbook Destroy | {{knife cookbook delete COOKBOOK}}|
+||Data Bag Create| {{knife data bag create BAG_NAME}}|
+||Data Bag Destroy|{{knife data bag delete BAG_NAME}}|
+|||Data Bag Item Create|{{knife data bag create BAG_NAME ITEM_NAME}}|
+||Data Bag Item Update|{{knife data bag edit BAG_NAME ITEM_NAME}}|
+||Data Bag Item Destroy|{{knife data bag delete BAG_NAME ITEM_NAME}}|
+|||Environment Create|{{knife environment create ENV_NAME}}|
+||Environment Update|{{knife environment edit ENV_NAME}}|
+||Environment Destroy|{{knife environment delete ENV_NAME}}|
+||Role Create|{{knife role create ROLE_NAME}}|
+||Role Update|{{knife role edit ROLE_NAME}}|
+||Role Destroy|{{knife role delete ROLE_NAME}}|
+||Search Reindex|*NA*|
+||User Create|*NA*|
+||User Update|*NA*|
+||User Destroy|*NA*|
+
+{color:#f7681a}*Admin Clients or Validator Client*{color}
+The following API requests can only be made by admin clients OR the validator client.
+
+||Request Description||Knife Equivalent||
+||Client Create|{{knife client create}}|
+
+_Note that only admin clients can create other admin clients._
+
+{color:#f7681a}*Admin Clients or Clients Acting on Themselves*{color}
+The following API requests can only be made by admin clients OR clients that are requesting that the action be taken on themselves or their related node.
+
+||Request Description||Knife Equivalent||
+||Client Show|{{knife client show NAME}}|
+||Node Update|{{knife node edit NAME}}|
+||Node Destroy|{{knife node delete NAME}}|
+||Node Cookbooks|*NA*|
+
+*Any functions not listed in the above tables can be performed by any API client that has made a properly authenticated request.*
+
+h1. Summary
+*{color:#f7681a}Open Source Chef Server has a single tenant access control model.{color}*
+# All stored objects (roles, nodes, cookbooks, data bags, search indexes) are in the same virtual space and accessible to all API clients. 
+# All API clients are authorized as either "admin" or "normal." 
+** "Admin" API clients perform privileged tasks such as create/read/update/delete operations on all nodes. 
+** "Normal" API clients act upon the node they create.
+
+*{color:#f7681a}The role-based access control (RBAC) model of Hosted and Private Chef is detailed at *[Hosted Chef Authorization]*.{color}*
+\\
+\\
+\\
+\\
+\\
+{column}
+{column:width=5%}
+{column}
+{section}
+{section}
+----
+{column:width=45%}
+
+!leftarrow.png|align=left,hspace=4! 
+[Architecture]
+
+{column}
+{column:width=40%}
+{column}
+
+{column:width=15%}
+
+!rightarrow.png|align=right,hspace=4! 
+[Hosted Chef Authorization]
+
+\\
+\\
+{column}
+{section}
